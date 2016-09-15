@@ -631,6 +631,7 @@
     <Compile Include="Framework\Provisioning\ObjectHandlers\TokenDefinitions\SiteCollectionToken.cs" />
     <Compile Include="Framework\Provisioning\ObjectHandlers\TokenDefinitions\SiteToken.cs" />
     <Compile Include="Framework\Provisioning\ObjectHandlers\TokenParser.cs" />
+    <Compile Include="Framework\Provisioning\Providers\IProvisioningTemplate.cs" />
     <Compile Include="Framework\Provisioning\Providers\ITemplateFormatter.cs" />
     <Compile Include="Framework\Provisioning\Providers\Json\BasePermissionsConverter.cs" />
     <Compile Include="Framework\Provisioning\Providers\Json\JsonAzureStorageTemplateProvider.cs" />
@@ -642,6 +643,31 @@
     <Compile Include="Framework\Provisioning\Providers\TemplateProviderBase.cs" />
     <Compile Include="Framework\Provisioning\Providers\Xml\IXMLSchemaFormatter.cs" />
     <Compile Include="Framework\Provisioning\Providers\ITemplateProviderExtension.cs" />
+    <Compile Include="Framework\Provisioning\Providers\Xml\Parsers\000_BasicPropertiesParser.cs" />
+    <Compile Include="Framework\Provisioning\Providers\Xml\Parsers\210_ProvidersParser.cs" />
+    <Compile Include="Framework\Provisioning\Providers\Xml\Parsers\200_AddinsParser.cs" />
+    <Compile Include="Framework\Provisioning\Providers\Xml\Parsers\190_PublishingParser.cs" />
+    <Compile Include="Framework\Provisioning\Providers\Xml\Parsers\180_SearchSettingsParser.cs" />
+    <Compile Include="Framework\Provisioning\Providers\Xml\Parsers\170_WorkflowsParser.cs" />
+    <Compile Include="Framework\Provisioning\Providers\Xml\Parsers\160_ComposedLooksParser.cs" />
+    <Compile Include="Framework\Provisioning\Providers\Xml\Parsers\150_TaxonomyParser.cs" />
+    <Compile Include="Framework\Provisioning\Providers\Xml\Parsers\140_PagesParser.cs" />
+    <Compile Include="Framework\Provisioning\Providers\Xml\Parsers\130_FilesParser.cs" />
+    <Compile Include="Framework\Provisioning\Providers\Xml\Parsers\120_CustomActionsParser.cs" />
+    <Compile Include="Framework\Provisioning\Providers\Xml\Parsers\110_FeaturesParser.cs" />
+    <Compile Include="Framework\Provisioning\Providers\Xml\Parsers\100_ListInstancesParser.cs" />
+    <Compile Include="Framework\Provisioning\Providers\Xml\Parsers\090_ContentTypesParser.cs" />
+    <Compile Include="Framework\Provisioning\Providers\Xml\Parsers\080_SiteColumnsParser.cs" />
+    <Compile Include="Framework\Provisioning\Providers\Xml\Parsers\070_NavigationParser.cs" />
+    <Compile Include="Framework\Provisioning\Providers\Xml\Parsers\060_SecurityParser.cs" />
+    <Compile Include="Framework\Provisioning\Providers\Xml\Parsers\050_AuditSettingsParser.cs" />
+    <Compile Include="Framework\Provisioning\Providers\Xml\Parsers\040_SupportedUILanguagesParser.cs" />
+    <Compile Include="Framework\Provisioning\Providers\Xml\Parsers\030_RegionalSettingsParser.cs" />
+    <Compile Include="Framework\Provisioning\Providers\Xml\Parsers\020_WebSettingsParser.cs" />
+    <Compile Include="Framework\Provisioning\Providers\Xml\Parsers\010_PropertyBagParser.cs" />
+    <Compile Include="Framework\Provisioning\Providers\Xml\Parsers\BaseElementParserAttribute.cs" />
+    <Compile Include="Framework\Provisioning\Providers\Xml\Parsers\IBaseElementParser.cs" />
+    <Compile Include="Framework\Provisioning\Providers\Xml\Parsers\V2016ParserExtensions.cs" />
     <Compile Include="Framework\Provisioning\Providers\Xml\ProvisioningSchema-2015-03.cs">
       <DependentUpon>ProvisioningSchema-2015-03.xsd</DependentUpon>
     </Compile>

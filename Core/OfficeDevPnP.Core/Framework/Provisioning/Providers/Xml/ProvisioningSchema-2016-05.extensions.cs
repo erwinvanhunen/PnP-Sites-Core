@@ -26,6 +26,10 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Providers.Xml.V201605
     //
     // If you don't do that, the XmlSerializer will fail to serialize the generated templates
 
+    public partial class ProvisioningTemplate : IProvisioningTemplate
+    { }
+
+
     [XmlSchemaProviderAttribute("GetSchema")]
     public partial class WikiPageWebPart : IXmlSerializable
     {

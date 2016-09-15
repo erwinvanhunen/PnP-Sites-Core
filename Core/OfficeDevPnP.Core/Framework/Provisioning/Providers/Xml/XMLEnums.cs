@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace OfficeDevPnP.Core.Framework.Provisioning.Providers.Xml
 {
+    [Flags]
     public enum XMLPnPSchemaVersion
     {
         LATEST = 0,
