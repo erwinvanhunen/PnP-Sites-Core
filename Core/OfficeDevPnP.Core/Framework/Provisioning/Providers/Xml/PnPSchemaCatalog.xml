@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>						
+<!-- 
+	Refer to this file in your catalog.xml file which is located in
+	C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Xml\Schemas
+
+	Add the following child element to the <SchemaCatalog> element:
+
+	<Catalog href="C:\repos\PnP-Sites-Core\core\OfficeDevPnP.Core\Framework\Provisioning\Providers\xml\PnPSchemaCatalog.xml" />
+	 
+	Adjust the path accordingly
+
+-->
+<SchemaCatalog xmlns="http://schemas.microsoft.com/xsd/catalog">
+    <Schema href="ProvisioningSchema-2019-09.xsd" targetNamespace="http://schemas.dev.office.com/PnP/2019/09/ProvisioningSchema" />
+    <Schema href="ProvisioningSchema-2019-03.xsd" targetNamespace="http://schemas.dev.office.com/PnP/2019/03/ProvisioningSchema" />
+    <Schema href="ProvisioningSchema-2018-07.xsd" targetNamespace="http://schemas.dev.office.com/PnP/2018/07/ProvisioningSchema" />
+    <Schema href="ProvisioningSchema-2018-05.xsd" targetNamespace="http://schemas.dev.office.com/PnP/2018/05/ProvisioningSchema" />
+    <Schema href="ProvisioningSchema-2018-01.xsd" targetNamespace="http://schemas.dev.office.com/PnP/2018/01/ProvisioningSchema" />
+    <Schema href="ProvisioningSchema-2017-05.xsd" targetNamespace="http://schemas.dev.office.com/PnP/2017/05/ProvisioningSchema" />
+    <Schema href="ProvisioningSchema-2016-05.xsd" targetNamespace="http://schemas.dev.office.com/PnP/2016/05/ProvisioningSchema" />
+    <Schema href="ProvisioningSchema-2015-12.xsd" targetNamespace="http://schemas.dev.office.com/PnP/2015/12/ProvisioningSchema" />
+    <Schema href="ProvisioningSchema-2015-08.xsd" targetNamespace="http://schemas.dev.office.com/PnP/2015/08/ProvisioningSchema" />
+    <Schema href="ProvisioningSchema-2015-05.xsd" targetNamespace="http://schemas.dev.office.com/PnP/2015/05/ProvisioningSchema" />
+    <Schema href="ProvisioningSchema-2015-03.xsd" targetNamespace="http://schemas.dev.office.com/PnP/2015/03/ProvisioningSchema" />
+</SchemaCatalog>

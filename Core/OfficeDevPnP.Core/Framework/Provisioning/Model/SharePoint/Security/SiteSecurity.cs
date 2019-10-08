@@ -2,12 +2,14 @@
 using System.Linq;
 using System.Collections.Generic;
 using OfficeDevPnP.Core.Extensions;
+using Newtonsoft.Json;
 
 namespace OfficeDevPnP.Core.Framework.Provisioning.Model
 {
     /// <summary>
     /// Domain Object that is used in the site template
     /// </summary>
+    [JsonObject]
     public partial class SiteSecurity : BaseModel, IEquatable<SiteSecurity>
     {
         #region Private Members

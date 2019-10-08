@@ -2,6 +2,7 @@
 using Microsoft.Online.SharePoint.TenantAdministration;
 using Microsoft.SharePoint.Client;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Newtonsoft.Json;
 using OfficeDevPnP.Core.Framework.Provisioning.Model;
 using OfficeDevPnP.Core.Framework.Provisioning.ObjectHandlers;
 using OfficeDevPnP.Core.Framework.Provisioning.Providers.Xml;
@@ -18,10 +19,16 @@ namespace OfficeDevPnP.Core.Tests.Framework.ProvisioningTemplates
         {
             using (var context = TestCommon.CreateClientContext())
             {
-                OfficeDevPnP.Core.Sites.SiteCollection.GetGroupInfo(context, "demo1").GetAwaiter().GetResult();
+                var text = System.IO.File.ReadAllText(@"c:\demo\template.json");
+                var template = JsonConvert.DeserializeObject<ProvisioningHierarchy>(text);
             }
         }
 
+        [TestMethod]
+        public void CanDeserializeJson()
+        {
+            var resourceFolder = string.Format(@"{0}\..\..\Resources\Templates", AppDomain.CurrentDomain.BaseDirectory);
+        }
         [TestMethod]
         public void ProvisionTenantTemplate()
         {

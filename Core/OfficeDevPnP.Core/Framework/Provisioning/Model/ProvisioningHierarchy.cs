@@ -1,4 +1,5 @@
-﻿using OfficeDevPnP.Core.Framework.Provisioning.Connectors;
+﻿using Newtonsoft.Json;
+using OfficeDevPnP.Core.Framework.Provisioning.Connectors;
 using System.Collections.Generic;
 
 namespace OfficeDevPnP.Core.Framework.Provisioning.Model
@@ -34,11 +35,13 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <summary>
         /// Gets or sets the Localizations
         /// </summary>
+        [JsonProperty("localizations", NullValueHandling= NullValueHandling.Ignore)]
         public LocalizationCollection Localizations { get; internal set; }
 
         /// <summary>
         /// The Tenant-wide settings for the template
         /// </summary>
+        [JsonProperty("tenant", NullValueHandling = NullValueHandling.Ignore)]
         public ProvisioningTenant Tenant { get; set; }
 
         /// <summary>
@@ -49,26 +52,31 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <summary>
         /// Gets or sets the Provisioning File Author name
         /// </summary>
+        [JsonProperty("author", NullValueHandling = NullValueHandling.Ignore)]
         public string Author { get; set; }
 
         /// <summary>
         /// Gets or sets the Name of the tool generating this Provisioning File
         /// </summary>
+        [JsonProperty("generator", NullValueHandling = NullValueHandling.Ignore)]
         public string Generator { get; set; }
 
         /// <summary>
         /// The Description of the Provisioning File
         /// </summary>
+        [JsonProperty("description", NullValueHandling = NullValueHandling.Ignore)]
         public string Description { get; set; }
 
         /// <summary>
         /// The Display Name of the Provisioning File
         /// </summary>
+        [JsonProperty("displayName", NullValueHandling = NullValueHandling.Ignore)]
         public string DisplayName { get; set; }
 
         /// <summary>
         /// The Image Preview Url of the Provisioning File
         /// </summary>
+        [JsonProperty("imagePreviewUrl", NullValueHandling = NullValueHandling.Ignore)]
         public string ImagePreviewUrl { get; set; }
 
         /// <summary>
@@ -79,16 +87,19 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <summary>
         /// A collection of Provisioning Template objects, if any
         /// </summary>
+        [JsonProperty("templates", NullValueHandling = NullValueHandling.Ignore)]
         public ProvisioningTemplateCollection Templates { get; private set; }
 
         /// <summary>
         /// A collection of Provisioning Sequence objects, if any
         /// </summary>
+        [JsonProperty("sequences", NullValueHandling = NullValueHandling.Ignore)]
         public ProvisioningSequenceCollection Sequences { get; private set; }
 
         /// <summary>
         /// Settings for provisioning Teams objects, if any
         /// </summary>
+        [JsonProperty("teams", NullValueHandling = NullValueHandling.Ignore)]
         public Teams.ProvisioningTeams Teams { get; private set; }
 
         /// <summary>

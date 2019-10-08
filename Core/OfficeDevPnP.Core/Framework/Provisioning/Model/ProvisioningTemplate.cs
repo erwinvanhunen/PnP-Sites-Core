@@ -7,6 +7,7 @@ using OfficeDevPnP.Core.Framework.Provisioning.Providers;
 using OfficeDevPnP.Core.Framework.Provisioning.Providers.Xml;
 using System.IO;
 using System.Xml.Linq;
+using Newtonsoft.Json;
 
 namespace OfficeDevPnP.Core.Framework.Provisioning.Model
 {
@@ -224,6 +225,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <summary>
         /// Security Groups Members for the Template
         /// </summary>
+        [JsonProperty("security")]
         public SiteSecurity Security
         {
             get { return this._siteSecurity; }
