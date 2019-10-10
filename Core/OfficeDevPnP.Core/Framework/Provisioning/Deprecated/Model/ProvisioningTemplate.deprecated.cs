@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Newtonsoft.Json;
 using OfficeDevPnP.Core.Extensions;
 using OfficeDevPnP.Core.Framework.Provisioning.Connectors;
 
@@ -17,6 +18,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// Gets a collection of Providers that are used during the extensibility pipeline
         /// </summary>
         /// 
+        [JsonIgnore]
         [Obsolete("Use ExtensibilityHandlers. This property will be removed in the June 2016 release.")]
         public ProviderCollection Providers
         {
@@ -27,6 +29,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <summary>
         /// The Search Settings for the Provisioning Template
         /// </summary>
+        [JsonIgnore]
         [Obsolete("Use SiteSearchSettings or WebSearchSettings. This property will be removed in the September 2016 release.")]
         public String SearchSettings
         {

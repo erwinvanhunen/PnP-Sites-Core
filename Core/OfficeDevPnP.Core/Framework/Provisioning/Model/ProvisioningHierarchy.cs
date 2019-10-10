@@ -27,6 +27,8 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
 
         #region Public Members
 
+        [JsonProperty("$schema")]
+        internal string Schema { get; set; }
         /// <summary>
         /// Any parameters that can be used throughout the template
         /// </summary>
@@ -82,6 +84,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <summary>
         /// The Connector which can be used to retrieve or save related artifacts
         /// </summary>
+        [JsonIgnore]
         public FileConnectorBase Connector { get; set; }
 
         /// <summary>

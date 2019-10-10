@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using OfficeDevPnP.Core.Framework.Provisioning.Providers.Json.Converters;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,6 +19,8 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <summary>
         /// Audit Flags configured for the Site
         /// </summary>
+        [JsonProperty("flags")]
+        [JsonConverter(typeof(AuditMaskTypeConverter))]
         public Microsoft.SharePoint.Client.AuditMaskType AuditFlags { get; set; }
 
         /// <summary>

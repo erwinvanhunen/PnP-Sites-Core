@@ -1,8 +1,13 @@
-﻿namespace OfficeDevPnP.Core.Framework.Provisioning.Model
+﻿using Newtonsoft.Json;
+using OfficeDevPnP.Core.Framework.Provisioning.Providers.Json.Converters;
+
+namespace OfficeDevPnP.Core.Framework.Provisioning.Model
 {
     /// <summary>
     /// Collection of Field objects
     /// </summary>
+    [JsonConverter(typeof(FieldCollectionConverter))]
+
     public partial class FieldCollection : BaseProvisioningTemplateObjectCollection<Field>
     {
         /// <summary>

@@ -1,4 +1,6 @@
 ﻿using Newtonsoft.Json;
+using OfficeDevPnP.Core.Framework.Provisioning.Providers.Json.Converters;
+using OfficeDevPnP.Core.Framework.Provisioning.Providers.Json.Resolvers;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -11,6 +13,9 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Providers.Json
     public class JsonPnPFormatter : ITemplateFormatter
     {
         private TemplateProviderBase _provider;
+
+        public static string TenantSchema => "https://www.sharepointpnp.com/schema/provisioning_tenant01.schema.json";
+        public static string SiteSchema => "https://www.sharepointpnp.com/schema/provisioning_site01.schema.json";
 
         public void Initialize(TemplateProviderBase provider)
         {
@@ -25,8 +30,28 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Providers.Json
 
         public System.IO.Stream ToFormattedTemplate(Model.ProvisioningTemplate template)
         {
-            String jsonString = JsonConvert.SerializeObject(template, new BasePermissionsConverter());
-            Byte[] jsonBytes = System.Text.Encoding.Unicode.GetBytes(jsonString);
+            var serializerSettings = new JsonSerializerSettings();
+            serializerSettings.Converters.Add(new NullToDefaultConverter<Guid>());
+            serializerSettings.ContractResolver = new IgnoreEmptyEnumerableResolver();
+            serializerSettings.NullValueHandling = NullValueHandling.Ignore;
+            var jsonString = JsonConvert.SerializeObject(template, serializerSettings);
+
+            var jsonBytes = Encoding.Unicode.GetBytes(jsonString);
+            MemoryStream jsonStream = new MemoryStream(jsonBytes);
+            jsonStream.Position = 0;
+
+            return (jsonStream);
+        }
+
+        public System.IO.Stream ToFormattedHierarchy(Model.ProvisioningHierarchy hierarchy)
+        {
+            var serializerSettings = new JsonSerializerSettings();
+            serializerSettings.Converters.Add(new NullToDefaultConverter<Guid>());
+            serializerSettings.ContractResolver = new IgnoreEmptyEnumerableResolver();
+            serializerSettings.NullValueHandling = NullValueHandling.Ignore;
+            var jsonString = JsonConvert.SerializeObject(hierarchy, serializerSettings);
+
+            var jsonBytes = Encoding.Unicode.GetBytes(jsonString);
             MemoryStream jsonStream = new MemoryStream(jsonBytes);
             jsonStream.Position = 0;
 
@@ -42,7 +67,13 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Providers.Json
         {
             StreamReader sr = new StreamReader(template, Encoding.Unicode);
             String jsonString = sr.ReadToEnd();
-            Model.ProvisioningTemplate result = JsonConvert.DeserializeObject<Model.ProvisioningTemplate>(jsonString, new BasePermissionsConverter());
+
+            var result = JsonConvert.DeserializeObject<Model.ProvisioningTemplate>(jsonString, new JsonSerializerSettings()
+            {
+                NullValueHandling = NullValueHandling.Ignore
+            });
+
+            //Model.ProvisioningTemplate result = JsonConvert.DeserializeObject<Model.ProvisioningTemplate>(jsonString);
             return (result);
         }
     }

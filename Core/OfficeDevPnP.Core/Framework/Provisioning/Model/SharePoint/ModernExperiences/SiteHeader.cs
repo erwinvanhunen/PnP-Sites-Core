@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,16 +18,19 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <summary>
         /// Defines the Layout of the Header
         /// </summary>
+        [JsonConverter(typeof(StringEnumConverter))]
         public SiteHeaderLayout Layout { get; set; }
 
         /// <summary>
         /// Defines the Menu Style
         /// </summary>
+        [JsonConverter(typeof(StringEnumConverter))]
         public SiteHeaderMenuStyle MenuStyle { get; set; }
 
         /// <summary>
         /// Defines the Background Emphasis of the Header
         /// </summary>
+        [JsonConverter(typeof(StringEnumConverter))]
         public Emphasis BackgroundEmphasis { get; set; }
 
         #endregion

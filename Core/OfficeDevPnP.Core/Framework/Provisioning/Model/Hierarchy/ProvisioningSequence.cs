@@ -1,4 +1,6 @@
-﻿using OfficeDevPnP.Core.Extensions;
+﻿using Newtonsoft.Json;
+using OfficeDevPnP.Core.Extensions;
+using OfficeDevPnP.Core.Framework.Provisioning.Providers.Json.Converters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,6 +41,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// </summary>
         public String ID { get; set; }
 
+        [JsonConverter(typeof(SiteCollectionCollectionConverter))]
         public SiteCollectionCollection SiteCollections { get; private set; }
 
         /// <summary>

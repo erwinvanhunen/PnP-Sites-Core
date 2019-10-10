@@ -1,4 +1,6 @@
-﻿using OfficeDevPnP.Core.Extensions;
+﻿using Newtonsoft.Json;
+using OfficeDevPnP.Core.Extensions;
+using OfficeDevPnP.Core.Framework.Provisioning.Providers.Json.Converters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,6 +39,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model.AzureActiveDirectory
         /// <summary>
         /// The Password Policies	for the user
         /// </summary>
+        [JsonConverter(typeof(ArrayToCommaSeparatedStringConverter))]
         public String PasswordPolicies { get; set; }
 
         /// <summary>

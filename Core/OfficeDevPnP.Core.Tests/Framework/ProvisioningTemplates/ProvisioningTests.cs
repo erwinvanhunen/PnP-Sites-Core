@@ -3,8 +3,13 @@ using Microsoft.Online.SharePoint.TenantAdministration;
 using Microsoft.SharePoint.Client;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Serialization;
 using OfficeDevPnP.Core.Framework.Provisioning.Model;
 using OfficeDevPnP.Core.Framework.Provisioning.ObjectHandlers;
+using OfficeDevPnP.Core.Framework.Provisioning.Providers.Json;
+using OfficeDevPnP.Core.Framework.Provisioning.Providers.Json.Converters;
+using OfficeDevPnP.Core.Framework.Provisioning.Providers.Json.Resolvers;
 using OfficeDevPnP.Core.Framework.Provisioning.Providers.Xml;
 using System;
 
@@ -19,15 +24,49 @@ namespace OfficeDevPnP.Core.Tests.Framework.ProvisioningTemplates
         {
             using (var context = TestCommon.CreateClientContext())
             {
-                var text = System.IO.File.ReadAllText(@"c:\demo\template.json");
-                var template = JsonConvert.DeserializeObject<ProvisioningHierarchy>(text);
+                OfficeDevPnP.Core.Sites.SiteCollection.GetGroupInfo(context, "demo1").GetAwaiter().GetResult();
             }
         }
 
         [TestMethod]
         public void CanDeserializeJson()
         {
-            var resourceFolder = string.Format(@"{0}\..\..\Resources\Templates", AppDomain.CurrentDomain.BaseDirectory);
+            using (var context = TestCommon.CreateClientContext())
+            {
+                var text = System.IO.File.ReadAllText(@"c:\demo\template2.json");
+                var template = JsonConvert.DeserializeObject<ProvisioningHierarchy>(text, new JsonSerializerSettings()
+                {
+                    NullValueHandling = NullValueHandling.Ignore
+                });
+            }
+        }
+
+        [TestMethod]
+        public void CanSerializeJson()
+        {
+            using (var context = TestCommon.CreateClientContext())
+            {
+                var resourceFolder = string.Format(@"{0}\..\..\Resources\Templates", AppDomain.CurrentDomain.BaseDirectory);
+                XMLTemplateProvider provider = new XMLFileSystemTemplateProvider(resourceFolder, "");
+
+                var existingTemplate = provider.GetHierarchy("ProvisioningSchema-2019-09-FullSample-01.xml");
+                ////var resourceFolder = string.Format(@"{0}\..\..\Resources\Templates", AppDomain.CurrentDomain.BaseDirectory);
+                //var resourceFolder = @"c:\repos\sp-dev-provisioning-templates\tenant\contosobrand\source";
+                //XMLTemplateProvider provider = new XMLFileSystemTemplateProvider(resourceFolder, "");
+
+                //var existingTemplate = provider.GetHierarchy("template.xml");
+
+                var ser = new JsonSerializerSettings();
+                ser.Converters.Add(new NullToDefaultConverter<Guid>());
+                ser.Error = delegate (object sender, ErrorEventArgs args)
+                {
+                    // errors.Add(args.ErrorContext.Error.Message);
+                    args.ErrorContext.Handled = true;
+                };
+                ser.ContractResolver = new IgnoreEmptyEnumerableResolver();
+                ser.NullValueHandling = NullValueHandling.Ignore;
+                var output = JsonConvert.SerializeObject(existingTemplate, ser);
+            }
         }
         [TestMethod]
         public void ProvisionTenantTemplate()
@@ -64,12 +103,12 @@ namespace OfficeDevPnP.Core.Tests.Framework.ProvisioningTemplates
             var term = new Term() { Name = "Contoso Term" };
 
             termSet.Terms.Add(term);
-           // termGroup.TermSets.Add(termSet);
-            
+            // termGroup.TermSets.Add(termSet);
+
             var existingTermSet = existingTemplate.TermGroups[0].TermSets[0];
             termGroup.TermSets.Add(existingTermSet);
 
-           // sequence.TermStore.TermGroups.Add(termGroup);
+            // sequence.TermStore.TermGroups.Add(termGroup);
 
             var teamSite1 = new TeamSiteCollection()
             {

@@ -1,0 +1,1043 @@
+{
+    "$schema": "file:///C:/demo/provisioning.schema.json",
+    "preferences": {
+        "parameters": {
+            "test": "bla",
+            "bla": "test"
+        }
+    },
+    "localizations": [
+        {
+            "lcid": 1033,
+            "name": "core",
+            "resourceFile": "resources-core.en-us.resx"
+        }
+    ],
+    "tenant": {
+        "siteDesigns": [
+            {
+                "webTemplate": "CommunicationSite",
+                "isDefault": true,
+                "siteScripts": [
+                    "{ScriptScriptID:PnP Site Script 01}"
+                ],
+                "grants": [
+                    {
+                        "principal": "user1@contoso.com",
+                        "right": "View"
+                    }
+                ]
+            }
+        ],
+        "storageEntities": [
+            {
+                "key": "a",
+                "value": "b"
+            }
+        ],
+        "contentDeliveryNetwork": {
+            "private": {
+                "enabled": false
+            }
+        },
+        "themes": [
+            {
+                "name": "CustomOrange",
+                "isInverted": false,
+                "overWrite": true,
+                "values": {
+                    "themePrimary": "#ecb534",
+                    "themeLighterAlt": "#fefcf6",
+                    "themeLighter": "#fcf3dd",
+                    "themeLight": "#fae8bf",
+                    "themeTertiary": "#f4d282",
+                    "themeSecondary": "#efbe4b",
+                    "themeDarkAlt": "#d5a32f",
+                    "themeDark": "#b48a28",
+                    "themeDarker": "#85661d",
+                    "neutralLighterAlt": "#f8f8f8",
+                    "neutralLighter": "#f4f4f4",
+                    "neutralLight": "#eaeaea",
+                    "neutralQuaternaryAlt": "#dadada",
+                    "neutralQuaternary": "#d0d0d0",
+                    "neutralTertiaryAlt": "#c8c8c8",
+                    "neutralTertiary": "#a9a9a9",
+                    "neutralSecondary": "#8d8d8d",
+                    "neutralPrimaryAlt": "#727272",
+                    "neutralPrimary": "#020202",
+                    "neutralDark": "#3a3a3a",
+                    "black": "#1e1e1e",
+                    "white": "#ffffff",
+                    "bodyBackground": "#ffffff",
+                    "bodyText": "#020202"
+                }
+            },
+            {
+                "name": "CustomBlue",
+                "isInverted": true,
+                "values": {
+                    "themePrimary": "#316bcf",
+                    "themeLighterAlt": "#f5f8fd",
+                    "themeLighter": "#d9e4f7",
+                    "themeLight": "#bacef0",
+                    "themeTertiary": "#7ba1e2",
+                    "themeSecondary": "#467ad4",
+                    "themeDarkAlt": "#2d60ba",
+                    "themeDark": "#26519d",
+                    "themeDarker": "#1c3c74",
+                    "neutralLighterAlt": "#f8f8f8",
+                    "neutralLighter": "#f4f4f4",
+                    "neutralLight": "#eaeaea",
+                    "neutralQuaternaryAlt": "#dadada",
+                    "neutralQuaternary": "#d0d0d0",
+                    "neutralTertiaryAlt": "#c8c8c8",
+                    "neutralTertiary": "#a9a9a9",
+                    "neutralSecondary": "#8d8d8d",
+                    "neutralPrimaryAlt": "#727272",
+                    "neutralPrimary": "#020202",
+                    "neutralDark": "#3a3a3a",
+                    "black": "#1e1e1e",
+                    "white": "#ffffff",
+                    "bodyBackground": "#ffffff",
+                    "bodyText": "#020202"
+                }
+            }
+        ],
+        "spUserProfiles": [
+            {
+                "targetUser": "user1@contoso.com",
+                "values": {
+                    "Department": "IT",
+                    "OfficeLocation": "Milan, Italy",
+                    "PhoneNumber": "+39-030-123456"
+                }
+            }
+        ],
+        "office365GroupSettings": {
+            "UsageGuidelinesUrl": "http://aka.ms/SharePointPnP"
+        }
+    },
+    "templates": [
+        {
+            "scope": "Web",
+            "theme": {},
+            "security": {
+                "clearExistingMembers": true,
+                "additionalMembers": [
+                    "a"
+                ],
+                "siteGroups": [
+                    {
+                        "title": "PowerUsers",
+                        "description": "Group of power users",
+                        "owner": "admin@contoso.com"
+                    }
+                ]
+            },
+            "navigation": {
+                "enableTreeView": true,
+                "addNewPagesToNavigation": true,
+                "createFriendlyUrlsForNewPages": true,
+                "globalNavigation": {
+                    "navigationType": "Managed",
+                    "managedNavigation": {
+                        "termStoreId": "{sitecollectiontermstoreid}",
+                        "termSetId": "{sitecollectionnavigationtermsetid}"
+                    }
+                },
+                "currentNavigation": {
+                    "navigationType": "Structural",
+                    "structuralNavigation": {
+                        "removeExistingNodes": true,
+                        "nodes": [
+                            {
+                                "title": "Home",
+                                "isExternal": false,
+                                "url": "Default.aspx"
+                            },
+                            {
+                                "title": "Libraries",
+                                "nodes": [
+                                    {
+                                        "title": "Invoices",
+                                        "isExternal": false,
+                                        "url": "Invoices/Forms/AllItems.aspx"
+                                    },
+                                    {
+                                        "title": "Offers",
+                                        "isExternal": false,
+                                        "url": "Offers/Forms/AllItems.aspx"
+                                    }
+                                ]
+                            },
+                            {
+                                "title": "Privacy",
+                                "isExternal": true,
+                                "url": "https://www.company.com/privacy"
+                            }
+                        ]
+                    }
+                },
+                "searchNavigation": {
+                    "removeExistingNodes": false,
+                    "nodes": [
+                        {
+                            "title": "Sample Search Node 01",
+                            "url": "{sitecollection}/pages/search01.aspx",
+                            "isExternal": true
+                        },
+                        {
+                            "title": "Sample Search Node 02",
+                            "url": "{sitecollection}/pages/search02.aspx",
+                            "isExternal": false
+                        }
+                    ]
+                }
+            },
+            "siteFields": [
+                "<Field ID=\"{23203E97-3BFE-40CB-AFB4-07AA2B86BF45}\" Type=\"Text\" Name=\"ProjectID\" DisplayName=\"{localization:intranet:ProjectID}\" Group=\"Base.Foundation.Columns\" MaxLength=\"255\" AllowDeletion=\"TRUE\" />",
+                "<Field ID=\"{B01B3DBC-4630-4ED1-B5BA-321BC7841E3D}\" Type=\"Text\" Name=\"ProjectName\" DisplayName=\"{localization:intranet:ProjectName}\" Group=\"Base.Foundation.Columns\" MaxLength=\"255\" AllowDeletion=\"TRUE\" />",
+                "<Field ID=\"{A5DE9600-B7A6-42DD-A05E-10D4F1500208}\" Type=\"Text\" Name=\"ProjectManager\" DisplayName=\"{localization:intranet:ProjectManager}\" Group=\"Base.Foundation.Columns\"  MaxLength=\"255\" AllowDeletion=\"TRUE\" />",
+                "<Field ID=\"{F1A1715E-6C52-40DE-8403-E9AAFD0470D0}\" Type=\"Text\" Name=\"DocumentDescription\" DisplayName=\"{localization:core:Description}\" Group=\"Base.Foundation.Columns\" MaxLength=\"255\" AllowDeletion=\"TRUE\" />"
+            ],
+            "contentTypes": [
+                {
+                    "id": "0x01005D4F34E4BE7F4B6892AEBE088EDD215E",
+                    "name": "General Project Document",
+                    "group": "Base Foundation Content Types",
+                    "description": "General Project Document Content Type",
+                    "newFormUrl": "/Forms/NewForm.aspx",
+                    "editFormUrl": "/Forms/EditForm.aspx",
+                    "displayFormUrl": "/Forms/DisplayForm.aspx",
+                    "fieldRefs": [
+                        {
+                            "id": "{23203E97-3BFE-40CB-AFB4-07AA2B86BF45}"
+                        },
+                        {
+                            "id": "{B01B3DBC-4630-4ED1-B5BA-321BC7841E3D}"
+                        },
+                        {
+                            "id": "{A5DE9600-B7A6-42DD-A05E-10D4F1500208}",
+                            "updatedChildren": false
+                        },
+                        {
+                            "id": "{F1A1715E-6C52-40DE-8403-E9AAFD0470D0}",
+                            "updatedChildren": true
+                        }
+                    ],
+                    "documentTemplate": "DocumentTemplate.dotx"
+                },
+                {
+                    "id": "0x0120D5200039D83CD2C9BA4A4499AEE6BE3562E023",
+                    "name": "ProjectDocumentSet",
+                    "description": "Document Set for a Project",
+                    "hidden": false,
+                    "group": "Document Set Samples",
+                    "readOnly": false,
+                    "sealed": false,
+                    "overwrite": false,
+                    "fieldRefs": [
+                        {
+                            "id": "{23203E97-3BFE-40CB-AFB4-07AA2B86BF45}",
+                            "updatedChildren": true
+                        },
+                        {
+                            "id": "{B01B3DBC-4630-4ED1-B5BA-321BC7841E3D}"
+                        },
+                        {
+                            "id": "{A5DE9600-B7A6-42DD-A05E-10D4F1500208}"
+                        }
+                    ],
+                    "documentSetTemplate": {
+                        "welcomePage": "{sitecollection/_cts/ProjectDocumentSet/ProjectHomePage.aspx",
+                        "removeExistingContentTypes": true,
+                        "allowedContentTypes": [
+                            "0x0101",
+                            "0x01005D4F34E4BE7F4B6892AEBE088EDD215E"
+                        ],
+                        "defaultDocuments": [
+                            {
+                                "name": "ProjectMainDocument.docx",
+                                "contentTypeId": "0x01005D4F34E4BE7F4B6892AEBE088EDD215E",
+                                "fileSourcePath": "./ProjectDocumentSet/ProjectMainDocument.docx"
+                            },
+                            {
+                                "name": "Requirements.docx",
+                                "contentTypeId": "0x0101",
+                                "fileSourcePath": "./ProjectDocumentSet/Requirements.docx"
+                            },
+                            {
+                                "name": "Tests/TestModel.docx",
+                                "contentTypeId": "0x0101",
+                                "fileSourcePath": "./ProjectDocumentSet/Tests/TestModel.docx"
+                            },
+                            {
+                                "name": "Tests/Labs.docx",
+                                "contentTypeId": "0x0101",
+                                "fileSourcePath": "./ProjectDocumentSet/Tests/Labs.docx"
+                            }
+                        ],
+                        "sharedFields": [
+                            "{23203E97-3BFE-40CB-AFB4-07AA2B86BF45}",
+                            "{B01B3DBC-4630-4ED1-B5BA-321BC7841E3D}",
+                            "{A5DE9600-B7A6-42DD-A05E-10D4F1500208}"
+                        ],
+                        "welcomePageFields": [
+                            "{23203E97-3BFE-40CB-AFB4-07AA2B86BF45}",
+                            "{B01B3DBC-4630-4ED1-B5BA-321BC7841E3D}",
+                            "{A5DE9600-B7A6-42DD-A05E-10D4F1500208}"
+                        ],
+                        "xmlDocuments": "<XmlDocument NamespaceURI=\"http://schemas.microsoft.com/office/documentsets/defaultdocuments\">    <DefaultDocuments xmlns=\"http://schemas.microsoft.com/office/documentsets/defaultdocuments\"        LastModified=\"1/1/1 0:00:01 AM\" AddSetName=\"\" /></XmlDocument><XmlDocument NamespaceURI=\"http://schemas.microsoft.com/office/documentsets/welcomepageview\">    <WelcomePageView xmlns=\"http://schemas.microsoft.com/office/documentsets/welcomepageview\"        LastModified=\"1/1/1 0:00:01 AM\" /></XmlDocument><XmlDocument NamespaceURI=\"http://schemas.microsoft.com/sharepoint/v3/contenttype/forms\">    <FormTemplates xmlns=\"http://schemas.microsoft.com/sharepoint/v3/contenttype/forms\">        <Display>ListForm</Display>        <Edit>ListForm</Edit>        <New>DocSetDisplayForm</New>    </FormTemplates></XmlDocument><XmlDocument NamespaceURI=\"http://schemas.microsoft.com/sharepoint/v3/contenttype/forms/url\">    <FormUrls xmlns=\"http://schemas.microsoft.com/sharepoint/v3/contenttype/forms/url\">        <New>_layouts/15/NewDocSet.aspx</New>    </FormUrls></XmlDocument>"
+                    }
+                }
+            ],
+            "lists": [
+                {
+                    "title": "{parameter:CompanyName} - Projects",
+                    "description": "Project Documents are stored here",
+                    "documentTemplate": "",
+                    "onQuickLaunch": true,
+                    "templateType": "101",
+                    "url": "Lists/Projects",
+                    "enableVersioning": true,
+                    "forceCheckout": true,
+                    "removeExistingContentTypes": false,
+                    "noCrawl": true,
+                    "listExperience": "NewExperience",
+                    "contentTypesEnabled": true,
+                    "defaultDisplayFormUrl": "./Forms/Display.aspx",
+                    "defaultEditFormUrl": "./Forms/Edit.aspx",
+                    "defaultNewFormUrl": "./Forms/New.aspx",
+                    "direction": "LTR",
+                    "draftVersionVisibility": "Approver",
+                    "enableAttachments": false,
+                    "enableFolderCreation": true,
+                    "enableMinorVersions": true,
+                    "enableModeration": true,
+                    "hidden": false,
+                    "imageUrl": "./Images/sample.png",
+                    "irmExpire": true,
+                    "irmReject": false,
+                    "isApplicationList": false,
+                    "maxVersionLimit": 10,
+                    "minorVersionLimit": 10,
+                    "readSecurity": 11,
+                    "templateFeatureId": "81a7b6a8-c0e9-4819-aea1-8fc8894d3c43",
+                    "validationFormula": "sample formula here",
+                    "validationMessage": "validation message here",
+                    "templateInternalName": "fake-template.stp",
+                    "propertyBagEntries": [
+                        {
+                            "key": "Key1",
+                            "value": "Value1"
+                        },
+                        {
+                            "key": "Key2",
+                            "value": "Value2",
+                            "indexed": true,
+                            "overwrite": false
+                        },
+                        {
+                            "key": "Key3",
+                            "value": "Value3",
+                            "indexed": true
+                        }
+                    ],
+                    "contentTypeBindings": [
+                        {
+                            "contentTypeId": "0x01005D4F34E4BE7F4B6892AEBE088EDD215E",
+                            "default": true
+                        },
+                        {
+                            "contentTypeId": "0x0120",
+                            "remove": true
+                        }
+                    ],
+                    "dataRows": {
+                        "keyColumn": "ProjectID",
+                        "updateBehavior": "Overwrite",
+                        "rows": [
+                            {
+                                "values": [
+                                    {
+                                        "fieldName": "ProjectID",
+                                        "fieldValue": "PRJ01"
+                                    },
+                                    {
+                                        "fieldValue": "ProjectName",
+                                        "fieldName": "Sample Project 01"
+                                    },
+                                    {
+                                        "fieldValue": "ProjectManager",
+                                        "fieldName": "Me"
+                                    },
+                                    {
+                                        "fieldValue": "ProjectDescription",
+                                        "fieldName": "This is a sample project"
+                                    }
+                                ],
+                                "breakRoleInheritance": {
+                                    "clearSubScopes": true,
+                                    "copyRoleAssignments": true,
+                                    "roleAssignments": [
+                                        {
+                                            "principal": "user1@contoso.com",
+                                            "roleDefinition": "Full Control"
+                                        },
+                                        {
+                                            "principal": "user2@contoso.com",
+                                            "roleDefinition": "Edit"
+                                        },
+                                        {
+                                            "principal": "user3@contoso.com",
+                                            "roleDefinition": "View Only"
+                                        }
+                                    ]
+                                },
+                                "attachments": [
+                                    {
+                                        "name": "OneAttachment.docx",
+                                        "src": "./Attachments/OneAttachment.docx"
+                                    },
+                                    {
+                                        "name": "AnotherAttachment.pptx",
+                                        "src": "./Attachments/AnotherAttachment.pptx",
+                                        "overwrite": true
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    "fieldDefaults": {
+                        "ProjectName": "Default Project Name",
+                        "ProjectManager": "[Me]",
+                        "ProjectDescription": "Default Project Description"
+                    },
+                    "breakRoleInheritance": {
+                        "copyRoleAssignments": true,
+                        "clearSubScopes": true,
+                        "roleAssignments": [
+                            {
+                                "principal": "Power Users",
+                                "roleDefinition": "Full Control"
+                            },
+                            {
+                                "principal": "Guests",
+                                "roleDefinition": "View Only"
+                            }
+                        ]
+                    },
+                    "folders": [
+                        {
+                            "name": "SubFolder-01",
+                            "folders": [
+                                {
+                                    "name": "SubFolder-01-01",
+                                    "folders": [
+                                        {
+                                            "name": "SubFolder-01-01-01",
+                                            "propertyBagEntries": [
+                                                {
+                                                    "key": "Key1",
+                                                    "value": "Value1",
+                                                    "indexed": false,
+                                                    "overwrite": true
+                                                }
+                                            ],
+                                            "defaultColumnValues": {
+                                                "Field1": "Custom Value 1",
+                                                "Field2": "Custom Value 2"
+                                            }
+                                        }
+                                    ]
+                                }
+                            ],
+                            "breakRoleInheritance": {
+                                "copyRoleAssignments": false,
+                                "clearSubScopes": true,
+                                "roleAssignments": [
+                                    {
+                                        "principal": "user3@contoso.com",
+                                        "roleDefinition": "Full Control"
+                                    },
+                                    {
+                                        "principal": "user2@contoso.com",
+                                        "roleDefinition": "Edit"
+                                    },
+                                    {
+                                        "principal": "user1@contoso.com",
+                                        "roleDefinition": "View Only"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "name": "Sample-DocumentSet",
+                            "contentTypeId": "0x0120001234567890",
+                            "properties": {
+                                "CustomProperty01": "CustomValue01",
+                                "CustomProperty02": "CustomValue02"
+                            }
+                        }
+                    ],
+                    "userCustomActions": [
+                        {
+                            "name": "CA_LIST_ECB_ITEM",
+                            "description": "Custom Action for ECB in List",
+                            "registrationType": "ContentType",
+                            "registrationId": "0x01005D4F34E4BE7F4B6892AEBE088EDD215E",
+                            "location": "EditControlBlock",
+                            "sequence": "1000",
+                            "rights": [
+                                "EditListItems",
+                                "AddListItems",
+                                "DeleteListItems"
+                            ],
+                            "title": "Sample Custom Action",
+                            "url": "https://spmanaged.azurewebsites.net/customAction/?ItemUrl={ItemUrl}&amp;ItemId={ItemId}&amp;ListId={ListId}&amp;SiteUrl={SiteUrl}",
+                            "enabled": true
+                        }
+                    ],
+                    "webHooks": [
+                        {
+                            "expiresInDays": 120,
+                            "serverNotificationUrl": "http://myapp.azurewebsites.net/WebHookListener",
+                            "clientState": "ABC"
+                        }
+                    ],
+                    "irmSettings": {
+                        "allowPrint": true,
+                        "allowWriteCopy": false,
+                        "allowScript": true,
+                        "disableDocumentBrowserView": true,
+                        "documentAccessExpireDays": 30,
+                        "documentLibraryProtectionExpiresInDays": 90,
+                        "enabled": true,
+                        "enableDocumentAccessExpire": true,
+                        "enableDocumentBrowserPublishingView": true,
+                        "enableGroupProtection": false,
+                        "enableLicenseCacheExpire": false,
+                        "groupName": "Custom IRM Group",
+                        "licenseCacheExpireDays": 60,
+                        "policyDescription": "Sample IRM Policy",
+                        "policyTitle": "Sample IRM Policy"
+                    }
+                },
+                {
+                    "title": "Sample BCS List",
+                    "description": "Lsit with data via BCS",
+                    "onQuickLaunch": true,
+                    "templateType": "101",
+                    "url": "Lists/SampleBCS",
+                    "dataSource": {
+                        "LobSystemInstance": "ODS",
+                        "EntityNamespace": "https://sample.contoso.com/ODS",
+                        "Entity": "ODS.Customer",
+                        "SpecificFinder": "CustomerRead Item"
+                    }
+                }
+            ],
+            "features": {
+                "siteFeatures": [
+                    {
+                        "id": "b50e3104-6812-424f-a011-cc90e6327318",
+                        "description": "Document ID Service (DocID) site collection feature"
+                    }
+                ],
+                "webFeatures": [
+                    {
+                        "id": "7201d6a4-a5d3-49a1-8c19-19c4bac6e668",
+                        "deactivate": false,
+                        "description": "Document ID Service (DocID) site collection feature"
+                    }
+                ]
+            },
+            "files": [
+                {
+                    "src": "Logo.png",
+                    "folder": "SiteAssets",
+                    "overwrite": true,
+                    "targetFileName": "CompanyLogo.png"
+                },
+                {
+                    "src": "CustomPage.aspx",
+                    "folder": "SitePages",
+                    "overwrite": true,
+                    "breakRoleInheritance": {
+                        "copyRoleAssignments": true,
+                        "clearSubScopes": true,
+                        "roleAssignments": [
+                            {
+                                "principal": "Power Users",
+                                "roleDefinition": "Full Control"
+                            }
+                        ]
+                    },
+                    "properties": {
+                        "CustomProperty01": "CustomValue01",
+                        "CustomProperty02": "CustomValue02"
+                    }
+                },
+                {
+                    "src": "CustomMaster.master",
+                    "folder": "_catalogs/MasterPage",
+                    "overwrite": true,
+                    "level": "Published"
+                },
+                {
+                    "src": "Custom.spcolor",
+                    "folder": "_catalogs/Theme/15",
+                    "overwrite": true
+                },
+                {
+                    "src": "Custom.spfont",
+                    "folder": "_catalogs/Theme/15",
+                    "overwrite": true
+                },
+                {
+                    "src": "ProjectHomePage.aspx",
+                    "folder": "_cts/ProjectDocumentSet",
+                    "overwrite": true
+                }
+            ],
+            "directories": [
+                {
+                    "src": "c:\\LocalPath\\StyleLibrary",
+                    "folder": "Style%20Library",
+                    "overwrite": true,
+                    "recursive": true,
+                    "includedExtensions": "*.css,*.js,*.woff",
+                    "excludedExtensions": "*.xml,*.json"
+                },
+                {
+                    "src": ".\\Invoices",
+                    "folder": "Invoices",
+                    "overwrite": true,
+                    "recursive": false,
+                    "metadataMappingFile": ".\\InvoicesMetada.json"
+                },
+                {
+                    "src": "c:\\LocalPath\\Pages",
+                    "folder": "{PagesLibrary}",
+                    "overwrite": true,
+                    "level": "Published",
+                    "metadataMappingFile": "c:\\LocalPath\\PagesMetadata.json"
+                }
+            ],
+            "termGroups": [
+                {
+                    "id": "{0E8F395E-FF58-4D45-9FF7-E331AB728BEB}",
+                    "name": "{parameter:CompanyName} TermSets",
+                    "termSets": [
+                        {
+                            "name": "Projects",
+                            "id": "{5880B01B-5D6F-4606-A492-3B03A2FB4DD7}",
+                            "language": 1040,
+                            "terms": [
+                                {
+                                    "name": "IT Projects",
+                                    "id": "{3D212FC2-F176-4621-AED1-128219666D95}",
+                                    "customProperties": {
+                                        "Property1": "Value1",
+                                        "Property2": "Value2"
+                                    },
+                                    "localCustomProperties": {
+                                        "LocalProperty1": "Value1",
+                                        "LocalProperty2": "Value2"
+                                    },
+                                    "terms": [
+                                        {
+                                            "name": "Cloud",
+                                            "id": "{87C55100-8316-4DA0-97FD-FEB5731880F6}",
+                                            "labels": [
+                                                {
+                                                    "language": 1040,
+                                                    "value": "Nuvola"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "name": "New Farm",
+                                            "id": "{C422BD0D-681D-448F-A41E-C71C473A95CC}",
+                                            "isDeprecated": true,
+                                            "labels": [
+                                                {
+                                                    "language": 1040,
+                                                    "value": "Nuova Farm"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ],
+                    "contributors": [
+                        "user1@contoso.com"
+                    ],
+                    "managers": [
+                        "user2@contoso.com",
+                        "user3@contoso.com"
+                    ]
+                }
+            ],
+            "siteSearchSettings": "<pnp:SiteSearchSettings><SearchConfigurationSettings xmlns:i=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns=\"http://schemas.datacontract.org/2004/07/Microsoft.Office.Server.Search.Portability\"><SearchQueryConfigurationSettings><SearchQueryConfigurationSettings><BestBets xmlns:d4p1=\"http://www.microsoft.com/sharepoint/search/KnownTypes/2008/08\" /><DefaultSourceId>00000000-0000-0000-0000-000000000000</DefaultSourceId><DefaultSourceIdSet>true</DefaultSourceIdSet><DeployToParent>false</DeployToParent><DisableInheritanceOnImport>false</DisableInheritanceOnImport><QueryRuleGroups xmlns:d4p1=\"http://www.microsoft.com/sharepoint/search/KnownTypes/2008/08\" /><QueryRules xmlns:d4p1=\"http://www.microsoft.com/sharepoint/search/KnownTypes/2008/08\" /><ResultTypes xmlns:d4p1=\"http://schemas.datacontract.org/2004/07/Microsoft.Office.Server.Search.Administration\" /><Sources xmlns:d4p1=\"http://schemas.datacontract.org/2004/07/Microsoft.Office.Server.Search.Administration.Query\" /><UserSegments xmlns:d4p1=\"http://www.microsoft.com/sharepoint/search/KnownTypes/2008/08\" /></SearchQueryConfigurationSettings></SearchQueryConfigurationSettings><SearchRankingModelConfigurationSettings><RankingModels xmlns:d3p1=\"http://schemas.microsoft.com/2003/10/Serialization/Arrays\" /></SearchRankingModelConfigurationSettings><SearchSchemaConfigurationSettings><Aliases xmlns:d3p1=\"http://schemas.datacontract.org/2004/07/Microsoft.Office.Server.Search.Administration\"><d3p1:LastItemName i:nil=\"true\" /><d3p1:dictionary xmlns:d4p1=\"http://schemas.microsoft.com/2003/10/Serialization/Arrays\" /></Aliases><CategoriesAndCrawledProperties xmlns:d3p1=\"http://schemas.microsoft.com/2003/10/Serialization/Arrays\" /><CrawledProperties xmlns:d3p1=\"http://schemas.datacontract.org/2004/07/Microsoft.Office.Server.Search.Administration\" i:nil=\"true\" /><ManagedProperties xmlns:d3p1=\"http://schemas.datacontract.org/2004/07/Microsoft.Office.Server.Search.Administration\"><d3p1:LastItemName i:nil=\"true\" /><d3p1:dictionary xmlns:d4p1=\"http://schemas.microsoft.com/2003/10/Serialization/Arrays\" /><d3p1:TotalCount>0</d3p1:TotalCount></ManagedProperties><Mappings xmlns:d3p1=\"http://schemas.datacontract.org/2004/07/Microsoft.Office.Server.Search.Administration\"><d3p1:LastItemName i:nil=\"true\" /><d3p1:dictionary xmlns:d4p1=\"http://schemas.microsoft.com/2003/10/Serialization/Arrays\" /></Mappings><Overrides xmlns:d3p1=\"http://schemas.datacontract.org/2004/07/Microsoft.Office.Server.Search.Administration\"><d3p1:LastItemName i:nil=\"true\" /><d3p1:dictionary xmlns:d4p1=\"http://schemas.microsoft.com/2003/10/Serialization/Arrays\" /></Overrides></SearchSchemaConfigurationSettings></SearchConfigurationSettings>",
+            "applicationLifeCycleManagement": {
+                "appCatalog": [
+                    {
+                        "src": "solution\\spfx-discuss-now.sppkg",
+                        "action": "UploadAndPublish",
+                        "skipFeatureDeployment": true,
+                        "overwrite": true
+                    },
+                    {
+                        "packageId": "d0816f0a-fda4-4a98-8e61-1bbe1f2b5b27",
+                        "action": "Publish"
+                    },
+                    {
+                        "packageId": "9672a07b-c111-4a12-bb5b-8d43c2ddd256",
+                        "action": "Remove"
+                    }
+                ],
+                "apps": [
+                    {
+                        "appId": "d0816f0a-fda4-4a98-8e61-1bbe1f2b5b27",
+                        "action": "Install",
+                        "syncMode": "Synchronously"
+                    },
+                    {
+                        "appId": "{AppPackageId:spfx-discuss-now}",
+                        "action": "Update",
+                        "syncMode": "Asynchronously"
+                    },
+                    {
+                        "appId": "9672a07b-c111-4a12-bb5b-8d43c2ddd256",
+                        "action": "Uninstall"
+                    }
+                ]
+            },
+            "siteWebhooks": [
+                {
+                    "serverNotificationUrl": "https://myapp.azurewebsites.net/WebHookListener",
+                    "expiresInDays": 120,
+                    "siteWebHookType": "WebCreated",
+                    "clientState": "DEF"
+                },
+                {
+                    "serverNotificationUrl": "https://myapp.azurewebsites.net/WebHookListener",
+                    "expiresInDays": 120,
+                    "siteWebHookType": "WebDeleted"
+                }
+            ],
+            "clientSidePages": [
+                {
+                    "pageName": "SamplePage",
+                    "promoteAsTemplate": true,
+                    "promoteAsNewsArticle": true,
+                    "overwrite": true,
+                    "publish": true,
+                    "layout": "Article",
+                    "enableComments": true,
+                    "title": "Client Side Page Title",
+                    "contentTypeId": "0x01010012345",
+                    "createTranslations": true,
+                    "thumbnailUrl": "siteassets/image.png",
+                    "sections": [
+                        {
+                            "order": 1,
+                            "type": "OneColumn",
+                            "backgroundEmphasis": "Neutral",
+                            "verticalSectionEmphasis": "Neutral",
+                            "controls": [
+                                {
+                                    "type": "Image",
+                                    "customWebPartName": "...",
+                                    "JsonControlData": {
+                                        "id": "test"
+                                    },
+                                    "controlId": "0eaba53f-55da-44b5-9f7c-61301c7f1e0e",
+                                    "order": 1,
+                                    "controlProperties": {
+                                        "Key1": "{token}"
+                                    }
+                                }
+                            ]
+                        }
+                    ],
+                    "fieldValues": {
+                        "Category": "Marketing",
+                        "Tags": "Tag01,Tag02,Tag03"
+                    },
+                    "breakRoleInheritance": {
+                        "copyRoleAssignments": true,
+                        "clearSubScopes": true,
+                        "roleAssignments": [
+                            {
+                                "principal": "user1@contoso.com",
+                                "roleDefinition": "Full Control"
+                            },
+                            {
+                                "principal": "user2@contoso.com",
+                                "roleDefinition": "Edit"
+                            },
+                            {
+                                "principal": "user3@contoso.com",
+                                "roleDefinition": "View Only"
+                            }
+                        ]
+                    },
+                    "properties": {
+                        "Key01": "Value 01",
+                        "Key02": "Value 01",
+                        "Key03": "Value 01"
+                    }
+                }
+            ],
+            "header": {
+                "layout": "Standard",
+                "menuStyle": "MegaMenu",
+                "BackgroundEmphasis": "Neutral"
+            },
+            "footer": {
+                "enabled": true,
+                "logo": "logo.png",
+                "name": "FooterName",
+                "removeExistingNodes": true,
+                "footerLinks": [
+                    {
+                        "displayName": "Link 01",
+                        "url": "www.link01.com"
+                    },
+                    {
+                        "displayName": "Link 02",
+                        "url": "www.link02.com"
+                    },
+                    {
+                        "displayName": "Link 03",
+                        "url": "www.link03.com"
+                    },
+                    {
+                        "displayName": "Link Master 04",
+                        "footerLinks": [
+                            {
+                                "displayName": "Child Link 04-01",
+                                "url": "www.link04-01.com"
+                            },
+                            {
+                                "displayName": "Child Link 04-02",
+                                "url": "www.link04-02.com"
+                            },
+                            {
+                                "displayName": "Child Link 04-03",
+                                "url": "www.link04-03.com"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "provisioningTemplateWebhooks": [
+                {
+                    "url": "https://mywebhook.azurefunctions.net/function01?par1={WebhookParam:Param01}&amp;site={sitecollection}&amp;par2={WebhookParam:Param02}&amp;par3={WebhookParam:Param03}",
+                    "method": "GET",
+                    "kind": "ProvisioningTemplateStarted",
+                    "parameters": {
+                        "Param01": "Value01",
+                        "Param02": "Value02",
+                        "Param03": "Value03"
+                    }
+                },
+                {
+                    "url": "https://mywebhook.azurefunctions.net/function01",
+                    "method": "POST",
+                    "kind": "ProvisioningTemplateCompleted",
+                    "bodyFormat": "Json",
+                    "async": true,
+                    "parameters": {
+                        "Param01": "Value01",
+                        "Site": "{sitecollection}"
+                    }
+                }
+            ]
+        }
+    ],
+    "sequences": [
+        {
+            "siteCollections": [
+                {
+                    "type": "CommunicationSite",
+                    "provisioningId": "SITE.01",
+                    "url": "https://{parameter:O365TenantName}.sharepoint.com/sites/CommSite",
+                    "title": "{parameter:CompanyName} Intranet",
+                    "owner": "{parameter:CommunicationSiteOwner}",
+                    "siteDesign": "{SiteDesignId:PnP Site Design}",
+                    "allowFileSharingForGuestUsers": true,
+                    "isHubSite": true,
+                    "hubSiteLogoUrl": "logo.png",
+                    "hubSiteTitle": "hub title",
+                    "classification": "HBI",
+                    "theme": "CustomOrange",
+                    "description": "{parameter:CompanyName} Intranet",
+                    "language": 1040,
+                    "templates": [
+                        "SPECIALTEAM"
+                    ],
+                    "sites": [
+                        {
+                            "provisioningId": "SITE.01.01",
+                            "url": "{parameter:SitePrefix}-Workflows",
+                            "title": "{parameter:CompanyName} Intranet Workflows",
+                            "description": "{parameter:CompanyName} Intranet Workflows",
+                            "timeZoneId": 4,
+                            "language": 1040,
+                            "theme": "CustomBlue",
+                            "quickLaunchEnabled": true,
+                            "useSamePermissionsAsParentSite": true,
+                            "sites": [
+                                {
+                                    "provisioningId": "SITE.01.01.01",
+                                    "url": "bb",
+                                    "description": "cc",
+                                    "title": "dd"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "teams": {
+        "teamTemplates": [
+            {
+                "displayName": "Team from Template 01",
+                "description": "Sample Team from Template",
+                "classification": "Custom",
+                "visibility": "Public",
+                "JsonTemplate": {
+                    "id": "1"
+                }
+            }
+        ],
+        "teams": [
+            {
+                "groupId": "{o365groupid:GroupMailNickname}",
+                "displayName": "Sample Team 01",
+                "description": "This is just a sample team 01",
+                "visibility": "Public",
+                "cloneFrom": "{o365groupid:GroupMailNickname}",
+                "mailNickname": "cloned-team-03",
+                "funSettings": {
+                    "allowGiphy": true,
+                    "allowCustomMemes": true,
+                    "giphyContentRating": "Strict",
+                    "allowStickersAndMemes": true
+                },
+                "security": {
+                    "allowToAddGuests": true,
+                    "clearExistingMembers": true,
+                    "members": [
+                        "owner01@domain.onmicrosoft.com",
+                        "owner02@domain.onmicrosoft.com"
+                    ],
+                    "clearExistingOwners": false,
+                    "owners": [
+                        "user01@domain.onmicrosoft.com",
+                        "user02@domain.onmicrosoft.com",
+                        "user03@domain.onmicrosoft.com"
+                    ]
+                },
+                "channels": [
+                    {
+                        "displayName": "Sample Channel 01",
+                        "description": "This is just a sample channel",
+                        "isFavoriteByDefault": true,
+                        "id": "12345",
+                        "tabs": [
+                            {
+                                "displayName": "My Tab 01",
+                                "teamsAppId": "12345",
+                                "id": "67890",
+                                "configuration": {
+                                    "entityId": "2DCA2E6C7A10415CAF6B8AB6661B3154",
+                                    "contentUrl": "https://www.contoso.com/Orders/2DCA2E6C7A10415CAF6B8AB6661B3154/tabView",
+                                    "websiteUrl": "https://www.contoso.com/Orders/2DCA2E6C7A10415CAF6B8AB6661B3154",
+                                    "removeUrl": "https://www.contoso.com/Orders/2DCA2E6C7A10415CAF6B8AB6661B3154/uninstallTab"
+                                }
+                            }
+                        ],
+                        "tabResources": [
+                            {
+                                "type": "Notebook",
+                                "targetTabId": "{TeamsTabId:TabDisplayName}",
+                                "tabResourceSettings": {
+                                    "displayName": "{parameter:Notebookname}"
+                                }
+                            }
+                        ],
+                        "messages": [
+                            {
+                                "body": {
+                                    "contentType": "html",
+                                    "content": "Hello World"
+                                },
+                                "subject": "Welcome to this channel"
+                            }
+                        ]
+                    }
+                ],
+                "apps": [
+                    "12345678-9123-123123-1231231",
+                    "{TeamsAppId:APP002}"
+                ]
+            }
+        ],
+        "apps": [
+            {
+                "appId": "APP001",
+                "packageUrl": "./custom-app-01.json"
+            },
+            {
+                "appId": "APP002",
+                "packageUrl": "./custom-app-02.zip"
+            }
+        ]
+    },
+    "azureActiveDirectory": {
+        "users": [
+            {
+                "accountEnabled": true,
+                "displayName": "John White",
+                "passwordPolicies": [
+                    "DisablePasswordExpiration",
+                    "DisableStrongPassword"
+                ],
+                "profilePhoto": "photo.jpg",
+                "givenName": "John",
+                "sureName": "White",
+                "jobTitle": "Senior Partner",
+                "officeLocation": "Seattle, WA",
+                "preferredLanguage": "en-US",
+                "mobilePhone": "+1-601-123456",
+                "mailNickname": "john.white",
+                "usageLocation": "US",
+                "userPrincipalName": "john.white@{parameter:domain}.onmicrosoft.com",
+                "passwordProfile": {
+                    "forceChangePasswordNextSignIn": true,
+                    "forceChangePasswordNextSignInWithMfa": false,
+                    "password": "Pass@w0rd"
+                },
+                "licenses": [
+                    {
+                        "skuId": "6fd2c87f-b296-42f0-b197-1e91e994b900",
+                        "disabledPlans": [
+                            "6fd2c87f-b296-42f0-b197-1e91e994b900",
+                            "c87f142c-d1e9-4363-8630-aaea9c4d9ae5",
+                            "2789c901-c14e-48ab-a76a-be334d9d793a",
+                            "a23b959c-7ce8-4e57-9140-b90eb88a9e97"
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

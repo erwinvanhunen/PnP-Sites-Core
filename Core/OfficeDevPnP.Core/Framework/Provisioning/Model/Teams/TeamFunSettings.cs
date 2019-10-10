@@ -103,10 +103,10 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model.Teams
         #endregion
     }
 
-        /// <summary>
-        /// Defines the Content Rating for Giphys
-        /// </summary>
-        public static class TeamGiphyContentRating
+    /// <summary>
+    /// Defines the Content Rating for Giphys
+    /// </summary>
+    public static class TeamGiphyContentRating
     {
         /// <summary>
         /// Moderate Content Rating

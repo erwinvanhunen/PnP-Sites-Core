@@ -4,6 +4,7 @@ using System.IdentityModel.Tokens;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using OfficeDevPnP.Core.Extensions;
 
 namespace OfficeDevPnP.Core.Framework.Provisioning.Model
@@ -50,7 +51,12 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <summary>
         /// Gets or sets the term source id
         /// </summary>
+        [JsonIgnore]
         public Guid SourceTermId { get; set; }
+
+        [JsonProperty("sourceTermId")]
+        private Guid? SourceTermIdNullable { get { return SourceTermId == Guid.Empty ? null : (Guid?)SourceTermId; } set { SourceTermId = (value == null ? Guid.Empty : value.Value); } }
+
         /// <summary>
         /// Gets or sets the IsDeprecated flag for the term
         /// </summary>
@@ -117,7 +123,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <param name="labels">Labels of the term</param>
         /// <param name="properties">Properties of the term</param>
         /// <param name="localProperties">LocalProperties of the term</param>
-        public Term(Guid id, string name, int? language, List<Term> terms, List<TermLabel> labels, Dictionary<string, string> properties, Dictionary<string, string> localProperties):
+        public Term(Guid id, string name, int? language, List<Term> terms, List<TermLabel> labels, Dictionary<string, string> properties, Dictionary<string, string> localProperties) :
             this()
         {
             this.Id = id;

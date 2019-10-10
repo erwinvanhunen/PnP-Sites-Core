@@ -1,4 +1,5 @@
-﻿using OfficeDevPnP.Core.Extensions;
+﻿using Newtonsoft.Json;
+using OfficeDevPnP.Core.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model.Drive
         /// <summary>
         /// Defines a collection of DriveRoot items
         /// </summary>
+        [JsonProperty("roots")]
         public DriveRootCollection DriveRoots { get; private set; }
 
         #endregion

@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using System;
 
 namespace OfficeDevPnP.Core.Framework.Provisioning.Model
 {
@@ -21,6 +19,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <summary>
         /// Gets or sets the Right for the SiteDesignGrant
         /// </summary>
+        [JsonConverter(typeof(StringEnumConverter))]
         public SiteDesignRight Right { get; set; }
 
         #endregion

@@ -1,4 +1,6 @@
-﻿using OfficeDevPnP.Core.Extensions;
+﻿using Newtonsoft.Json;
+using OfficeDevPnP.Core.Extensions;
+using OfficeDevPnP.Core.Framework.Provisioning.Providers.Json.Converters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +19,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model.Teams
         /// <summary>
         /// Defines the Owners of the Team
         /// </summary>
+        [JsonConverter(typeof(TeamSecurityUserCollectionConverter))]
         public TeamSecurityUserCollection Owners { get; private set; }
 
         /// <summary>
@@ -27,6 +30,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model.Teams
         /// <summary>
         /// Defines the Members of the Team
         /// </summary>
+        [JsonConverter(typeof(TeamSecurityUserCollectionConverter))]
         public TeamSecurityUserCollection Members { get; private set; }
 
         /// <summary>

@@ -1,4 +1,6 @@
-﻿using OfficeDevPnP.Core.Extensions;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using OfficeDevPnP.Core.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,16 +39,19 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <summary>
         /// Defines the type of the Canvas section for a Client-side Page.
         /// </summary>
+        [JsonConverter(typeof(StringEnumConverter))]
         public CanvasSectionType Type { get; set; }
 
         /// <summary>
         /// The emphasis color of the Canvas Section for a Client-side Page
         /// </summary>
+        [JsonConverter(typeof(StringEnumConverter))]
         public Emphasis BackgroundEmphasis { get; set; }
 
         /// <summary>
         /// The emphasis color of the Canvas Section for a Client-side Page
         /// </summary>
+        [JsonConverter(typeof(StringEnumConverter))]
         public Emphasis VerticalSectionEmphasis { get; set; }
         
         #endregion

@@ -1,4 +1,7 @@
-﻿using OfficeDevPnP.Core.Extensions;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using OfficeDevPnP.Core.Extensions;
+using OfficeDevPnP.Core.Framework.Provisioning.Providers.Json.Converters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +13,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
     /// <summary>
     /// Defines a CanvasControl
     /// </summary>
+    [JsonConverter(typeof(CanvasControlConverter))]
     public partial class CanvasControl : BaseModel, IEquatable<CanvasControl>
     {
         #region Public Members
@@ -22,6 +26,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <summary>
         /// Defines the Type of Client-side Web Part.
         /// </summary>
+        [JsonConverter(typeof(StringEnumConverter))]
         public WebPartType Type { get; set; }
 
         /// <summary>
@@ -32,6 +37,8 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <summary>
         /// Defines the JSON Control Data for Canvas Control of a Client-side Page.
         /// </summary>
+        [JsonConverter(typeof(JsonToStringConverter))]
+        [JsonProperty("controlData",DefaultValueHandling = DefaultValueHandling.Ignore)]
         public String JsonControlData { get; set; }
 
         /// <summary>

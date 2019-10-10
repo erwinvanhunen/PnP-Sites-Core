@@ -1,4 +1,7 @@
-﻿using OfficeDevPnP.Core.Extensions;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using OfficeDevPnP.Core.Extensions;
+using OfficeDevPnP.Core.Framework.Provisioning.Providers.Json.Converters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,6 +41,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <summary>
         /// Gets or sets the WebTemplate flag for the SiteDesign
         /// </summary>
+        [JsonConverter(typeof(SiteDesignWebTemplateConverter))]
         public SiteDesignWebTemplate WebTemplate { get; set; }
 
         /// <summary>

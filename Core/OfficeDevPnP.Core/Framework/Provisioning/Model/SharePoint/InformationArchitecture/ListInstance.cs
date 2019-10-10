@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using OfficeDevPnP.Core.Extensions;
+using OfficeDevPnP.Core.Framework.Provisioning.Providers.Json.Converters;
 
 namespace OfficeDevPnP.Core.Framework.Provisioning.Model
 {
@@ -172,6 +175,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <summary>
         /// Gets or sets the DraftVersionVisibility for the list
         /// </summary>
+        [JsonConverter(typeof(DraftVersionVisibilityConverter))]
         public int DraftVersionVisibility { get; set; }
 
         /// <summary>
@@ -270,7 +274,11 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <summary>
         /// Gets or sets the Guid for TemplateFeature
         /// </summary>
+        [JsonIgnore]
         public Guid TemplateFeatureID { get; set; }
+
+        [JsonProperty("templateFeatureId")]
+        private Guid? TemplateFeatureIdNullable { get { return TemplateFeatureID == Guid.Empty ? null : (Guid?)TemplateFeatureID; } set { TemplateFeatureID = (value == null ? Guid.Empty : value.Value); } }
 
         /// <summary>
         /// Gets or sets the DataRows associated to the list
@@ -361,7 +369,9 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <summary>
         /// Defines the current list UI/UX experience (valid for SPO only).
         /// </summary>
-        public ListExperience ListExperience { get; set; }
+        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonProperty("listExperience", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public ListExperience ListExperience { get; set; } = ListExperience.Auto;
 
         /// <summary>
         /// Defines a value that specifies the location of the default display form for the list.
@@ -381,6 +391,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <summary>
         /// Defines a value that specifies the reading order of the list.
         /// </summary>
+        [JsonConverter(typeof(StringEnumConverter))]
         public ListReadingDirection Direction { get; set; }
 
         /// <summary>

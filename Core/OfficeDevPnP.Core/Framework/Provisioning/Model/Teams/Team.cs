@@ -1,4 +1,7 @@
-﻿using OfficeDevPnP.Core.Extensions;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using OfficeDevPnP.Core.Extensions;
+using OfficeDevPnP.Core.Framework.Provisioning.Providers.Json.Converters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -52,8 +55,10 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model.Teams
         /// <summary>
         /// Defines the Apps to install or update on the Team
         /// </summary>
+        [JsonConverter(typeof(TeamAppInstanceCollectionConverter))]
         public TeamAppInstanceCollection Apps { get; private set; }
 
+        [JsonConverter(typeof(StringEnumConverter))]
         public TeamSpecialization Specialization { get; set; }
 
         /// <summary>

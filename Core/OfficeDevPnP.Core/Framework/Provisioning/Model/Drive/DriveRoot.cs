@@ -1,4 +1,5 @@
-﻿using OfficeDevPnP.Core.Extensions;
+﻿using Newtonsoft.Json;
+using OfficeDevPnP.Core.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model.Drive
         /// <summary>
         /// The DriveUrl of the target DriveRoot
         /// </summary>
+        [JsonProperty("url")]
         public String DriveUrl { get; set; }
 
         /// <summary>

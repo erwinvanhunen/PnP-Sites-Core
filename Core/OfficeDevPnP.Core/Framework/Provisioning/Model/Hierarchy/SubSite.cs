@@ -1,9 +1,12 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using OfficeDevPnP.Core.Framework.Provisioning.Providers.Json.Converters;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace OfficeDevPnP.Core.Framework.Provisioning.Model
 {
+    [JsonConverter(typeof(SubSiteConverter))]
     public abstract partial class SubSite : BaseHierarchyModel, IEquatable<SubSite>
     {
         #region Private Members
@@ -55,6 +58,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <summary>
         /// Defines the Theme to apply to the SiteCollection
         /// </summary>
+        [JsonProperty("theme",NullValueHandling = NullValueHandling.Ignore)]
         public String Theme { get; set; }
 
         /// <summary>

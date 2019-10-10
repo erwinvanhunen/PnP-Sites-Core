@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using OfficeDevPnP.Core.Extensions;
 
 namespace OfficeDevPnP.Core.Framework.Provisioning.Model
@@ -41,12 +42,14 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <summary>
         /// Role Assignments for a target Principal
         /// </summary>
+        [JsonProperty("roleAssignments")]
         public RoleAssignmentCollection RoleAssignments
         {
             get { return this._roleAssignments; }
             private set { this._roleAssignments = value; }
         }
 
+        [JsonProperty("copyRoleAssignments")]
         /// <summary>
         /// Defines whether to copy role assignments or not while breaking role inheritance
         /// </summary>
@@ -55,6 +58,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <summary>
         /// Defines whether to clear subscopes or not while breaking role inheritance
         /// </summary>
+        [JsonProperty("clearSubScopes")]
         public Boolean ClearSubscopes { get; set; }
 
         #endregion

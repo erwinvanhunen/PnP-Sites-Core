@@ -9,7 +9,6 @@
   <pnp:Preferences Author="John Black" Version="1.0" Generator="Human being :-)">
     <pnp:Parameters>
       <pnp:Parameter Key="O365TenantName">contoso</pnp:Parameter>
-      <pnp:Parameter Key="CodeProvidedParam" Required="true"/>
       <pnp:Parameter Key="YammerNetwork">contoso.com</pnp:Parameter>
       <pnp:Parameter Key="lcid">1033</pnp:Parameter>
       <pnp:Parameter Key="CompanyName">Contoso Inc.</pnp:Parameter>
@@ -850,7 +849,7 @@
                 </pnp:Term>
                 <pnp:Term Name="HSE Projects" ID="{1F1B9EE8-74EA-4D89-B502-FEAA44340385}">
                   <pnp:Terms>
-                    <pnp:Term Name="Security Assessment" ID="{3279FE80-95DB-4D35-B235-A9B2F0FB6F9E}">
+                    <pnp:Term Name="Security Assessment" ID="{3279FE80-95DB-4D35-B235-A9B2F0FB6F9E}" SourceTermId="3279fe80-95db-4d35-b235-a9b2f0fb6f9e">
                       <pnp:Labels>
                         <pnp:Label Language="1040" Value="Valutazione Sicurezza"/>
                       </pnp:Labels>
@@ -1324,7 +1323,7 @@
     <pnp:TeamTemplate DisplayName="Team from Template 01" Description="Sample Team from Template"
                       Classification="Custom" Visibility="Public">
       <![CDATA[
-        { here goes the team template JSON }
+        { "id":"here goes the team template json" }
       ]]>
     </pnp:TeamTemplate>
     

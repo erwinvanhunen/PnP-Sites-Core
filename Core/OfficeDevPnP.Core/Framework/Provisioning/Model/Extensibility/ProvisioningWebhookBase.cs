@@ -1,4 +1,6 @@
-﻿using OfficeDevPnP.Core.Extensions;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using OfficeDevPnP.Core.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +21,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <summary>
         /// Defines the .app file of the SharePoint Add-in to provision
         /// </summary>
+        [JsonConverter(typeof(StringEnumConverter))]
         public ProvisioningTemplateWebhookKind Kind { get; set; }
 
         /// <summary>
@@ -29,11 +32,13 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <summary>
         /// Defines how to call the target Webhook URL
         /// </summary>
+        [JsonConverter(typeof(StringEnumConverter))]
         public ProvisioningTemplateWebhookMethod Method { get; set; }
 
         /// <summary>
         /// Defines how to format the request body for HTTP POST requests
         /// </summary>
+        [JsonConverter(typeof(StringEnumConverter))]
         public ProvisioningTemplateWebhookBodyFormat BodyFormat { get; set; }
 
         /// <summary>

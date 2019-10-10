@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,16 +17,19 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <summary>
         /// Defines the Role to which the assignment will apply
         /// </summary>
+        [JsonProperty("principal")]
         public String Principal { get; set; }
 
         /// <summary>
         /// Defines the Role to which the assignment will apply
         /// </summary>
+        [JsonProperty("roleDefinition")]
         public String RoleDefinition { get; set; }
 
         /// <summary>
         /// Allows to remove a role assignment, instead of adding it. It is an optional attribute, and by default it assumes a value of false.
         /// </summary>
+        [JsonProperty("remove")]
         public Boolean Remove { get; set; }
 
         #endregion

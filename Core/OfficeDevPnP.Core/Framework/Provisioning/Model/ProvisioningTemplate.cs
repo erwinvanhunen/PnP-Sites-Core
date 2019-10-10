@@ -8,6 +8,8 @@ using OfficeDevPnP.Core.Framework.Provisioning.Providers.Xml;
 using System.IO;
 using System.Xml.Linq;
 using Newtonsoft.Json;
+using OfficeDevPnP.Core.Framework.Provisioning.Providers.Json.Converters;
+using Newtonsoft.Json.Converters;
 
 namespace OfficeDevPnP.Core.Framework.Provisioning.Model
 {
@@ -17,6 +19,8 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
     public partial class ProvisioningTemplate : BaseHierarchyModel, IEquatable<ProvisioningTemplate>
     {
         #region Private Fields
+        [JsonProperty("$schema")]
+        internal string Schema { get; set; }
 
         private Dictionary<string, string> _parameters = new Dictionary<string, string>();
         private LocalizationCollection _localizations;
@@ -137,7 +141,8 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
                     return _parameters;
                 }
             }
-            private set {
+            private set
+            {
                 if (this.ParentHierarchy != null)
                 {
                     this.ParentHierarchy.Parameters = value;
@@ -186,7 +191,8 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <summary>
         /// Gets or sets the Version of the Provisioning Template
         /// </summary>
-        public double Version {
+        public double Version
+        {
             get
             {
                 if (this.ParentHierarchy != null)
@@ -225,7 +231,6 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <summary>
         /// Security Groups Members for the Template
         /// </summary>
-        [JsonProperty("security")]
         public SiteSecurity Security
         {
             get { return this._siteSecurity; }
@@ -348,6 +353,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <summary>
         /// Gets or Sets the composed look of the template
         /// </summary>
+        [JsonIgnore]
         public ComposedLook ComposedLook
         {
             get { return this._composedLook; }
@@ -436,6 +442,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <summary>
         /// The Supported UI Languages for the Provisioning Template
         /// </summary>
+        [JsonConverter(typeof(SupportedUILanguageCollectionConverter))]
         public SupportedUILanguageCollection SupportedUILanguages
         {
             get { return this._supportedUILanguages; }
@@ -472,6 +479,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <summary>
         /// Defines the Workflows to provision
         /// </summary>
+        [JsonIgnore]
         public Workflows Workflows
         {
             get { return this._workflows; }
@@ -511,6 +519,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <summary>
         /// Defines the Publishing configuration to provision
         /// </summary>
+        [JsonIgnore]
         public Publishing Publishing
         {
             get { return this._publishing; }
@@ -531,6 +540,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <summary>
         /// Gets a collection of SiteWebhooks to configure for the site
         /// </summary>
+        //[JsonProperty("siteWebhooks")]
         public SiteWebhookCollection SiteWebhooks
         {
             get { return this._siteWebhooks; }
@@ -732,16 +742,19 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <summary>
         /// The default CultureInfo of the Provisioning Template, used to format all input values, optional attribute.
         /// </summary>
+        [JsonConverter(typeof(StringToIntConverter))]
         public String TemplateCultureInfo { get; set; }
 
         /// <summary>
         /// Declares the target scope of the current Provisioning Template
         /// </summary>
+        [JsonConverter(typeof(StringEnumConverter))]
         public ProvisioningTemplateScope Scope { get; set; }
 
         /// <summary>
         /// Gets or sets the File Connector
         /// </summary>
+        [JsonIgnore]
         public FileConnectorBase Connector
         {
             get

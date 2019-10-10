@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using OfficeDevPnP.Core.Extensions;
+using OfficeDevPnP.Core.Framework.Provisioning.Providers.Json.Converters;
 
 namespace OfficeDevPnP.Core.Framework.Provisioning.Model
 {
@@ -41,6 +44,8 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <summary>
         /// List of TermGroup Contributors
         /// </summary>
+        [JsonConverter(typeof(UserCollectionConverter))]
+        [JsonProperty("contributors")]
         public UserCollection Contributors
         {
             get { return (this._contributors); }
@@ -50,6 +55,8 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <summary>
         /// List of TermGroup Managers
         /// </summary>
+        [JsonConverter(typeof(UserCollectionConverter))]
+        [JsonProperty("managers")]
         public UserCollection Managers
         {
             get { return (this._managers); }
@@ -69,6 +76,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// If the TermGroup already exists on target, this attribute defines whether 
         /// the TermGroup will be overwritten or skipped.
         /// </summary>
+        [JsonConverter(typeof(StringEnumConverter))]
         public TermGroupUpdateBehavior UpdateBehavior { get; set; }
 
         #endregion

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,6 +15,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <summary>
         /// The URL of the target Site
         /// </summary>
+        [JsonProperty("url")]
         public string Url { get; set; }
 
         /// <summary>
@@ -22,26 +24,31 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <remarks>
         /// Reserved for future use
         /// </remarks>
+        [JsonProperty("owner")]
         public string Owner { get; set; }
 
         /// <summary>
         /// The ID of the SiteDesign
         /// </summary>
+        [JsonProperty("siteDesign")]
         public string SiteDesign { get; set; }
 
         /// <summary>
         /// Defines whether the target Site can be shared to guest users or not
         /// </summary>
+        [JsonProperty("allowFileSharingForGuestUsers")]
         public bool AllowFileSharingForGuestUsers { get; set; }
 
         /// <summary>
         /// The Classification of the target Site
         /// </summary>
+        [JsonProperty("classification")]
         public string Classification { get; set; }
 
         /// <summary>
         /// Language of the target Site
         /// </summary>
+        [JsonProperty("language")]
         public int Language { get; set; }
 
         protected override bool EqualsInherited(SiteCollection other)

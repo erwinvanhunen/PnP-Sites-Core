@@ -1,4 +1,7 @@
-﻿using OfficeDevPnP.Core.Extensions;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using OfficeDevPnP.Core.Extensions;
+using OfficeDevPnP.Core.Framework.Provisioning.Providers.Json.Converters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -77,6 +80,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <summary>
         /// Defines the list of Alternate UI Cultures for the current web
         /// </summary>
+        [JsonConverter(typeof(AlternateUICultureCollectionConverter))]
         public AlternateUICultureCollection AlternateUICultures { get; set; }
 
         /// <summary>
@@ -117,6 +121,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <summary>
         /// Defines the SearchScope for the site
         /// </summary>
+        [JsonConverter(typeof(StringEnumConverter))]
         public SearchScopes SearchScope { get; set; }
 
         #endregion

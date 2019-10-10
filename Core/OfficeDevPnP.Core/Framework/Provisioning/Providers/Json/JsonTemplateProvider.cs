@@ -182,7 +182,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Providers.Json
 
         public override void Save(ProvisioningHierarchy hierarchy)
         {
-            throw new NotImplementedException();
+            this.SaveAs(hierarchy, this.Uri);
         }
 
         public override void Save(ProvisioningTemplate template)
@@ -207,7 +207,31 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Providers.Json
 
         public override void SaveAs(ProvisioningHierarchy hierarchy, string uri, ITemplateFormatter formatter = null)
         {
-            throw new NotImplementedException();
+            if (hierarchy == null)
+            {
+                throw new ArgumentNullException(nameof(hierarchy));
+            }
+
+            if (uri == null)
+            {
+                throw new ArgumentNullException(nameof(uri));
+            }
+
+            if (formatter == null)
+            {
+                formatter = new JsonPnPFormatter();
+            }
+            hierarchy.Schema = JsonPnPFormatter.TenantSchema;
+            formatter.Initialize(this);
+
+            var stream = ((IProvisioningHierarchyFormatter)formatter).ToFormattedHierarchy(hierarchy);
+
+            this.Connector.SaveFileStream(uri, stream);
+
+            if (this.Connector is ICommitableFileConnector)
+            {
+                ((ICommitableFileConnector)this.Connector).Commit();
+            }
         }
 
         public override void SaveAs(ProvisioningTemplate template, string uri)
@@ -241,7 +265,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Providers.Json
             {
                 formatter = new JsonPnPFormatter();
             }
-
+            template.Schema = JsonPnPFormatter.SiteSchema;
             SaveToConnector(template, uri, formatter, extensions);
         }
 

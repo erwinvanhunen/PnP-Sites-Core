@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,36 +15,43 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <summary>
         /// The Alias of the target Site
         /// </summary>
+        [JsonProperty("alias")]
         public string Alias { get; set; }
 
         /// <summary>
         /// The DisplayName of the target Site
         /// </summary>
+        [JsonProperty("displayName")]
         public string DisplayName { get; set; }
 
         /// <summary>
         /// Defines whether the Office 365 Group associated with the Site is Public or Private
         /// </summary>
+        [JsonProperty("isPublic")]
         public bool IsPublic { get; set; }
 
         /// <summary>
         /// The Classification of the target Site
         /// </summary>
+        [JsonProperty("classification")]
         public string Classification { get; set; }
 
         /// <summary>
         /// Defines whether to create a Microsoft Team backing the modern Team Site
         /// </summary>
+        [JsonProperty("teamify")]
         public bool Teamify { get; set; }
 
         /// <summary>
         /// Defines whether to hide the create a Microsoft Team option in the UI of the Team Site
         /// </summary>
+        [JsonProperty("hideTeamify")]
         public bool HideTeamify { get; set; }
 
         /// <summary>
         /// Allows to associate the Office 365 Group associated with the Team Site to a Group Lifecycle Policy
         /// </summary>
+        [JsonProperty("groupLifecyclePolicyId")]
         public string GroupLifecyclePolicyId { get; set; }
 
         protected override bool EqualsInherited(SiteCollection other)

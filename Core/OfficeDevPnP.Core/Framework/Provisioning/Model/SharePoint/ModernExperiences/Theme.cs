@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using OfficeDevPnP.Core.Framework.Provisioning.Providers.Json.Converters;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -29,6 +31,8 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <remarks>
         /// It has to be a JSON object representing a dictionary of colors
         /// </remarks>
+        [JsonConverter(typeof(JsonToStringConverter))]
+        [JsonProperty("palette", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public String Palette { get; set; }
 
         #endregion

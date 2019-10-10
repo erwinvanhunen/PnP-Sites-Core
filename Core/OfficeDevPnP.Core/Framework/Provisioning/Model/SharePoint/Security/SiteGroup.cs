@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using OfficeDevPnP.Core.Extensions;
+using OfficeDevPnP.Core.Framework.Provisioning.Providers.Json.Converters;
 
 namespace OfficeDevPnP.Core.Framework.Provisioning.Model
 {
@@ -44,6 +46,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <summary>
         /// The list of members of the Site Group
         /// </summary>
+        [JsonConverter(typeof(UserCollectionConverter))]
         public UserCollection Members
         {
             get { return this._members; }

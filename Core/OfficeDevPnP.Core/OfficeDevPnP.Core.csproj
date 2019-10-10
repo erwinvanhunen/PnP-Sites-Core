@@ -723,6 +723,34 @@
     <Compile Include="Framework\Provisioning\ObjectHandlers\TokenDefinitions\RoleDefinitionIdToken.cs" />
     <Compile Include="Framework\Provisioning\ObjectHandlers\Utilities\FieldUpdateValue.cs" />
     <Compile Include="Framework\Provisioning\ObjectHandlers\Utilities\FileUtilities.cs" />
+    <Compile Include="Framework\Provisioning\Providers\Json\Converters\AuditMaskTypeConverter.cs" />
+    <Compile Include="Framework\Provisioning\Providers\Json\Converters\CanvasControlConverter.cs" />
+    <Compile Include="Framework\Provisioning\Providers\Json\Converters\NullToDefaultConverter.cs" />
+    <Compile Include="Framework\Provisioning\Providers\Json\Converters\StringToIntConverter.cs" />
+    <Compile Include="Framework\Provisioning\Providers\Json\Converters\SupportedUILanguageCollectionConverter.cs" />
+    <Compile Include="Framework\Provisioning\Providers\Json\Converters\AppCatalogConverter.cs" />
+    <Compile Include="Framework\Provisioning\Providers\Json\Converters\AlternateUICultureCollectionConverter.cs" />
+    <Compile Include="Framework\Provisioning\Providers\Json\Converters\CalendarTypeConverter.cs" />
+    <Compile Include="Framework\Provisioning\Providers\Json\Converters\UserCustomActionRegistrationTypeConverter.cs" />
+    <Compile Include="Framework\Provisioning\Providers\Json\Converters\ListReadingDirectionConverter.cs" />
+    <Compile Include="Framework\Provisioning\Providers\Json\Converters\ListExperienceConverter.cs" />
+    <Compile Include="Framework\Provisioning\Providers\Json\Converters\StringToSecureStringConverter.cs" />
+    <Compile Include="Framework\Provisioning\Providers\Json\Converters\ArrayToCommaSeparatedStringConverter.cs" />
+    <Compile Include="Framework\Provisioning\Providers\Json\Converters\BasePermissionsConverter.cs" />
+    <Compile Include="Framework\Provisioning\Providers\Json\Converters\GlobalNavigationTypeConverter.cs" />
+    <Compile Include="Framework\Provisioning\Providers\Json\Converters\DataRowCollectionConverter.cs" />
+    <Compile Include="Framework\Provisioning\Providers\Json\Converters\CurrentNavigationTypeConverter.cs" />
+    <Compile Include="Framework\Provisioning\Providers\Json\Converters\DraftVersionVisiblityConverter.cs" />
+    <Compile Include="Framework\Provisioning\Providers\Json\Converters\FieldCollectionConverter.cs" />
+    <Compile Include="Framework\Provisioning\Providers\Json\Converters\JsonToStringConverter.cs" />
+    <Compile Include="Framework\Provisioning\Providers\Json\Converters\SiteCollectionCollectionConverter.cs" />
+    <Compile Include="Framework\Provisioning\Providers\Json\Converters\SubSiteConverter.cs" />
+    <Compile Include="Framework\Provisioning\Providers\Json\Converters\TeamAppInstanceCollectionConverter.cs" />
+    <Compile Include="Framework\Provisioning\Providers\Json\Converters\TeamSecurityUserCollectionConverter.cs" />
+    <Compile Include="Framework\Provisioning\Providers\Json\Converters\WebTemplateTypeConverter.cs" />
+    <Compile Include="Framework\Provisioning\Providers\Json\Converters\XElementConverter.cs" />
+    <Compile Include="Framework\Provisioning\Providers\Json\Converters\UserCollectionConverter.cs" />
+    <Compile Include="Framework\Provisioning\Providers\Json\Resolvers\IgnoreEmptyEnumerableResolver.cs" />
     <Compile Include="Framework\Provisioning\Providers\Xml\ProvisioningSchema-2019-09.cs">
       <DependentUpon>ProvisioningSchema-2019-09.xsd</DependentUpon>
     </Compile>
@@ -1149,7 +1177,6 @@
     <Compile Include="Framework\Provisioning\ObjectHandlers\TokenDefinitions\SiteToken.cs" />
     <Compile Include="Framework\Provisioning\ObjectHandlers\TokenParser.cs" />
     <Compile Include="Framework\Provisioning\Providers\ITemplateFormatter.cs" />
-    <Compile Include="Framework\Provisioning\Providers\Json\BasePermissionsConverter.cs" />
     <Compile Include="Framework\Provisioning\Providers\Json\JsonAzureStorageTemplateProvider.cs" />
     <Compile Include="Framework\Provisioning\Providers\Json\JsonFileSystemTemplateProvider.cs" />
     <Compile Include="Framework\Provisioning\Providers\Json\JsonOpenXMLTemplateProvider.cs" />

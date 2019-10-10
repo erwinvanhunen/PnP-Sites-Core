@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using OfficeDevPnP.Core.Framework.Provisioning.Providers.Json.Converters;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security;
@@ -27,6 +29,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model.AzureActiveDirectory
         /// <summary>
         /// The Password for the user
         /// </summary>
+        [JsonConverter(typeof(StringToSecureStringConverter))]
         public SecureString Password { get; set; }
 
         #endregion

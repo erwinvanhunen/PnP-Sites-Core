@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,6 +18,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <summary>
         /// Defines the type of the header for the client side page
         /// </summary>
+        [JsonConverter(typeof(StringEnumConverter))]
         public ClientSidePageHeaderType Type { get; set; }
 
         /// <summary>
@@ -36,11 +39,13 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <summary>
         /// Defines the type of layout used inside the header of the current client side page
         /// </summary>
+        [JsonConverter(typeof(StringEnumConverter))]
         public ClientSidePageHeaderLayoutType LayoutType { get; set; }
 
         /// <summary>
         /// Defines the text alignment of the text in the header of the current client side page
         /// </summary>
+        [JsonConverter(typeof(StringEnumConverter))]
         public ClientSidePageHeaderTextAlignment TextAlignment { get; set; }
 
         /// <summary>

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using OfficeDevPnP.Core.Extensions;
 
 namespace OfficeDevPnP.Core.Framework.Provisioning.Model
@@ -38,6 +40,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <summary>
         /// The Level status for the File
         /// </summary>
+        [JsonConverter(typeof(StringEnumConverter))]
         public FileLevel Level { get; set; }
 
         /// <summary>
@@ -61,6 +64,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <summary>
         /// Defines the Security rules for the File
         /// </summary>
+        [JsonProperty("breakRoleInheritance")]
         public ObjectSecurity Security
         {
             get { return this._security; }
