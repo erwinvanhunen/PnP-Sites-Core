@@ -1,39 +1,32 @@
-﻿using Newtonsoft.Json;
-using OfficeDevPnP.Core.Framework.Provisioning.Model;
+﻿using OfficeDevPnP.Core.Framework.Provisioning.Model;
 using System;
 using System.Collections.Generic;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace OfficeDevPnP.Core.Framework.Provisioning.Providers.Json.Converters
 {
     internal class SupportedUILanguageCollectionConverter : JsonConverter<SupportedUILanguageCollection>
     {
-        public override SupportedUILanguageCollection ReadJson(JsonReader reader, Type objectType, SupportedUILanguageCollection existingValue, bool hasExistingValue, JsonSerializer serializer)
+        public override SupportedUILanguageCollection Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
-            if (existingValue == null)
-            {
-                existingValue = new SupportedUILanguageCollection(null);
-            }
+            var collection = new SupportedUILanguageCollection(null);
 
-            var values = serializer.Deserialize<int[]>(reader);
-            if (values != null && values.Length > 0)
+            var values = JsonSerializer.Deserialize<int[]>(ref reader, options);
+            foreach (var value in values)
             {
-                foreach (var value in values)
-                {
-                    existingValue.Add(new SupportedUILanguage() { LCID = value });
-                }
-                return existingValue;
+                collection.Add(new SupportedUILanguage() { LCID = value });
             }
-            throw new Exception("Cannot unmarshal type User");
+            return collection;
         }
 
-        public override void WriteJson(JsonWriter writer, SupportedUILanguageCollection value, JsonSerializer serializer)
+        public override void Write(Utf8JsonWriter writer, SupportedUILanguageCollection value, JsonSerializerOptions options)
         {
-            var list = new List<int>();
-            foreach (var field in value)
+            writer.WriteStartArray();
+            foreach (var v in value)
             {
-                list.Add(field.LCID);
+                writer.WriteNumberValue(v.LCID);
             }
-            serializer.Serialize(writer, list);
         }
     }
 }

@@ -1,10 +1,10 @@
-﻿using Newtonsoft.Json;
-using OfficeDevPnP.Core.Extensions;
+﻿using OfficeDevPnP.Core.Extensions;
 using OfficeDevPnP.Core.Framework.Provisioning.Providers.Json.Converters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace OfficeDevPnP.Core.Framework.Provisioning.Model.AzureActiveDirectory

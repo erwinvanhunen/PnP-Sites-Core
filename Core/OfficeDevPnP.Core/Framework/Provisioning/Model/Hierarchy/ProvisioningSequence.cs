@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using OfficeDevPnP.Core.Extensions;
+﻿using OfficeDevPnP.Core.Extensions;
 using OfficeDevPnP.Core.Framework.Provisioning.Providers.Json.Converters;
 using System;
 using System.Collections.Generic;
@@ -41,8 +40,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// </summary>
         public String ID { get; set; }
 
-        [JsonConverter(typeof(SiteCollectionCollectionConverter))]
-        public SiteCollectionCollection SiteCollections { get; private set; }
+        public SiteCollectionCollection SiteCollections { get; set; }
 
         /// <summary>
         /// Defines the TermStore to provision, if any

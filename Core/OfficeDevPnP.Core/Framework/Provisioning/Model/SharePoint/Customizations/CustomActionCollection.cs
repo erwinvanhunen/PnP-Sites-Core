@@ -19,5 +19,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         {
 
         }
+
+        public CustomActionCollection() { }
     }
 }

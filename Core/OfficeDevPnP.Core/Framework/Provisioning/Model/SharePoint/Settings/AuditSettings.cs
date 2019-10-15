@@ -1,10 +1,10 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using OfficeDevPnP.Core.Framework.Provisioning.Providers.Json.Converters;
+﻿using OfficeDevPnP.Core.Framework.Provisioning.Providers.Json.Converters;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace OfficeDevPnP.Core.Framework.Provisioning.Model
@@ -19,18 +19,19 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <summary>
         /// Audit Flags configured for the Site
         /// </summary>
-        [JsonProperty("flags")]
-        [JsonConverter(typeof(AuditMaskTypeConverter))]
+        [JsonConverter(typeof(AuditMaskTypeConverter))] // override of JsonStringEnumConverter
         public Microsoft.SharePoint.Client.AuditMaskType AuditFlags { get; set; }
 
         /// <summary>
         /// The Audit Log Trimming Retention for Audits
         /// </summary>
+        [DefaultValue(90)]
         public Int32 AuditLogTrimmingRetention { get; set; }
 
         /// <summary>
         /// A flag to enable Audit Log Trimming
         /// </summary>
+        [DefaultValue(true)]
         public Boolean TrimAuditLog { get; set; }
 
         #endregion

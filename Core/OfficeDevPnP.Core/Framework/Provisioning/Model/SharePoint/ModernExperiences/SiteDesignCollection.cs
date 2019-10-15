@@ -13,5 +13,11 @@
         {
 
         }
+
+        public SiteDesignCollection()
+        {
+
+        }
+
     }
 }

@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using OfficeDevPnP.Core.Extensions;
+﻿using OfficeDevPnP.Core.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,63 +27,54 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <summary>
         /// Declares whether the current Site Collection is the Hub Site of a new Hub
         /// </summary>
-        [JsonProperty("isHubSite")]
         public bool IsHubSite { get; set; }
 
         /// <summary>
         /// Defines the url to the logo if this site is a hubsite. Only applicable if IsHubSite is set to true.
         /// </summary>
-        [JsonProperty("hubSiteLogoUrl")]
         public string HubSiteLogoUrl { get; set; }
 
         /// <summary>
         /// Defines the url to the logo if this site is a hubsite. Only applicable if IsHubSite is set to true.
         /// </summary>
-        [JsonProperty("hubSiteTitle")]
         public string HubSiteTitle { get; set; }
 
         /// <summary>
         /// Title of the site
         /// </summary>
-        [JsonProperty("title")]
         public string Title { get; set; }
 
         /// <summary>
         /// Description of the site
         /// </summary>
-        [JsonProperty("description")]
         public string Description { get; set; }
 
         /// <summary>
         /// Defines the list of Provisioning Templates to apply to the site collection, if any
         /// </summary>
-        [JsonProperty("templates")]
         public List<String> Templates { get; internal set; }
 
         /// <summary>
         /// Defines the list of sub-sites, if any
         /// </summary>
-        [JsonProperty("sites")]
         public SubSiteCollection Sites { get; private set; }
 
         /// <summary>
         /// Defines the Theme to apply to the SiteCollection
         /// </summary>
-        [JsonProperty("theme")]
         public string Theme { get; set; }
 
         /// <summary>
         /// Internal use only
         /// </summary>
-        [JsonProperty("id")]
         public Guid Id => id;
 
         /// <summary>
         /// Defines an optional ID in the sequence for use in tokens.
         /// </summary>
-        [JsonProperty("provisioningId")]
         public string ProvisioningId { get; set; }
 
+     
         public override string ToString()
         {
             return id.ToString();
@@ -166,4 +156,5 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
 
         #endregion
     }
+
 }

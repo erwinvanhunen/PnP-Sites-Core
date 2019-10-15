@@ -247,5 +247,12 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         }
 
         #endregion
+
+        #region Json Serialization
+        public bool ShouldSerializeSiteSecurityPermissions()
+        {
+            return SiteSecurityPermissions != null && SiteSecurityPermissions.RoleAssignments.Count > 0 || SiteSecurityPermissions.RoleDefinitions.Count > 0;
+        }
+        #endregion
     }
 }

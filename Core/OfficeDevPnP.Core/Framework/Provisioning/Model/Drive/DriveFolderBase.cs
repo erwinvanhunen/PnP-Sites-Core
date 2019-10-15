@@ -1,10 +1,7 @@
-﻿using Newtonsoft.Json;
-using OfficeDevPnP.Core.Extensions;
+﻿using OfficeDevPnP.Core.Extensions;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Text.Json.Serialization;
 
 namespace OfficeDevPnP.Core.Framework.Provisioning.Model.Drive
 {
@@ -18,14 +15,14 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model.Drive
         /// <summary>
         /// Defines a collection of DriveFolder items
         /// </summary>
-        [JsonProperty("folders")]
-        public DriveFolderCollection DriveFolders { get; private set; }
+        [JsonPropertyName("folders")]
+        public DriveFolderCollection DriveFolders { get; set; }
 
         /// <summary>
         /// Defines a collection of DriveFile items
         /// </summary>
-        [JsonProperty("files")]
-        public DriveFileCollection DriveFiles { get; private set; }
+        [JsonPropertyName("files")]
+        public DriveFileCollection DriveFiles { get; set; }
 
         #endregion
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace OfficeDevPnP.Core.Framework.Provisioning.Model
@@ -11,6 +12,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <summary>
         /// Gets or sets the Site Logo
         /// </summary>
+        [JsonIgnore]
         [Obsolete("Instead of this member, please use SiteLogo property of the WebSettings object. This method will be removed in the June 2016 release.")]
         public string SiteLogo
         {
@@ -43,6 +45,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <summary>
         /// Gets or sets the AlternateCSS
         /// </summary>
+        [JsonIgnore]
         [Obsolete("Instead of this member, please use AlternateCSS property of the WebSettings object. This method will be removed in the June 2016 release.")]
         public string AlternateCSS
         {
@@ -75,6 +78,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <summary>
         /// Gets or sets the MasterPage for the Composed Look
         /// </summary>
+        [JsonIgnore]
         [Obsolete("Instead of this member, please use MasterPageUrl property of the WebSettings object. This method will be removed in the June 2016 release.")]
         public string MasterPage
         {

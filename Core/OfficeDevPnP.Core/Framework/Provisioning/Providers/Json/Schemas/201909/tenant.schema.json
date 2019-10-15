@@ -1,0 +1,2060 @@
+{
+    "$schema":"http://json-schema.org/draft-07/schema",
+    "version":"201909",
+    "title": "Provisioning Engine Template",
+    "description": "Defines the configuration to use when applying a template to a site",
+    "type": "object",
+    "additionalProperties": false,
+    "required": [],
+    "definitions": {
+        "cdn": {
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "type": "boolean"
+                },
+                "noDefaultOrigins": {
+                    "type": "boolean"
+                },
+                "origins": {
+                    "type": "array",
+                    "minItems": 0,
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "url": {
+                                "type": "string"
+                            },
+                            "action": {
+                                "type": "string",
+                                "enum": [
+                                    "Add",
+                                    "Remove"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "includeFileExtensions": {
+                    "type": "array",
+                    "minItems": 0,
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "excludeRestrictedSiteClassifications": {
+                    "type": "array",
+                    "minItems": 0,
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "excludeIfNoScriptDisabled": {
+                    "type": "array",
+                    "minItems": 0,
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "theme": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "isInverted": {
+                    "type": "boolean"
+                },
+                "overwrite": {
+                    "type": "boolean"
+                },
+                "values": {
+                    "type": "object"
+                }
+            }
+        },
+        "calendarType": {
+            "type": "string",
+            "enum": [
+                "None",
+                "Gregorian",
+                "Japan",
+                "Taiwan",
+                "Korea",
+                "Hijri",
+                "Thai",
+                "Hebrew",
+                "Gregorian Middle East French Calendar",
+                "Gregorian Arabic Calendar",
+                "Gregorian Transliterated English Calendar",
+                "Gregorian Transliterated French Calendar",
+                "Korea and Japanese Lunar",
+                "Chinese Lunar",
+                "Saka Era",
+                "Umm al-Qura"
+            ]
+        },
+        "hours": {
+            "type": "string",
+            "enum": [
+                "AM1200",
+                "AM0100",
+                "AM0200",
+                "AM0300",
+                "AM0400",
+                "AM0500",
+                "AM0600",
+                "AM0700",
+                "AM0800",
+                "AM0900",
+                "AM1000",
+                "AM1100",
+                "PM1200",
+                "PM0100",
+                "PM0200",
+                "PM0300",
+                "PM0400",
+                "PM0500",
+                "PM0600",
+                "PM0700",
+                "PM0800",
+                "PM0900",
+                "PM1000",
+                "PM1100"
+            ]
+        },
+        "userlist": {
+            "type": "array",
+            "minItems": 0,
+            "items": {
+                "type": "string"
+            }
+        },
+        "navigationNodes": {
+            "type": "array",
+            "minItems": 0,
+            "items": {
+                "type": "object",
+                "properties": {
+                    "title": {
+                        "type": "string"
+                    },
+                    "isExternal": {
+                        "type": "boolean"
+                    },
+                    "url": {
+                        "type": "string"
+                    },
+                    "nodes": {
+                        "$ref": "#/definitions/navigationNodes"
+                    }
+                }
+            }
+        },
+        "currentNavigation": {
+            "type": "object",
+            "properties": {
+                "navigationType": {
+                    "type": "string",
+                    "enum": [
+                        "Inherit",
+                        "Structural",
+                        "StructuralLocal",
+                        "Managed"
+                    ]
+                },
+                "managedNavigation": {
+                    "type": "object",
+                    "properties": {
+                        "termStoreId": {
+                            "type": "string"
+                        },
+                        "termSetId": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "structuralNavigation": {
+                    "type": "object",
+                    "properties": {
+                        "removeExistingNodes": {
+                            "type": "boolean"
+                        },
+                        "nodes": {
+                            "$ref": "#/definitions/navigationNodes"
+                        }
+                    }
+                }
+            }
+        },
+        "globalNavigation": {
+            "type": "object",
+            "properties": {
+                "navigationType": {
+                    "type": "string",
+                    "enum": [
+                        "Structural",
+                        "Managed",
+                        "Inherit"
+                    ]
+                },
+                "managedNavigation": {
+                    "type": "object",
+                    "properties": {
+                        "termStoreId": {
+                            "type": "string"
+                        },
+                        "termSetId": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "structuralNavigation": {
+                    "type": "object",
+                    "properties": {
+                        "removeExistingNodes": {
+                            "type": "boolean"
+                        },
+                        "nodes": {
+                            "$ref": "#/definitions/navigationNodes"
+                        }
+                    }
+                }
+            }
+        },
+        "propertyBagEntry": {
+            "type": "object",
+            "required": [
+                "key",
+                "value"
+            ],
+            "properties": {
+                "key": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": "string"
+                },
+                "overwrite": {
+                    "description": "Declares whether the Property Bag Entry has to overwrite an already existing entry.",
+                    "type": "boolean"
+                },
+                "indexed": {
+                    "description": "Declares whether the Property Bag Entry has to be indexed.",
+                    "type": "boolean"
+                }
+            }
+        },
+        "breakRoleInheritance": {
+            "type": "object",
+            "properties": {
+                "copyRoleAssignments": {
+                    "type": "boolean"
+                },
+                "clearSubScopes": {
+                    "type": "boolean"
+                },
+                "roleAssignments": {
+                    "type": "array",
+                    "minItems": 0,
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "principal": {
+                                "type": "string"
+                            },
+                            "roleDefinition": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "basePermissions": {
+            "type": "array",
+            "minItems": 0,
+            "items": {
+                "type": "string",
+                "enum": [
+                    "ViewListItems",
+                    "AddListItems",
+                    "EditListItems",
+                    "DeleteListItems",
+                    "ApproveItems",
+                    "OpenItems",
+                    "ViewVersions",
+                    "DeleteVersions",
+                    "CancelCheckout",
+                    "ManagePersonalViews",
+                    "ManageLists",
+                    "ViewFormPages",
+                    "AnonymousSearchAccessList",
+                    "Open",
+                    "ViewPages",
+                    "AddAndCustomizePages",
+                    "ApplyThemeAndBorder",
+                    "ApplyStyleSheets",
+                    "ViewUsageData",
+                    "CreateSSCSite",
+                    "ManageSubwebs",
+                    "CreateGroups",
+                    "ManagePermissions",
+                    "BrowseDirectories",
+                    "BrowseUserInfo",
+                    "AddDelPrivateWebParts",
+                    "UpdatePersonalWebParts",
+                    "ManageWeb",
+                    "AnonymousSearchAccessWebLists",
+                    "UseClientIntegration",
+                    "UseRemoteAPIs",
+                    "ManageAlerts",
+                    "CreateAlerts",
+                    "EditMyUserInfo",
+                    "EnumeratePermissions",
+                    "FullMask"
+                ]
+            }
+        },
+        "folder": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "contentTypeId": {
+                    "type": "string",
+                    "pattern": "0x[a-zA-Z0-9]+"
+                },
+                "propertyBagEntries": {
+                    "type": "array",
+                    "minItems": 0,
+                    "items": {
+                        "$ref": "#/definitions/propertyBagEntry"
+                    }
+                },
+                "properties": {
+                    "type": "object",
+                    "patternProperties": {
+                        ".*": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "defaultColumnValues": {
+                    "type": "object",
+                    "patternProperties": {
+                        ".*": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "breakRoleInheritance": {
+                    "$ref": "#/definitions/breakRoleInheritance"
+                },
+                "folders": {
+                    "type": "array",
+                    "minItems": 0,
+                    "items": {
+                        "$ref": "#/definitions/folder"
+                    }
+                }
+            }
+        },
+        "keyValuePair": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "key": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": "string"
+                }
+            }
+        },
+        "userCustomAction": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "registrationType": {
+                    "type": "string",
+                    "enum": [
+                        "None",
+                        "List",
+                        "ContentType",
+                        "ProgId",
+                        "FileType"
+                    ]
+                },
+                "registrationId": {
+                    "type": "string"
+                },
+                "location": {
+                    "type": "string"
+                },
+                "sequence": {
+                    "type": "integer"
+                },
+                "rights": {
+                    "$ref": "#/definitions/basePermissions"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "url": {
+                    "type": "string"
+                },
+                "enabled": {
+                    "type": "boolean"
+                },
+                "clientSideComponentId": {
+                    "type": "string"
+                },
+                "clientSideComponentProperties": {
+                    "type": "string"
+                },
+                "group": {
+                    "type": "string"
+                },
+                "imageUrl": {
+                    "type": "string"
+                },
+                "remove": {
+                    "type": "boolean"
+                },
+                "scriptBlock": {
+                    "type": "string"
+                },
+                "scriptSrc": {
+                    "type": "string"
+                }
+            }
+        },
+        "feature": {
+            "type": "object",
+            "required": [
+                "id"
+            ],
+            "additionalItems": false,
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "deactivate": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "file": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+                "src",
+                "folder"
+            ],
+            "properties": {
+                "src": {
+                    "type": "string"
+                },
+                "folder": {
+                    "type": "string"
+                },
+                "overwrite": {
+                    "type": "boolean"
+                },
+                "targetFileName": {
+                    "type": "string"
+                },
+                "breakRoleInheritance": {
+                    "$ref": "#/definitions/breakRoleInheritance"
+                },
+                "properties": {
+                    "type": "object",
+                    "patternProperties": {
+                        ".*": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "level": {
+                    "type": "string",
+                    "enum": [
+                        "Published",
+                        "Draft",
+                        "Checkout"
+                    ]
+                }
+            }
+        },
+        "directory": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+                "src",
+                "folder"
+            ],
+            "properties": {
+                "src": {
+                    "type": "string"
+                },
+                "folder": {
+                    "type": "string"
+                },
+                "overwrite": {
+                    "type": "boolean"
+                },
+                "recursive": {
+                    "type": "boolean"
+                },
+                "includedExtensions": {
+                    "type": "string"
+                },
+                "excludedExtensions": {
+                    "type": "string"
+                },
+                "metadataMappingFile": {
+                    "type": "string"
+                },
+                "breakRoleInheritance": {
+                    "$ref": "#/definitions/breakRoleInheritance"
+                },
+                "level": {
+                    "type": "string",
+                    "enum": [
+                        "Published",
+                        "Draft",
+                        "Checkout"
+                    ]
+                }
+            }
+        },
+        "termGroups": {
+            "type": "array",
+            "minItems": 0,
+            "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "description": "the name of the term group to create or update",
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "siteCollectionTermGroup": {
+                        "type": "boolean"
+                    },
+                    "updateBehavior": {
+                        "type": "string",
+                        "enum": [
+                            "Overwrite",
+                            "Skip"
+                        ]
+                    },
+                    "termSets": {
+                        "type": "array",
+                        "minItems": 0,
+                        "items": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "properties": {
+                                "name": {
+                                    "type": "string"
+                                },
+                                "id": {
+                                    "type": "string"
+                                },
+                                "language": {
+                                    "type": "integer"
+                                },
+                                "description": {
+                                    "type": "string"
+                                },
+                                "isAvailableForTagging": {
+                                    "type": "boolean"
+                                },
+                                "isOpenForTermCreation": {
+                                    "type": "boolean"
+                                },
+                                "owner": {
+                                    "type": "string"
+                                },
+                                "terms": {
+                                    "$ref": "#/definitions/terms"
+                                },
+                                "properties": {
+                                    "type": "object",
+                                    "patternProperties": {
+                                        ".*": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "contributors": {
+                        "type": "array",
+                        "minItems": 0,
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "managers": {
+                        "type": "array",
+                        "minItems": 0,
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "terms": {
+            "type": "array",
+            "minItems": 0,
+            "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "string"
+                    },
+                    "customSortOrder": {
+                        "type": "integer"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "isAvailableForTagging": {
+                        "type": "boolean"
+                    },
+                    "isDeprecated": {
+                        "type": "boolean"
+                    },
+                    "isPinned": {
+                        "type": "boolean"
+                    },
+                    "isPinnedRoot": {
+                        "type": "boolean"
+                    },
+                    "isReused": {
+                        "type": "boolean"
+                    },
+                    "isSourceTerm": {
+                        "type": "boolean"
+                    },
+                    "language": {
+                        "type": "integer"
+                    },
+                    "owner": {
+                        "type": "string"
+                    },
+                    "reuseChildren": {
+                        "type": "boolean"
+                    },
+                    "sourceTermId": {
+                        "type": "string"
+                    },
+                    "properties": {
+                        "type": "object",
+                        "patternProperties": {
+                            ".*": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "localProperties": {
+                        "type": "object",
+                        "patternProperties": {
+                            ".*": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "labels": {
+                        "type": "array",
+                        "minItems": 0,
+                        "items": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "properties": {
+                                "language": {
+                                    "type": "integer"
+                                },
+                                "value": {
+                                    "type": "string"
+                                },
+                                "isDefaultForLanguage": {
+                                    "type": "boolean"
+                                }
+                            }
+                        }
+                    },
+                    "terms": {
+                        "$ref": "#/definitions/terms"
+                    }
+                }
+            }
+        },
+        "baseClientSidePage": {
+            "type": "object",
+            "properties": {
+                "pageName": {
+                    "type": "string"
+                },
+                "promoteAsTemplate": {
+                    "type": "boolean"
+                },
+                "promoteAsNewsArticle": {
+                    "type": "boolean"
+                },
+                "overwrite": {
+                    "type": "boolean"
+                },
+                "publish": {
+                    "type": "boolean"
+                },
+                "layout": {
+                    "type": "string",
+                    "enum": [
+                        "Article",
+                        "Home",
+                        "SingleWebPartAppPage",
+                        "RepostPage"
+                    ]
+                },
+                "enableComments": {
+                    "type": "boolean"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "contentTypeId": {
+                    "type": "string"
+                },
+                "thumbnailUrl": {
+                    "type": "string"
+                },
+                "header": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "type": {
+                            "type": "string",
+                            "enum": [
+                                "None",
+                                "Default",
+                                "Custom"
+                            ]
+                        },
+                        "serverRelativeImageUrl": {
+                            "type": "string"
+                        },
+                        "translateX": {
+                            "type": "number"
+                        },
+                        "translateY": {
+                            "type": "number"
+                        },
+                        "layoutType": {
+                            "type": "string",
+                            "enum": [
+                                "FullWidthImage",
+                                "NoImage",
+                                "ColorBlock",
+                                "CutInShape"
+                            ]
+                        },
+                        "textAlignment": {
+                            "type": "string",
+                            "enum": [
+                                "Center",
+                                "Left"
+                            ]
+                        },
+                        "alternativeText": {
+                            "type": "string"
+                        },
+                        "authors": {
+                            "type": "string"
+                        },
+                        "authorByLine": {
+                            "type": "string"
+                        },
+                        "authorByLineId": {
+                            "type": "integer"
+                        },
+                        "showPublishDate": {
+                            "type": "boolean"
+                        },
+                        "showTopicHeader": {
+                            "type": "boolean"
+                        },
+                        "topicHeader": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "sections": {
+                    "type": "array",
+                    "minItems": 0,
+                    "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "properties": {
+                            "order": {
+                                "type": "number"
+                            },
+                            "type": {
+                                "type": "string",
+                                "enum": [
+                                    "OneColumn",
+                                    "OneColumnFullWidth",
+                                    "TwoColumn",
+                                    "ThreeColumn",
+                                    "TwoColumnLeft",
+                                    "TwoColumnRight",
+                                    "OneColumnVerticalSection",
+                                    "TwoColumnVerticalSection",
+                                    "ThreeColumnVerticalSection",
+                                    "TwoColumnLeftVerticalSection",
+                                    "TwoColumnRightVerticalSection"
+                                ]
+                            },
+                            "backgroundEmphasis": {
+                                "$ref": "#/definitions/backgroundEmphasis"
+                            },
+                            "verticalSectionEmphasis": {
+                                "$ref": "#/definitions/backgroundEmphasis"
+                            },
+                            "controls": {
+                                "type": "array",
+                                "minItems": 0,
+                                "items": {
+                                    "type": "object",
+                                    "additionalProperties": false,
+                                    "properties": {
+                                        "type": {
+                                            "type": "string",
+                                            "enum": [
+                                                "Custom",
+                                                "Text",
+                                                "BingMap",
+                                                "Button",
+                                                "CallToAction",
+                                                "ClientWebPart",
+                                                "CodeSnippet",
+                                                "ContentEmbed",
+                                                "ContentRollup",
+                                                "CountDown",
+                                                "CustomMessageRegion",
+                                                "Divider",
+                                                "DocumentEmbed",
+                                                "Events",
+                                                "GroupCalendar",
+                                                "Hero",
+                                                "Image",
+                                                "ImageGallery",
+                                                "LinkPreview",
+                                                "List",
+                                                "ListProperties",
+                                                "MarkDown",
+                                                "MicrosoftForms",
+                                                "MyDocuments",
+                                                "News",
+                                                "NewsFeed",
+                                                "NewsReel",
+                                                "PageFields",
+                                                "PageTitle",
+                                                "People",
+                                                "Planner",
+                                                "PowerApps",
+                                                "PowerBIReportEmbed",
+                                                "QuickChart",
+                                                "QuickLinks",
+                                                "SiteActivity",
+                                                "Sites",
+                                                "Spacer",
+                                                "ThirdParty",
+                                                "VideoEmbed",
+                                                "Weather",
+                                                "YammerEmbed",
+                                                "YammerFullFeed",
+                                                "YouTube"
+                                            ]
+                                        },
+                                        "customWebPartName": {
+                                            "type": "string"
+                                        },
+                                        "controlData": {
+                                            "type": "object",
+                                            "minProperties": 1
+                                        },
+                                        "controlId": {
+                                            "type": "string"
+                                        },
+                                        "order": {
+                                            "type": "number"
+                                        },
+                                        "column": {
+                                            "type": "number"
+                                        },
+                                        "controlProperties": {
+                                            "type": "object",
+                                            "patternProperties": {
+                                                ".*": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "fieldValues": {
+                    "type": "object",
+                    "patternProperties": {
+                        ".*": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "breakRoleInheritance": {
+                    "$ref": "#/definitions/breakRoleInheritance"
+                },
+                "properties": {
+                    "type": "object",
+                    "patternProperties": {
+                        ".*": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "clientSidePage": {
+            "allOf": [
+                {
+                    "$ref": "#/definitions/baseClientSidePage"
+                }
+            ],
+            "properties": {
+                "createTranslations": {
+                    "type": "boolean"
+                },
+                "translations": {
+                    "type": "array",
+                    "minItems": 0,
+                    "items": {
+                        "$ref": "#/definitions/baseClientSidePage"
+                    }
+                }
+            }
+        },
+        "backgroundEmphasis": {
+            "type": "string",
+            "enum": [
+                "None",
+                "Neutral",
+                "Soft",
+                "Strong"
+            ]
+        },
+        "footerLink": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "displayName": {
+                    "type": "string"
+                },
+                "url": {
+                    "type": "string"
+                },
+                "footerLinks": {
+                    "type": "array",
+                    "minItems": 0,
+                    "items": {
+                        "$ref": "#/definitions/footerLink"
+                    }
+                }
+            }
+        },
+        "sequenceSubSite": {
+            "type": "object",
+            "properties": {
+                "provisioningId": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "url": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "timeZoneId": {
+                    "type": "integer"
+                },
+                "language": {
+                    "type": "integer"
+                },
+                "theme": {
+                    "type": "string"
+                },
+                "quickLaunchEnabled": {
+                    "type": "boolean"
+                },
+                "useSamePermissionsAsParentSite": {
+                    "type": "boolean"
+                },
+                "templates": {
+                    "type": "array",
+                    "minItems": 0,
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "sites": {
+                    "type": "array",
+                    "minItems": 0,
+                    "items": {
+                        "$ref": "#/definitions/sequenceSubSite"
+                    }
+                }
+            }
+        },
+        "sequenceSiteCollection": {
+            "type": "object",
+            "required": ["type"],
+            "properties": {
+                "type": {
+                    "type": "string",
+                    "enum": [
+                        "CommunicationSite",
+                        "TeamSite",
+                        "TeamSiteNoGroup"
+                    ]
+                },
+                "provisioningId": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "owner": {
+                    "type": "string"
+                },
+                "theme": {
+                    "type": "string"
+                },
+                "isHubSite": {
+                    "type": "boolean"
+                },
+                "hubSiteLogoUrl": {
+                    "type": "string"
+                },
+                "hubSiteTitle": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "classification": {
+                    "type": "string"
+                },
+                "templates": {
+                    "type": "array",
+                    "minItems": 0,
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "sites": {
+                    "type": "array",
+                    "minItems": 0,
+                    "items": {
+                        "$ref": "#/definitions/sequenceSubSite"
+                    }
+                }
+            },
+            "if": {
+                "properties": {
+                    "type": {
+                        "const": "CommunicationSite"
+                    }
+                }
+            },
+            "then": {
+                "$comment": "CommunicationSite Properties",
+                "properties": {
+                    "url": {
+                        "type": "string"
+                    },
+                    "siteDesign": {
+                        "type": "string"
+                    },
+                    "allowFileSharingForGuestUsers": {
+                        "type": "boolean"
+                    },
+                    "language": {
+                        "type": "integer"
+                    }
+                }
+            },
+            "else": {
+                "if": {
+                    "properties": {
+                        "type": {
+                            "const": "TeamSiteNoGroup"
+                        }
+                    }
+                },
+                "then": {
+                    "$comment": "TeamSiteNoGroup Properties"
+                },
+                "else": {
+                    "$comment": "TeamSite Properties",
+                    "properties": {
+                        "alias": {
+                            "type": "string"
+                        },
+                        "teamify": {
+                            "type": "boolean"
+                        },
+                        "hideTeamify": {
+                            "type": "boolean"
+                        },
+                        "groupLifecyclePolicyId": {
+                            "type": "string"
+                        },
+                        "isPublic": {
+                            "type": "boolean"
+                        }
+                    }
+                }
+            }
+        },
+        "driveFile": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "src": {
+                    "type": "string"
+                },
+                "overwrite": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "driveFolder": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "src": {
+                    "type": "string"
+                },
+                "overwrite": {
+                    "type": "boolean"
+                },
+                "recursive": {
+                    "type": "boolean"
+                },
+                "includedExtensions": {
+                    "type": "string"
+                },
+                "excludedExtensions": {
+                    "type": "string"
+                },
+                "folders": {
+                    "type": "array",
+                    "minItems": 0,
+                    "items": {
+                        "$ref": "#/definitions/driveFolder"
+                    }
+                },
+                "files": {
+                    "type": "array",
+                    "minItems": 0,
+                    "items": {
+                        "$ref": "#/definitions/driveFile"
+                    }
+                }
+            }
+        }
+    },
+    "properties": {
+        "$schema": {
+            "type": "string"
+        },
+        "version": {
+            "description": "The version number.",
+            "type": "number"
+        },
+        "author": {
+            "type": "string"
+        },
+        "generator": {
+            "type": "string"
+        },
+        "description": {
+            "type": "string"
+        },
+        "displayName": {
+            "type": "string"
+        },
+        "imagePreviewUrl": {
+            "type": "string"
+        },
+        "id": {
+            "type": "string"
+        },
+        "parameters": {
+            "type": "object",
+            "patternProperties": {
+                ".*": {
+                    "type": "string"
+                }
+            }
+        },
+        "localizations": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "required": [
+                    "lcid",
+                    "name",
+                    "resourceFile"
+                ],
+                "properties": {
+                    "lcid": {
+                        "type": "number"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "resourceFile": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "tenant": {
+            "type": "object",
+            "properties": {
+                "siteDesigns": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "isDefault": {
+                                "type": "boolean"
+                            },
+                            "title": {
+                                "type": "string"
+                            },
+                            "description": {
+                                "type": "string"
+                            },
+                            "previewImageUrl": {
+                                "type": "string"
+                            },
+                            "previewImageAltText": {
+                                "type": "string"
+                            },
+                            "webTemplate": {
+                                "type": "string",
+                                "enum": [
+                                    "CommunicationSite",
+                                    "TeamSite"
+                                ]
+                            },
+                            "overwrite": {
+                                "type": "boolean"
+                            },
+                            "siteScripts": {
+                                "type": "array",
+                                "minItems": 0,
+                                "items": {
+                                    "type": "string"
+                                }
+                            },
+                            "grants": {
+                                "type": "array",
+                                "minItems": 0,
+                                "items": {
+                                    "type": "object",
+                                    "properties": {
+                                        "principal": {
+                                            "type": "string"
+                                        },
+                                        "right": {
+                                            "type": "string",
+                                            "enum": [
+                                                "View",
+                                                "None"
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "siteScripts": {
+                    "type": "array",
+                    "minItems": 0,
+                    "items": {
+                        "type": "object",
+                        "required": [
+                            "title",
+                            "jsonFilePath"
+                        ],
+                        "properties": {
+                            "title": {
+                                "type": "string"
+                            },
+                            "description": {
+                                "type": "string"
+                            },
+                            "jsonFilePath": {
+                                "type": "string"
+                            },
+                            "overwrite": {
+                                "type": "boolean"
+                            }
+                        }
+                    }
+                },
+                "storageEntities": {
+                    "type": "array",
+                    "minItems": 0,
+                    "items": {
+                        "type": "object",
+                        "required": [
+                            "key",
+                            "value"
+                        ],
+                        "properties": {
+                            "key": {
+                                "type": "string"
+                            },
+                            "value": {
+                                "type": "string"
+                            },
+                            "comment": {
+                                "type": "string"
+                            },
+                            "description": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                },
+                "appCatalog": {
+                    "type": "array",
+                    "minItems": 0,
+                    "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                            "action"
+                        ],
+                        "anyOf": [
+                            {
+                                "required": [
+                                    "src"
+                                ]
+                            },
+                            {
+                                "required": [
+                                    "packageId"
+                                ]
+                            }
+                        ],
+                        "properties": {
+                            "src": {
+                                "type": "string"
+                            },
+                            "packageId": {
+                                "type": "string"
+                            },
+                            "action": {
+                                "type": "string",
+                                "enum": [
+                                    "Upload",
+                                    "Publish",
+                                    "UploadAndPublish",
+                                    "Remove"
+                                ]
+                            },
+                            "skipFeatureDeployment": {
+                                "type": "boolean"
+                            },
+                            "overwrite": {
+                                "type": "boolean"
+                            }
+                        }
+                    }
+                },
+                "webApiPermissions": {
+                    "type": "array",
+                    "minItems": 0,
+                    "items": {
+                        "type": "object",
+                        "required": [
+                            "resource",
+                            "scope"
+                        ],
+                        "properties": {
+                            "resource": {
+                                "type": "string"
+                            },
+                            "scope": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                },
+                "contentDeliveryNetwork": {
+                    "type": "object",
+                    "properties": {
+                        "public": {
+                            "$ref": "#/definitions/cdn"
+                        },
+                        "private": {
+                            "$ref": "#/definitions/cdn"
+                        }
+                    }
+                },
+                "themes": {
+                    "type": "array",
+                    "minItems": 0,
+                    "items": {
+                        "$ref": "#/definitions/theme"
+                    }
+                },
+                "spUserProfiles": {
+                    "type": "array",
+                    "minItems": 0,
+                    "items": {
+                        "type": "object",
+                        "required": [
+                            "targetUser",
+                            "values"
+                        ],
+                        "properties": {
+                            "targetUser": {
+                                "type": "string"
+                            },
+                            "values": {
+                                "type": "object",
+                                "patternProperties": {
+                                    ".*": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "office365GroupLifeCyclePolicies": {
+                    "type": "array",
+                    "minItems": 0,
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "id": {
+                                "type": "string"
+                            },
+                            "groupLifeTimeInDays": {
+                                "type": "number"
+                            },
+                            "alternateNotificationEmails": {
+                                "type": "array",
+                                "minItems": 0,
+                                "items": {
+                                    "type": "string"
+                                }
+                            },
+                            "managedGroupTypes": {
+                                "type": "string",
+                                "enum": [
+                                    "All",
+                                    "Selected",
+                                    "None"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "office365GroupSettings": {
+                    "type": "object",
+                    "patternProperties": {
+                        ".*": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "templates": {
+            "type":"array",
+            "items":{
+                "$ref":"site.schema.json"
+            }
+        },
+        "sequences": {
+            "type": "array",
+            "minItems": 0,
+            "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "siteCollections": {
+                        "type": "array",
+                        "minItems": 0,
+                        "items": {
+                            "$ref": "#/definitions/sequenceSiteCollection"
+                        }
+                    },
+                    "termStore": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "properties": {
+                            "termGroups": {
+                                "$ref": "#/definitions/termGroups"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "teams": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "teamTemplates": {
+                    "type": "array",
+                    "minItems": 0,
+                    "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "properties": {
+                            "displayName": {
+                                "type": "string"
+                            },
+                            "description": {
+                                "type": "string"
+                            },
+                            "classification": {
+                                "type": "string"
+                            },
+                            "visibility": {
+                                "type": "string",
+                                "enum": [
+                                    "Public",
+                                    "Private"
+                                ]
+                            },
+                            "jsonTemplate": {
+                                "type": "object",
+                                "minProperties": 1
+                            }
+                        }
+                    }
+                },
+                "teams": {
+                    "type": "array",
+                    "minItems": 0,
+                    "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "properties": {
+                            "groupId": {
+                                "type": "string"
+                            },
+                            "displayName": {
+                                "type": "string"
+                            },
+                            "description": {
+                                "type": "string"
+                            },
+                            "specialization": {
+                                "type": "string",
+                                "enum": [
+                                    "None",
+                                    "EducationStandard",
+                                    "EducationClass",
+                                    "EducationProfessionalLearningCommunity",
+                                    "EducationStaff"
+                                ]
+                            },
+                            "targetSiteUrl": {
+                                "type": "string"
+                            },
+                            "provisioningTemplateId": {
+                                "type": "string"
+                            },
+                            "classification": {
+                                "type": "string"
+                            },
+                            "archived": {
+                                "type": "boolean"
+                            },
+                            "photo": {
+                                "type": "string"
+                            },
+                            "visibility": {
+                                "type": "string",
+                                "enum": [
+                                    "Public",
+                                    "Private"
+                                ]
+                            },
+                            "cloneFrom": {
+                                "type": "string"
+                            },
+                            "mailNickname": {
+                                "type": "string"
+                            },
+                            "security": {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "properties": {
+                                    "allowToAddGuests": {
+                                        "type": "boolean"
+                                    },
+                                    "clearExistingOwners": {
+                                        "type": "boolean"
+                                    },
+                                    "clearExistingMembers": {
+                                        "type": "boolean"
+                                    },
+                                    "owners": {
+                                        "type": "array",
+                                        "minItems": 0,
+                                        "items": {
+                                            "type": "string",
+                                            "format": "email"
+                                        }
+                                    },
+                                    "members": {
+                                        "type": "array",
+                                        "minItems": 0,
+                                        "items": {
+                                            "type": "string",
+                                            "format": "email"
+                                        }
+                                    }
+                                }
+                            },
+                            "funSettings": {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "properties": {
+                                    "allowGiphy": {
+                                        "type": "boolean"
+                                    },
+                                    "giphyContentRating": {
+                                        "type": "string",
+                                        "enum": [
+                                            "moderate",
+                                            "strict"
+                                        ]
+                                    },
+                                    "allowStickersAndMemes": {
+                                        "type": "boolean"
+                                    },
+                                    "allowCustomMemes": {
+                                        "type": "boolean"
+                                    }
+                                }
+                            },
+                            "guestSettings": {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "properties": {
+                                    "allowCreateUpdateChannels": {
+                                        "type": "boolean"
+                                    },
+                                    "allowDeleteChannels": {
+                                        "type": "boolean"
+                                    }
+                                }
+                            },
+                            "memberSettings": {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "properties": {
+                                    "allowCreateUpdateChannels": {
+                                        "type": "boolean"
+                                    },
+                                    "allowDeleteChannels": {
+                                        "type": "boolean"
+                                    },
+                                    "allowAddRemoveApps": {
+                                        "type": "boolean"
+                                    },
+                                    "allowCreateUpdateRemoveConnectors": {
+                                        "type": "boolean"
+                                    },
+                                    "allowCreateUpdateRemoveTabs": {
+                                        "type": "boolean"
+                                    }
+                                }
+                            },
+                            "messagingSettings": {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "properties": {
+                                    "allowUserEditMessages": {
+                                        "type": "boolean"
+                                    },
+                                    "allowUserDeleteMessages": {
+                                        "type": "boolean"
+                                    },
+                                    "allowOwnerDeleteMessages": {
+                                        "type": "boolean"
+                                    },
+                                    "allowTeamMentions": {
+                                        "type": "boolean"
+                                    },
+                                    "allowChannelMentions": {
+                                        "type": "boolean"
+                                    }
+                                }
+                            },
+                            "discoverySettings": {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "properties": {
+                                    "showInTeamsSearchAndSuggestions": {
+                                        "type": "boolean"
+                                    }
+                                }
+                            },
+                            "channels": {
+                                "type": "array",
+                                "minItems": 0,
+                                "items": {
+                                    "type": "object",
+                                    "additionalProperties": false,
+                                    "properties": {
+                                        "displayName": {
+                                            "type": "string"
+                                        },
+                                        "description": {
+                                            "type": "string"
+                                        },
+                                        "isFavoriteByDefault": {
+                                            "type": "boolean"
+                                        },
+                                        "id": {
+                                            "type": "string"
+                                        },
+                                        "tabs": {
+                                            "type": "array",
+                                            "minItems": 0,
+                                            "items": {
+                                                "type": "object",
+                                                "additionalProperties": false,
+                                                "properties": {
+                                                    "displayName": {
+                                                        "type": "string"
+                                                    },
+                                                    "teamsAppId": {
+                                                        "type": "string"
+                                                    },
+                                                    "id": {
+                                                        "type": "string"
+                                                    },
+                                                    "configuration": {
+                                                        "type": "object",
+                                                        "additionalProperties": false,
+                                                        "properties": {
+                                                            "entityId": {
+                                                                "type": "string"
+                                                            },
+                                                            "contentUrl": {
+                                                                "type": "string"
+                                                            },
+                                                            "websiteUrl": {
+                                                                "type": "string"
+                                                            },
+                                                            "removeUrl": {
+                                                                "type": "string"
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "tabResources": {
+                                            "type": "array",
+                                            "minItems": 0,
+                                            "items": {
+                                                "type": "object",
+                                                "additionalProperties": false,
+                                                "properties": {
+                                                    "type": {
+                                                        "type": "string",
+                                                        "enum": [
+                                                            "Generic",
+                                                            "Notebook",
+                                                            "Planner",
+                                                            "Schedule"
+                                                        ]
+                                                    },
+                                                    "targetTabId": {
+                                                        "type": "string"
+                                                    },
+                                                    "tabResourceSettings": {
+                                                        "type": "object"
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "messages": {
+                                            "type": "array",
+                                            "minItems": 0,
+                                            "items": {
+                                                "type": "object"
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "apps": {
+                                "type": "array",
+                                "minItems": 0,
+                                "items": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                },
+                "apps": {
+                    "type": "array",
+                    "minItems": 0,
+                    "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "properties": {
+                            "appId": {
+                                "type": "string"
+                            },
+                            "packageUrl": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "azureActiveDirectory": {
+            "type": "object",
+            "additionalItems": false,
+            "properties": {
+                "users": {
+                    "type": "array",
+                    "minItems": 0,
+                    "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "properties": {
+                            "accountEnabled": {
+                                "type": "boolean"
+                            },
+                            "displayName": {
+                                "type": "string"
+                            },
+                            "passwordPolicies": {
+                                "type": "array",
+                                "minItems": 0,
+                                "items": {
+                                    "type": "string"
+                                }
+                            },
+                            "profilePhoto": {
+                                "type": "string"
+                            },
+                            "givenName": {
+                                "type": "string"
+                            },
+                            "surname": {
+                                "type": "string"
+                            },
+                            "jobTitle": {
+                                "type": "string"
+                            },
+                            "officeLocation": {
+                                "type": "string"
+                            },
+                            "preferredLanguage": {
+                                "type": "string"
+                            },
+                            "mobilePhone": {
+                                "type": "string"
+                            },
+                            "mailNickname": {
+                                "type": "string"
+                            },
+                            "usageLocation": {
+                                "type": "string"
+                            },
+                            "userPrincipalName": {
+                                "type": "string"
+                            },
+                            "passwordProfile": {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "properties": {
+                                    "forceChangePasswordNextSignIn": {
+                                        "type": "boolean"
+                                    },
+                                    "forceChangePasswordNextSignInWithMfa": {
+                                        "type": "boolean"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "licenses": {
+                                "type": "array",
+                                "minItems": 0,
+                                "items": {
+                                    "type": "object",
+                                    "additionalProperties": false,
+                                    "properties": {
+                                        "skuId": {
+                                            "type": "string"
+                                        },
+                                        "disabledPlans": {
+                                            "type": "array",
+                                            "minItems": 0,
+                                            "items": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "drive": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "roots": {
+                    "type": "array",
+                    "minItems": 0,
+                    "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "properties": {
+                            "url": {
+                                "type": "string"
+                            },
+                            "rootFolder": {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "properties": {
+                                    "files": {
+                                        "type": "array"
+                                    },
+                                    "folders": {
+                                        "type": "array",
+                                        "minItems": 0,
+                                        "items": {
+                                            "$ref": "#/definitions/driveFolder"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "provisioningWebhooks": {
+            "type": "array",
+            "minItems": 0,
+            "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                    "parameters": {
+                        "type": "object",
+                        "patternProperties": {
+                            ".*": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "kind": {
+                        "type": "string"
+                    },
+                    "url": {
+                        "type": "string"
+                    },
+                    "method": {
+                        "type": "string",
+                        "enum": [
+                            "GET",
+                            "POST"
+                        ]
+                    },
+                    "bodyFormat": {
+                        "type": "string",
+                        "enum": [
+                            "Json",
+                            "Xml",
+                            "FormUrlEncoded"
+                        ]
+                    },
+                    "async": {
+                        "type": "boolean"
+                    }
+                }
+            }
+        }
+    }
+}

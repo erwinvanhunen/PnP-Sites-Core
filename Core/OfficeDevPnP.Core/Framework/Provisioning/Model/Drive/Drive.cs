@@ -1,9 +1,9 @@
-﻿using Newtonsoft.Json;
-using OfficeDevPnP.Core.Extensions;
+﻿using OfficeDevPnP.Core.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace OfficeDevPnP.Core.Framework.Provisioning.Model.Drive
@@ -11,15 +11,15 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model.Drive
     /// <summary>
     /// Defines a Drive object
     /// </summary>
-    public partial class Drive : BaseModel, IEquatable<Drive>
+    public partial class Drive : BaseHierarchyModel, IEquatable<Drive>
     {
         #region Public members
 
         /// <summary>
         /// Defines a collection of DriveRoot items
         /// </summary>
-        [JsonProperty("roots")]
-        public DriveRootCollection DriveRoots { get; private set; }
+        [JsonPropertyName("roots")]
+        public DriveRootCollection DriveRoots { get; set; }
 
         #endregion
 
@@ -27,7 +27,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model.Drive
 
         public Drive() : base()
         {
-            this.DriveRoots = new DriveRootCollection(this.ParentTemplate);
+            this.DriveRoots = new DriveRootCollection(this.ParentHierarchy);
         }
 
         #endregion

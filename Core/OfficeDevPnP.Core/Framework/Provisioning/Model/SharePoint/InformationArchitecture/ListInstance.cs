@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
+using System.Text.Json.Serialization;
+using System.Xml.Serialization;
 using OfficeDevPnP.Core.Extensions;
 using OfficeDevPnP.Core.Framework.Provisioning.Providers.Json.Converters;
 
@@ -241,7 +241,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         public ContentTypeBindingCollection ContentTypeBindings
         {
             get { return this._ctBindings; }
-            private set { this._ctBindings = value; }
+            set { this._ctBindings = value; }
         }
 
         /// <summary>
@@ -250,7 +250,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         public ViewCollection Views
         {
             get { return this._views; }
-            private set { this._views = value; }
+            set { this._views = value; }
         }
 
         /// <summary>
@@ -259,7 +259,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         public FieldCollection Fields
         {
             get { return this._fields; }
-            private set { this._fields = value; }
+            set { this._fields = value; }
         }
 
         /// <summary>
@@ -268,7 +268,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         public FieldRefCollection FieldRefs
         {
             get { return this._fieldRefs; }
-            private set { this._fieldRefs = value; }
+            set { this._fieldRefs = value; }
         }
 
         /// <summary>
@@ -277,25 +277,50 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         [JsonIgnore]
         public Guid TemplateFeatureID { get; set; }
 
-        [JsonProperty("templateFeatureId")]
+        [JsonPropertyName("templateFeatureId")]
         private Guid? TemplateFeatureIdNullable { get { return TemplateFeatureID == Guid.Empty ? null : (Guid?)TemplateFeatureID; } set { TemplateFeatureID = (value == null ? Guid.Empty : value.Value); } }
 
         /// <summary>
         /// Gets or sets the DataRows associated to the list
         /// </summary>
+        [JsonIgnore]
         public DataRowCollection DataRows
         {
             get { return this._dataRows; }
-            private set { this._dataRows = value; }
+            set { this._dataRows = value; }
         }
 
+        [JsonPropertyName("dataRows")]
+        [XmlIgnore]
+        public DataRowObjectJson DataRowObject
+        {
+            get
+            {
+                var returnObject = new DataRowObjectJson{ KeyColumn = this.DataRows.KeyColumn, Rows = DataRows.ToList(), UpdateBehavior = DataRows.UpdateBehavior };
+                return returnObject;
+            }
+            set
+            {
+                this.DataRows.UpdateBehavior = value.UpdateBehavior;
+                this.DataRows.Clear();
+                this.DataRows.AddRange(value.Rows);
+                this.DataRows.KeyColumn = value.KeyColumn;
+            }
+        }
+
+        public class DataRowObjectJson
+        {
+            public string KeyColumn { get; set; }
+            public UpdateBehavior UpdateBehavior { get; set; }
+            public List<DataRow> Rows { get; set; }
+        }
         /// <summary>
         /// Defines a list of default values for the Fields of the List Instance
         /// </summary>
         public Dictionary<String, String> FieldDefaults
         {
             get { return this._fieldDefaults; }
-            private set { this._fieldDefaults = value; }
+            set { this._fieldDefaults = value; }
         }
 
         /// <summary>
@@ -325,7 +350,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         public FolderCollection Folders
         {
             get { return this._folders; }
-            private set { this._folders = value; }
+            set { this._folders = value; }
         }
 
         /// <summary>
@@ -335,13 +360,13 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         public CustomActionCollection UserCustomActions
         {
             get { return this._userCustomActions; }
-            private set { this._userCustomActions = value; }
+            set { this._userCustomActions = value; }
         }
 
         public WebhookCollection Webhooks
         {
             get { return this._webhooks; }
-            private set { this._webhooks = value; }
+            set { this._webhooks = value; }
         }
 
         public IRMSettings IRMSettings
@@ -369,8 +394,6 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <summary>
         /// Defines the current list UI/UX experience (valid for SPO only).
         /// </summary>
-        [JsonConverter(typeof(StringEnumConverter))]
-        [JsonProperty("listExperience", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public ListExperience ListExperience { get; set; } = ListExperience.Auto;
 
         /// <summary>
@@ -391,7 +414,6 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <summary>
         /// Defines a value that specifies the reading order of the list.
         /// </summary>
-        [JsonConverter(typeof(StringEnumConverter))]
         public ListReadingDirection Direction { get; set; }
 
         /// <summary>
@@ -440,7 +462,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         public Dictionary<String, String> DataSource
         {
             get { return this._dataSource; }
-            private set { this._dataSource = value; }
+            set { this._dataSource = value; }
         }
 
         /// <summary>
@@ -449,7 +471,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         public PropertyBagEntryCollection PropertyBagEntries
         {
             get { return this._propertyBags; }
-            private set { this._propertyBags = value; }
+            set { this._propertyBags = value; }
         }
 
         /// <summary>

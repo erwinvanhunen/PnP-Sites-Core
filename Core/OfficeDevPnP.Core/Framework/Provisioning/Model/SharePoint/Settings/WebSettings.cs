@@ -1,11 +1,11 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using OfficeDevPnP.Core.Extensions;
+﻿using OfficeDevPnP.Core.Extensions;
 using OfficeDevPnP.Core.Framework.Provisioning.Providers.Json.Converters;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace OfficeDevPnP.Core.Framework.Provisioning.Model
@@ -25,6 +25,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <summary>
         /// The email address to which any access request will be sent
         /// </summary>
+        [DefaultValue("")]
         public String RequestAccessEmail { get; set; }
 
         /// <summary>
@@ -50,16 +51,19 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <summary>
         /// The AlternateCSS of the Site, optional attribute.
         /// </summary>
+        [DefaultValue("")]
         public String AlternateCSS { get; set; }
 
         /// <summary>
         /// The MasterPage Url of the Site, optional attribute.
         /// </summary>
+       
         public String MasterPageUrl { get; set; }
 
         /// <summary>
         /// The Custom MasterPage Url of the Site, optional attribute.
         /// </summary>
+        [JsonIgnore] // Not used in modern
         public String CustomMasterPageUrl { get; set; }
 
         /// <summary>
@@ -80,7 +84,6 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <summary>
         /// Defines the list of Alternate UI Cultures for the current web
         /// </summary>
-        [JsonConverter(typeof(AlternateUICultureCollectionConverter))]
         public AlternateUICultureCollection AlternateUICultures { get; set; }
 
         /// <summary>
@@ -121,7 +124,6 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <summary>
         /// Defines the SearchScope for the site
         /// </summary>
-        [JsonConverter(typeof(StringEnumConverter))]
         public SearchScopes SearchScope { get; set; }
 
         #endregion

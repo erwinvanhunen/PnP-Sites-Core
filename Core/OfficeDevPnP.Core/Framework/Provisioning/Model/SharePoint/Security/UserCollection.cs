@@ -11,7 +11,6 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
     /// <summary>
     /// Collection of User objects
     /// </summary>
-    [JsonConverter(typeof(UserCollectionConverter))]
     public partial class UserCollection : BaseProvisioningTemplateObjectCollection<User>
     {
         /// <summary>

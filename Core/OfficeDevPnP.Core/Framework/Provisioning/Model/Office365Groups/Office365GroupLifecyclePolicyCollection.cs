@@ -19,5 +19,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model.Office365Groups
             base(parentTemplate)
         {
         }
+
+        public Office365GroupLifecyclePolicyCollection() { }
     }
 }

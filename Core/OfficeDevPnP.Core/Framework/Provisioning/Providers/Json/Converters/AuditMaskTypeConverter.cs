@@ -1,42 +1,42 @@
 ﻿using Microsoft.SharePoint.Client;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace OfficeDevPnP.Core.Framework.Provisioning.Providers.Json.Converters
 {
     internal class AuditMaskTypeConverter : JsonConverter<AuditMaskType>
     {
-        public override AuditMaskType ReadJson(Newtonsoft.Json.JsonReader reader, Type objectType, AuditMaskType existingValue, bool hasExistingValue, JsonSerializer serializer)
+        public override AuditMaskType Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
-            var auditMaskArray = serializer.Deserialize<JArray>(reader);
-            foreach (var auditMaskString in auditMaskArray.Values<string>())
+            var auditMask = AuditMaskType.None;
+
+            var values = JsonSerializer.Deserialize<string[]>(ref reader, options);
+            foreach(var value in values)
             {
-                if (Enum.TryParse<AuditMaskType>(auditMaskString, out AuditMaskType auditMaskType))
+                if (Enum.TryParse<AuditMaskType>(value, out AuditMaskType auditMaskType))
                 {
-                    existingValue |= auditMaskType;
+                    auditMask |= auditMaskType;
                 }
             }
-            return existingValue;
+            return auditMask;
         }
 
-        public override void WriteJson(JsonWriter writer, AuditMaskType value, JsonSerializer serializer)
+        public override void Write(Utf8JsonWriter writer, AuditMaskType value, JsonSerializerOptions options)
         {
-            List<String> types = new List<String>();
-
+            writer.WriteStartArray();
             foreach (var pk in (AuditMaskType[])Enum.GetValues(typeof(AuditMaskType)))
             {
                 if (value.Has(pk) && pk != AuditMaskType.None)
                 {
-                    types.Add(pk.ToString());
+                    writer.WriteStringValue(pk.ToString());
                 }
             }
-
-            serializer.Serialize(writer, types);
+            writer.WriteEndArray();
         }
     }
 }

@@ -44,8 +44,6 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <summary>
         /// List of TermGroup Contributors
         /// </summary>
-        [JsonConverter(typeof(UserCollectionConverter))]
-        [JsonProperty("contributors")]
         public UserCollection Contributors
         {
             get { return (this._contributors); }
@@ -55,8 +53,6 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <summary>
         /// List of TermGroup Managers
         /// </summary>
-        [JsonConverter(typeof(UserCollectionConverter))]
-        [JsonProperty("managers")]
         public UserCollection Managers
         {
             get { return (this._managers); }

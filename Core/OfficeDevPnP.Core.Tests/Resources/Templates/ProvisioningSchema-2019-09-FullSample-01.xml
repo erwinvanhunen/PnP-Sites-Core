@@ -648,6 +648,8 @@
               Sequence="1000"
               Rights="EditListItems,AddListItems,DeleteListItems"
               Title="Sample Custom Action"
+              ClientSideComponentId="ecadb877-0818-4d3b-9180-bf65f480459c"
+              ClientSideComponentProperties="{&quot;id&quot;:&quot;1&quot;}"
               Url="https://spmanaged.azurewebsites.net/customAction/?ItemUrl={ItemUrl}&amp;ItemId={ItemId}&amp;ListId={ListId}&amp;SiteUrl={SiteUrl}"
               Enabled="true" />
           </pnp:UserCustomActions>
@@ -1040,7 +1042,7 @@
                 <pnp:CanvasControl
                   WebPartType="Image"
                   CustomWebPartName="..."
-                  JsonControlData="{}"
+                  JsonControlData="{&quot;id&quot;:&quot;abdefgh&quot;}"
                   ControlId="0eaba53f-55d8-44b5-9f7c-61301c7f1e0e"
                   Order="1">
                   <pnp:CanvasControlProperties>

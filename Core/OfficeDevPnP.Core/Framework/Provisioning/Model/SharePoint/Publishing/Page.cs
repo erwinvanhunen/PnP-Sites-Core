@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
 using OfficeDevPnP.Core.Extensions;
 
 namespace OfficeDevPnP.Core.Framework.Provisioning.Model
@@ -43,6 +44,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <summary>
         /// Defines the Security rules for the Page
         /// </summary>
+        [JsonPropertyName("breakRoleInheritance")]
         public ObjectSecurity Security
         {
             get { return this._security; }

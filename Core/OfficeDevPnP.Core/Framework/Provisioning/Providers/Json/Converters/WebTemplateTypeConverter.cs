@@ -1,29 +1,31 @@
-﻿using Newtonsoft.Json;
-using OfficeDevPnP.Core.Framework.Provisioning.Model;
+﻿using OfficeDevPnP.Core.Framework.Provisioning.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace OfficeDevPnP.Core.Framework.Provisioning.Providers.Json.Converters
 {
     internal class SiteDesignWebTemplateConverter : JsonConverter<SiteDesignWebTemplate>
     {
-        public override SiteDesignWebTemplate ReadJson(JsonReader reader, Type objectType, SiteDesignWebTemplate existingValue, bool hasExistingValue, JsonSerializer serializer)
+        public override SiteDesignWebTemplate Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
-            var value = serializer.Deserialize<string>(reader);
+            var value = reader.GetString();
             return (SiteDesignWebTemplate)Enum.Parse(typeof(SiteDesignWebTemplate), value);
         }
 
-        public override void WriteJson(JsonWriter writer, SiteDesignWebTemplate value, JsonSerializer serializer)
+        public override void Write(Utf8JsonWriter writer, SiteDesignWebTemplate value, JsonSerializerOptions options)
         {
-            if((int)value == 1)
+            if ((int)value == 1)
             {
-                serializer.Serialize(writer,"CommunicationSite");
-            } else
+                writer.WriteStringValue("CommunicationSite");
+            }
+            else
             {
-                serializer.Serialize(writer,"TeamSite");
+                writer.WriteStringValue("TeamSite");
             }
         }
     }

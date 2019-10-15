@@ -113,23 +113,23 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model.Configuration
         }
         public static ExtractConfiguration FromString(string input)
         {
-            //var assembly = Assembly.GetExecutingAssembly();
-            //var resourceName = "OfficeDevPnP.Core.Framework.Provisioning.Model.Configuration.extract-configuration.schema.json";
+            var assembly = Assembly.GetExecutingAssembly();
+            var resourceName = "OfficeDevPnP.Core.Framework.Provisioning.Model.Configuration.Schemas._201909.extract-configuration.schema.json";
 
-            //using (Stream stream = assembly.GetManifestResourceStream(resourceName))
-            //using (StreamReader reader = new StreamReader(stream))
-            //{
-            //    string result = reader.ReadToEnd();
+            using (Stream stream = assembly.GetManifestResourceStream(resourceName))
+            using (StreamReader reader = new StreamReader(stream))
+            {
+                string result = reader.ReadToEnd();
 
-            //    JsonSchema schema = JsonSchema.Parse(result);
+                var schema = NJsonSchema.JsonSchema.FromJsonAsync(result).GetAwaiter().GetResult();
 
-            //    var jobject = JObject.Parse(input);
+                var jobject = JObject.Parse(input);
 
-            //    if(!jobject.IsValid(schema))
-            //    {
-            //        throw new JsonSerializationException("Configuration is not valid according to schema");
-            //    }
-            //}
+                if (schema.Validate(jobject).Count == 0)
+                {
+                    throw new JsonSerializationException("Configuration is not valid according to schema");
+                }
+            }
 
             return JsonConvert.DeserializeObject<ExtractConfiguration>(input);
         }

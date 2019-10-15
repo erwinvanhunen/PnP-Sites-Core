@@ -1,23 +1,33 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace OfficeDevPnP.Core.Framework.Provisioning.Providers.Json.Converters
 {
     internal class ArrayToCommaSeparatedStringConverter : JsonConverter<string>
     {
-        public override string ReadJson(JsonReader reader, Type objectType, string existingValue, bool hasExistingValue, JsonSerializer serializer)
+        public override string Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
-            var values = serializer.Deserialize<string[]>(reader);
-            return String.Join(",", values);
+            var values = new List<string>();
+            while(reader.Read())
+            {
+                values.Add(reader.GetString());
+            }
+            return string.Join(",", values);
         }
 
-        public override void WriteJson(JsonWriter writer, string value, JsonSerializer serializer)
+        public override void Write(Utf8JsonWriter writer, string value, JsonSerializerOptions options)
         {
-            serializer.Serialize(writer, value.Split(new char[] { ',' }));
+            writer.WriteStartArray();
+            foreach(var item in value.Split(new char[] { ',' }))
+            {
+                writer.WriteStringValue(item);
+            }
+            writer.WriteEndArray();
         }
     }
 }

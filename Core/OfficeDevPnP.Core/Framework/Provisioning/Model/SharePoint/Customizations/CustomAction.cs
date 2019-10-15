@@ -2,7 +2,8 @@
 using Microsoft.SharePoint.Client;
 using System.Xml.Linq;
 using OfficeDevPnP.Core.Framework.Provisioning.Providers.Json.Converters;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
+using System.Text.Json;
 
 namespace OfficeDevPnP.Core.Framework.Provisioning.Model
 {
@@ -49,7 +50,6 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <summary>
         /// Gets or sets the value that specifies the permissions needed for the custom action.
         /// </summary>
-        [JsonConverter(typeof(BasePermissionsConverter))]
         public BasePermissions Rights { get; set; }
 
         /// <summary>
@@ -60,7 +60,6 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <summary>
         /// Gets or sets the RegistrationType of the custom action.
         /// </summary>
-        [JsonConverter(typeof(UserCustomActionRegistrationTypeConverter))]
         public UserCustomActionRegistrationType RegistrationType { get; set; }
 
         /// <summary>
@@ -96,16 +95,35 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <summary>
         /// Gets or sets a value for the ClientSideComponentId, if any
         /// </summary>
-        [JsonIgnore]
         public Guid ClientSideComponentId { get; set; }
-
-        [JsonProperty("clientSideComponentId")]
-        private Guid? ClientSideComponentIdNullable { get { return ClientSideComponentId == Guid.Empty ? null : (Guid?)ClientSideComponentId; } set { ClientSideComponentId = (value == null ? Guid.Empty : value.Value); } }
 
         /// <summary>
         /// Gets or sets a value for the ClientSideComponentProperties, if any
         /// </summary>
-        public String ClientSideComponentProperties { get; set; }
+        [JsonConverter(typeof(JsonToStringConverter))]
+        public string ClientSideComponentProperties { get; set; }
+        //[JsonIgnore]
+        //public string ClientSideComponentProperties
+        //{
+        //    get
+        //    {
+        //        return ClientSideComponentPropertiesJson.ToString();
+        //    }
+        //    set
+        //    {
+        //        if (!string.IsNullOrEmpty(value))
+        //        {
+        //            this.ClientSideComponentPropertiesJson = JsonSerializer.Deserialize<JsonElement>(value);
+        //        }
+        //        else
+        //        {
+        //            this.ClientSideComponentPropertiesJson = JsonSerializer.Deserialize<JsonElement>("{}");
+        //        }
+        //    }
+        //}
+
+        //[JsonPropertyName("clientSideComponentProperties")]
+        //public JsonElement ClientSideComponentPropertiesJson { get; set; }
 
         #endregion
 

@@ -1,25 +1,20 @@
-﻿using Newtonsoft.Json;
-using OfficeDevPnP.Core.Extensions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
+using System.Text.Json.Serialization;
 
 namespace OfficeDevPnP.Core.Framework.Provisioning.Model.Drive
 {
     /// <summary>
     /// Defines a Drive object
     /// </summary>
-    public partial class DriveRoot : BaseModel, IEquatable<DriveRoot>
+    public partial class DriveRoot : BaseHierarchyModel, IEquatable<DriveRoot>
     {
         #region Public members
 
         /// <summary>
         /// The DriveUrl of the target DriveRoot
         /// </summary>
-        [JsonProperty("url")]
-        public String DriveUrl { get; set; }
+        [JsonPropertyName("url")]
+        public string DriveUrl { get; set; }
 
         /// <summary>
         /// Defines the RootFolder of a DriveRoot item

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace OfficeDevPnP.Core.Framework.Provisioning.Model
@@ -9,6 +10,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
     public partial class Page
     {
         [Obsolete("Instead of this member, please use WelcomePage property of the WebSettings object. This method will be removed in the June 2016 release.")]
+        [JsonIgnore]
         public bool WelcomePage
         {
             get

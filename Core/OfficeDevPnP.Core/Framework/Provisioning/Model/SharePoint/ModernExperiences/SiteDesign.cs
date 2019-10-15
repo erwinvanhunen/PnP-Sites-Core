@@ -1,11 +1,10 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using OfficeDevPnP.Core.Extensions;
+﻿using OfficeDevPnP.Core.Extensions;
 using OfficeDevPnP.Core.Framework.Provisioning.Providers.Json.Converters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace OfficeDevPnP.Core.Framework.Provisioning.Model
@@ -41,7 +40,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <summary>
         /// Gets or sets the WebTemplate flag for the SiteDesign
         /// </summary>
-        [JsonConverter(typeof(SiteDesignWebTemplateConverter))]
+        [JsonConverter(typeof(SiteDesignWebTemplateConverter))] // override for JsonStringEnumConverter
         public SiteDesignWebTemplate WebTemplate { get; set; }
 
         /// <summary>
@@ -62,7 +61,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <summary>
         /// Defines whether to overwrite the SiteDesign or not
         /// </summary>
-        public Boolean Overwrite { get; set; }
+        public bool Overwrite { get; set; }
 
         /// <summary>
         /// Gets or sets the list of Site Design Permission Right Grants

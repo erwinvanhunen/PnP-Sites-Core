@@ -1,10 +1,10 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using OfficeDevPnP.Core.Framework.Provisioning.Providers.Json.Converters;
+﻿using OfficeDevPnP.Core.Framework.Provisioning.Providers.Json.Converters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace OfficeDevPnP.Core.Framework.Provisioning.Model.Teams
@@ -19,10 +19,21 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model.Teams
         /// <summary>
         /// Defines the Configuration for the Tab Resource
         /// </summary>
-        [JsonConverter(typeof(JsonToStringConverter))]
-        [JsonProperty("tabResourceSettings",DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public String TabResourceSettings { get; set; }
+        [JsonIgnore]
+        public string TabResourceSettings
+        {
+            get
+            {
+                return TabResourceSettingsElement.ToString();
+            }
+            set
+            {
+                TabResourceSettingsElement = JsonSerializer.Deserialize<JsonElement>(value);
+            }
+        }
 
+        [JsonPropertyName("tabResourceSettings")]
+        public JsonElement TabResourceSettingsElement { get; set; }
         /// <summary>
         /// Defines the Type of Resource for the Tab
         /// </summary>
@@ -88,7 +99,6 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model.Teams
     /// <summary>
     /// Defines the Types of Resources for the Tab
     /// </summary>
-    [JsonConverter(typeof(StringEnumConverter))]
     public enum TabResourceType
     {
         /// <summary>

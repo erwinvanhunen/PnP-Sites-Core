@@ -4,9 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using Newtonsoft.Json;
 using OfficeDevPnP.Core.Extensions;
-using OfficeDevPnP.Core.Framework.Provisioning.Providers.Json.Converters;
 
 namespace OfficeDevPnP.Core.Framework.Provisioning.Model
 {
@@ -120,7 +118,6 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         ///     <cref>https://msdn.microsoft.com/en-us/library/office/aa543904.aspx</cref>
         /// </seealso>
         /// </summary>
-        [JsonConverter(typeof(XElementConverter))]
         public XElement XmlDocuments { get; set; }
 
         #endregion

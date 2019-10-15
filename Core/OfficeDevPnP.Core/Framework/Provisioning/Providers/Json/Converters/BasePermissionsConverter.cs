@@ -1,52 +1,41 @@
 ﻿using Microsoft.SharePoint.Client;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace OfficeDevPnP.Core.Framework.Provisioning.Providers.Json.Converters
 {
     internal class BasePermissionsConverter : JsonConverter<BasePermissions>
     {
-        public override BasePermissions ReadJson(Newtonsoft.Json.JsonReader reader, Type objectType, BasePermissions existingValue, bool hasExistingValue, JsonSerializer serializer)
+        public override BasePermissions Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
-            if (existingValue == null)
+            BasePermissions bp = new BasePermissions();
+            var values = JsonSerializer.Deserialize<string[]>(ref reader, options);
+            foreach (var value in values)
             {
-                existingValue = new BasePermissions();
-            }
-            var basePermissionsArray = serializer.Deserialize<JArray>(reader);
-            foreach (var basePermissionsString in basePermissionsArray.Values<string>())
-            {
-                if (Enum.TryParse<PermissionKind>(basePermissionsString, out PermissionKind permissionKind))
+                if (Enum.TryParse<PermissionKind>(value, out PermissionKind permissionKind))
                 {
-                    existingValue.Set(permissionKind);
+                    bp.Set(permissionKind);
                 }
             }
-            return existingValue;
+            return bp;
         }
 
-        public override void WriteJson(JsonWriter writer, BasePermissions value, JsonSerializer serializer)
+        public override void Write(Utf8JsonWriter writer, BasePermissions value, JsonSerializerOptions options)
         {
-            List<String> permissions = new List<String>();
-
-            BasePermissions basePermissions =
-                value as BasePermissions;
-            if (basePermissions != null)
+            writer.WriteStartArray();
+            foreach (var pk in (PermissionKind[])Enum.GetValues(typeof(PermissionKind)))
             {
-                
-                foreach (var pk in (PermissionKind[])Enum.GetValues(typeof(PermissionKind)))
+                if (value.Has(pk) && pk != PermissionKind.EmptyMask)
                 {
-                    if (basePermissions.Has(pk) && pk != PermissionKind.EmptyMask)
-                    {
-                        permissions.Add(pk.ToString());
-                    }
+                    writer.WriteStringValue(pk.ToString());
                 }
-
             }
-            serializer.Serialize(writer, permissions);
+            writer.WriteEndArray();
         }
     }
 }

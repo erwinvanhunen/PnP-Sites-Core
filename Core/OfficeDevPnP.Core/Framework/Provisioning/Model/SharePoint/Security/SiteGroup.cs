@@ -46,7 +46,6 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <summary>
         /// The list of members of the Site Group
         /// </summary>
-        [JsonConverter(typeof(UserCollectionConverter))]
         public UserCollection Members
         {
             get { return this._members; }

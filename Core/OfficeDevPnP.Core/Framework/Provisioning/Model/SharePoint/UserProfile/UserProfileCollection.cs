@@ -19,5 +19,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model.SPUPS
             base(parentTemplate)
         {
         }
+
+        public UserProfileCollection() { }
     }
 }

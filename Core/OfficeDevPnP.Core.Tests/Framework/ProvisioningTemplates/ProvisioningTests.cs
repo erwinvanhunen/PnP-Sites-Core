@@ -2,16 +2,17 @@
 using Microsoft.Online.SharePoint.TenantAdministration;
 using Microsoft.SharePoint.Client;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using Newtonsoft.Json.Serialization;
 using OfficeDevPnP.Core.Framework.Provisioning.Model;
+using OfficeDevPnP.Core.Framework.Provisioning.Model.Drive;
+using OfficeDevPnP.Core.Framework.Provisioning.Model.Office365Groups;
+using OfficeDevPnP.Core.Framework.Provisioning.Model.SPUPS;
 using OfficeDevPnP.Core.Framework.Provisioning.ObjectHandlers;
-using OfficeDevPnP.Core.Framework.Provisioning.Providers.Json;
 using OfficeDevPnP.Core.Framework.Provisioning.Providers.Json.Converters;
 using OfficeDevPnP.Core.Framework.Provisioning.Providers.Json.Resolvers;
 using OfficeDevPnP.Core.Framework.Provisioning.Providers.Xml;
 using System;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace OfficeDevPnP.Core.Tests.Framework.ProvisioningTemplates
 {
@@ -29,15 +30,73 @@ namespace OfficeDevPnP.Core.Tests.Framework.ProvisioningTemplates
         }
 
         [TestMethod]
-        public void CanDeserializeJson()
+        public void CanDeserializeProvisioningTemplateJson()
         {
             using (var context = TestCommon.CreateClientContext())
             {
-                var text = System.IO.File.ReadAllText(@"c:\demo\template2.json");
-                var template = JsonConvert.DeserializeObject<ProvisioningHierarchy>(text, new JsonSerializerSettings()
-                {
-                    NullValueHandling = NullValueHandling.Ignore
-                });
+                var resourceFolder = string.Format(@"{0}\..\..\Resources\Templates", AppDomain.CurrentDomain.BaseDirectory);
+                XMLTemplateProvider provider = new XMLFileSystemTemplateProvider(resourceFolder, "");
+
+                var existingTemplate = provider.GetTemplate("ProvisioningSchema-2019-09-FullSample-01.xml");
+
+                var serializerOutOptions = new JsonSerializerOptions();
+                serializerOutOptions.IgnoreNullValues = true;
+                serializerOutOptions.IgnoreReadOnlyProperties = true;
+                serializerOutOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+                serializerOutOptions.Converters.Add(new AlternateUICultureCollectionConverter());
+                serializerOutOptions.Converters.Add(new SupportedUILanguageCollectionConverter());
+                serializerOutOptions.Converters.Add(new SiteDesignRightConverter());
+                serializerOutOptions.Converters.Add(new JsonStringEnumConverter());
+                serializerOutOptions.Converters.Add(new UserCollectionConverter());
+                serializerOutOptions.Converters.Add(new FieldCollectionConverter());
+                serializerOutOptions.Converters.Add(new XElementConverter());
+                serializerOutOptions.Converters.Add(new BasePermissionsConverter());
+                var jsonTemplateText = JsonSerializer.Serialize(existingTemplate, serializerOutOptions);
+
+                var serializerInOptions = new JsonSerializerOptions();
+                serializerInOptions.IgnoreNullValues = true;
+                serializerInOptions.IgnoreReadOnlyProperties = true;
+                serializerInOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+                serializerInOptions.Converters.Add(new AlternateUICultureCollectionConverter());
+                serializerInOptions.Converters.Add(new SupportedUILanguageCollectionConverter());
+                serializerInOptions.Converters.Add(new SiteDesignRightConverter());
+                serializerInOptions.Converters.Add(new JsonStringEnumConverter());
+                serializerInOptions.Converters.Add(new UserCollectionConverter());
+                serializerInOptions.Converters.Add(new FieldCollectionConverter());
+                serializerInOptions.Converters.Add(new XElementConverter());
+                serializerInOptions.Converters.Add(new BasePermissionsConverter());
+                serializerInOptions.Converters.Add(new ProvisioningTemplateObjectCollectionConverter<Localization, LocalizationCollection>());
+                serializerInOptions.Converters.Add(new ProvisioningTemplateObjectCollectionConverter<PropertyBagEntry, PropertyBagEntryCollection>());
+                serializerInOptions.Converters.Add(new ProvisioningTemplateObjectCollectionConverter<SiteDesign, SiteDesignCollection>());
+                serializerInOptions.Converters.Add(new ProvisioningTemplateObjectCollectionConverter<ListInstance, ListInstanceCollection>());
+                serializerInOptions.Converters.Add(new ProvisioningTemplateObjectCollectionConverter<Core.Framework.Provisioning.Model.ContentType, Core.Framework.Provisioning.Model.ContentTypeCollection>());
+                serializerInOptions.Converters.Add(new ProvisioningTemplateObjectCollectionConverter<Core.Framework.Provisioning.Model.File, Core.Framework.Provisioning.Model.FileCollection>());
+                serializerInOptions.Converters.Add(new ProvisioningTemplateObjectCollectionConverter<Directory, DirectoryCollection>());
+                serializerInOptions.Converters.Add(new ProvisioningTemplateObjectCollectionConverter<ExtensibilityHandler, ExtensibilityHandlerCollection>());
+                serializerInOptions.Converters.Add(new ProvisioningTemplateObjectCollectionConverter<SiteScript, SiteScriptCollection>());
+                serializerInOptions.Converters.Add(new ProvisioningTemplateObjectCollectionConverter<Page, PageCollection>());
+                serializerInOptions.Converters.Add(new ProvisioningTemplateObjectCollectionConverter<ContentTypeBinding, ContentTypeBindingCollection>());
+                serializerInOptions.Converters.Add(new ProvisioningTemplateObjectCollectionConverter<Core.Framework.Provisioning.Model.Feature, Core.Framework.Provisioning.Model.FeatureCollection>());
+                serializerInOptions.Converters.Add(new ProvisioningTemplateObjectCollectionConverter<TermGroup, TermGroupCollection>());
+                serializerInOptions.Converters.Add(new ProvisioningTemplateObjectCollectionConverter<Core.Framework.Provisioning.Model.View, Core.Framework.Provisioning.Model.ViewCollection>());
+                serializerInOptions.Converters.Add(new ProvisioningTemplateObjectCollectionConverter<StorageEntity, StorageEntityCollection>());
+                serializerInOptions.Converters.Add(new ProvisioningTemplateObjectCollectionConverter<WebApiPermission, WebApiPermissionCollection>());
+                serializerInOptions.Converters.Add(new ProvisioningTemplateObjectCollectionConverter<Theme, ThemeCollection>());
+                serializerInOptions.Converters.Add(new ProvisioningTemplateObjectCollectionConverter<Office365GroupLifecyclePolicy, Office365GroupLifecyclePolicyCollection>());
+                serializerInOptions.Converters.Add(new ProvisioningTemplateObjectCollectionConverter<UserProfile, UserProfileCollection>());
+                serializerInOptions.Converters.Add(new ProvisioningTemplateObjectCollectionConverter<AddIn, AddInCollection>());
+                serializerInOptions.Converters.Add(new ProvisioningTemplateObjectCollectionConverter<SiteWebhook, SiteWebhookCollection>());
+                serializerInOptions.Converters.Add(new ProvisioningTemplateObjectCollectionConverter<ClientSidePage, ClientSidePageCollection>());
+                serializerInOptions.Converters.Add(new ProvisioningTemplateObjectCollectionConverter<ProvisioningTemplateWebhook, ProvisioningTemplateWebhookCollection>());
+                serializerInOptions.Converters.Add(new ProvisioningTemplateObjectCollectionConverter<FieldRef, FieldRefCollection>());
+                serializerInOptions.Converters.Add(new ProvisioningTemplateObjectCollectionConverter<Core.Framework.Provisioning.Model.Folder, Core.Framework.Provisioning.Model.FolderCollection>());
+                serializerInOptions.Converters.Add(new ProvisioningTemplateObjectCollectionConverter<CustomAction, CustomActionCollection>());
+                serializerInOptions.Converters.Add(new ProvisioningTemplateObjectCollectionConverter<Webhook, WebhookCollection>());
+
+                //serializerOptions.Converters.Add(new ProvisioningHierarchyObjectCollectionConverter<ProvisioningTemplate, ProvisioningTemplateCollection>());
+                //serializerOptions.Converters.Add(new ProvisioningHierarchyObjectCollectionConverter<ProvisioningSequence, ProvisioningSequenceCollection>());
+                //serializerOptions.Converters.Add(new ProvisioningHierarchyObjectCollectionConverter<DriveRoot, DriveRootCollection>());
+                var template = JsonSerializer.Deserialize<ProvisioningTemplate>(jsonTemplateText, serializerInOptions);
             }
         }
 
@@ -50,24 +109,24 @@ namespace OfficeDevPnP.Core.Tests.Framework.ProvisioningTemplates
                 XMLTemplateProvider provider = new XMLFileSystemTemplateProvider(resourceFolder, "");
 
                 var existingTemplate = provider.GetHierarchy("ProvisioningSchema-2019-09-FullSample-01.xml");
-                ////var resourceFolder = string.Format(@"{0}\..\..\Resources\Templates", AppDomain.CurrentDomain.BaseDirectory);
-                //var resourceFolder = @"c:\repos\sp-dev-provisioning-templates\tenant\contosobrand\source";
-                //XMLTemplateProvider provider = new XMLFileSystemTemplateProvider(resourceFolder, "");
-
-                //var existingTemplate = provider.GetHierarchy("template.xml");
-
-                var ser = new JsonSerializerSettings();
-                ser.Converters.Add(new NullToDefaultConverter<Guid>());
-                ser.Error = delegate (object sender, ErrorEventArgs args)
-                {
-                    // errors.Add(args.ErrorContext.Error.Message);
-                    args.ErrorContext.Handled = true;
-                };
-                ser.ContractResolver = new IgnoreEmptyEnumerableResolver();
-                ser.NullValueHandling = NullValueHandling.Ignore;
-                var output = JsonConvert.SerializeObject(existingTemplate, ser);
+                existingTemplate.Schema = "file:///c:/repos/pnp-sites-core/core/officedevpnp.core/framework/provisioning/providers/json/schemas/201909/tenant.schema.json";
+                //existingTemplate.Schema = TenantSchema;
+                var serializerOptions = new JsonSerializerOptions();
+                serializerOptions.IgnoreNullValues = true;
+                serializerOptions.IgnoreReadOnlyProperties = true;
+                serializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+                serializerOptions.Converters.Add(new AlternateUICultureCollectionConverter());
+                serializerOptions.Converters.Add(new SupportedUILanguageCollectionConverter());
+                serializerOptions.Converters.Add(new SiteDesignRightConverter());
+                serializerOptions.Converters.Add(new JsonStringEnumConverter());
+                serializerOptions.Converters.Add(new UserCollectionConverter());
+                serializerOptions.Converters.Add(new FieldCollectionConverter());
+                serializerOptions.Converters.Add(new XElementConverter());
+                serializerOptions.Converters.Add(new BasePermissionsConverter());
+                var jsonString = JsonSerializer.Serialize(existingTemplate, serializerOptions);
             }
         }
+
         [TestMethod]
         public void ProvisionTenantTemplate()
         {

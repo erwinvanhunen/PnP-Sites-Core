@@ -1,10 +1,9 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using OfficeDevPnP.Core.Framework.Provisioning.Providers.Json.Converters;
+﻿using OfficeDevPnP.Core.Framework.Provisioning.Providers.Json.Converters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace OfficeDevPnP.Core.Framework.Provisioning.Model
@@ -42,13 +41,13 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <summary>
         /// The Alternate Calendar type that is used on the server
         /// </summary>
-        [JsonConverter(typeof(CalendarTypeConverter))]
+        [JsonConverter(typeof(CalendarTypeConverter))] // override of built-in StringEnumConverter
         public Microsoft.SharePoint.Client.CalendarType AlternateCalendarType { get; set; }
 
         /// <summary>
         /// The Calendar Type that is used on the server
         /// </summary>
-        [JsonConverter(typeof(CalendarTypeConverter))]
+        [JsonConverter(typeof(CalendarTypeConverter))] // override of built-in StringEnumConverter  
         public Microsoft.SharePoint.Client.CalendarType CalendarType { get; set; }
 
         /// <summary>
@@ -59,7 +58,6 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <summary>
         /// The First Day of the Week used in calendars on the server
         /// </summary>
-        [JsonConverter(typeof(StringEnumConverter))]
         public DayOfWeek FirstDayOfWeek { get; set; }
 
         /// <summary>
@@ -90,8 +88,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <summary>
         /// The the default hour at which the work day ends on the calendar that is in use on the server
         /// </summary>
-        [JsonProperty("workDayEndHour")]
-        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonPropertyName("workDayEndHour")]
         public WorkHour WorkDayEndHour { get; set; }
 
         /// <summary>
@@ -102,8 +99,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <summary>
         /// The the default hour at which the work day starts on the calendar that is in use on the server
         /// </summary>
-        [JsonProperty("workDayStartHour")]
-        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonPropertyName("workDayStartHour")] // casing correction
         public WorkHour WorkDayStartHour { get; set; }
 
         #endregion

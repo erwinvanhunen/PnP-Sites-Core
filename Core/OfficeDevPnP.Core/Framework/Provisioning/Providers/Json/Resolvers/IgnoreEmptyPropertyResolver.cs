@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using OfficeDevPnP.Core.Framework.Provisioning.Model;
 using OfficeDevPnP.Core.Framework.Provisioning.Model.Teams;
 using System;
 using System.Collections;
@@ -12,7 +13,7 @@ using System.Xml.Linq;
 
 namespace OfficeDevPnP.Core.Framework.Provisioning.Providers.Json.Resolvers
 {
-    public class IgnoreEmptyEnumerableResolver : CamelCasePropertyNamesContractResolver
+    public class IgnoreEmptyPropertyResolver : CamelCasePropertyNamesContractResolver
     {
         protected override JsonProperty CreateProperty(MemberInfo member,
             MemberSerialization memberSerialization)
@@ -68,15 +69,6 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Providers.Json.Resolvers
                             break;
                     }
                     return element == null || !string.IsNullOrEmpty(element.ToString());
-                };
-            } else if (property.PropertyType == typeof(TeamSpecialization))
-            {
-                property.ShouldSerialize = instance =>
-                {
-
-                    TeamSpecialization specialization = ((Team)instance).Specialization;
-
-                    return specialization != TeamSpecialization.None;
                 };
             }
 

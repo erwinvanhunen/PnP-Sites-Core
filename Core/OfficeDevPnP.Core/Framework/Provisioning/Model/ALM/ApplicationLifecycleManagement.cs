@@ -1,10 +1,10 @@
-﻿using Newtonsoft.Json;
-using OfficeDevPnP.Core.Extensions;
+﻿using OfficeDevPnP.Core.Extensions;
 using OfficeDevPnP.Core.Framework.Provisioning.Providers.Json.Converters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace OfficeDevPnP.Core.Framework.Provisioning.Model
@@ -26,11 +26,11 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <summary>
         /// Defines the AppCatalog settings for the current Site Collection
         /// </summary>
-        [JsonConverter(typeof(AppCatalogConverter))]
+        //[JsonConverter(typeof(AppCatalogConverter))] // for some reason registering it globally has no effect
         public AppCatalog AppCatalog
         {
             get { return this._appCatalog; }
-            private set
+            set
             {
                 if (this._appCatalog != null)
                 {
@@ -109,7 +109,6 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
                 this.Apps.DeepEquals(other.Apps)
                 );
         }
-
         #endregion
     }
 }

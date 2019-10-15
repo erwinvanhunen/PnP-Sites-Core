@@ -63,37 +63,60 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Providers.Json
 
         public override ProvisioningHierarchy GetHierarchy(string uri)
         {
-            throw new NotImplementedException();
+            if (String.IsNullOrEmpty(uri))
+            {
+                throw new ArgumentException("uri");
+            }
+
+           var  formatter = new JsonPnPFormatter();
+                formatter.Initialize(this);
+            
+
+            // Get the XML document from a File Stream
+            Stream stream = this.Connector.GetFileStream(uri);
+
+            if (stream == null)
+            {
+                throw new ApplicationException(string.Format(CoreResources.Provisioning_Formatter_Invalid_Template_URI, uri));
+            }
+
+            // And convert it into a ProvisioningTemplate
+            ProvisioningHierarchy provisioningHierarchy = formatter.ToProvisioningHierarchy(stream);
+
+            // Store the identifier of this template, is needed for later save operation
+            this.Uri = uri;
+
+            return provisioningHierarchy;
         }
 
         public override ProvisioningTemplate GetTemplate(string uri)
         {
-            return (this.GetTemplate(uri, (ITemplateProviderExtension[])null));
+            return this.GetTemplate(uri, (ITemplateProviderExtension[])null);
         }
 
         public override ProvisioningTemplate GetTemplate(string uri, ITemplateProviderExtension[] extensions)
         {
-            return (this.GetTemplate(uri, null, null, extensions));
+            return this.GetTemplate(uri, null, null, extensions);
         }
 
         public override ProvisioningTemplate GetTemplate(string uri, string identifier)
         {
-            return (this.GetTemplate(uri, identifier, null));
+            return this.GetTemplate(uri, identifier, null);
         }
 
         public override ProvisioningTemplate GetTemplate(string uri, ITemplateFormatter formatter)
         {
-            return (this.GetTemplate(uri, null, formatter));
+            return this.GetTemplate(uri, null, formatter);
         }
 
         public override ProvisioningTemplate GetTemplate(string uri, string identifier, ITemplateFormatter formatter)
         {
-            return (this.GetTemplate(uri, null, formatter, null));
+            return this.GetTemplate(uri, null, formatter, null);
         }
 
         public override ProvisioningTemplate GetTemplate(string uri, string identifier, ITemplateFormatter formatter, ITemplateProviderExtension[] extensions)
         {
-            if (String.IsNullOrEmpty(uri))
+            if (string.IsNullOrEmpty(uri))
             {
                 throw new ArgumentException("uri");
             }
@@ -105,7 +128,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Providers.Json
             }
 
             // Get the XML document from a File Stream
-            Stream stream = this.Connector.GetFileStream(uri);
+            var stream = this.Connector.GetFileStream(uri);
 
             if (stream == null)
             {
@@ -116,40 +139,40 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Providers.Json
             stream = PreProcessGetTemplateExtensions(extensions, stream);
 
             // And convert it into a ProvisioningTemplate
-            ProvisioningTemplate provisioningTemplate = formatter.ToProvisioningTemplate(stream, identifier);
+            var provisioningTemplate = formatter.ToProvisioningTemplate(stream, identifier);
 
             // Handle any post-processing extension
             provisioningTemplate = PostProcessGetTemplateExtensions(extensions, provisioningTemplate);
 
             // Store the identifier of this template, is needed for latter save operation
-            this.Uri = uri;
+            Uri = uri;
 
-            return (provisioningTemplate);
+            return provisioningTemplate;
         }
 
         public override ProvisioningTemplate GetTemplate(Stream stream)
         {
-            return (this.GetTemplate(stream, (ITemplateProviderExtension[])null));
+            return GetTemplate(stream, (ITemplateProviderExtension[])null);
         }
 
         public override ProvisioningTemplate GetTemplate(Stream stream, ITemplateProviderExtension[] extensions)
         {
-            return (this.GetTemplate(stream, null, null, extensions));
+            return GetTemplate(stream, null, null, extensions);
         }
 
         public override ProvisioningTemplate GetTemplate(Stream stream, string identifier)
         {
-            return (this.GetTemplate(stream, identifier, null));
+            return GetTemplate(stream, identifier, null);
         }
 
         public override ProvisioningTemplate GetTemplate(Stream stream, ITemplateFormatter formatter)
         {
-            return (this.GetTemplate(stream, null, formatter));
+            return GetTemplate(stream, null, formatter);
         }
 
         public override ProvisioningTemplate GetTemplate(Stream stream, string identifier, ITemplateFormatter formatter)
         {
-            return (this.GetTemplate(stream, null, formatter, null));
+            return GetTemplate(stream, null, formatter, null);
         }
 
         public override ProvisioningTemplate GetTemplate(Stream stream, string identifier, ITemplateFormatter formatter, ITemplateProviderExtension[] extensions)
@@ -177,32 +200,32 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Providers.Json
             // Store the identifier of this template, is needed for latter save operation
             this.Uri = null;
 
-            return (provisioningTemplate);
+            return provisioningTemplate;
         }
 
         public override void Save(ProvisioningHierarchy hierarchy)
         {
-            this.SaveAs(hierarchy, this.Uri);
+            SaveAs(hierarchy, this.Uri);
         }
 
         public override void Save(ProvisioningTemplate template)
         {
-            this.Save(template, (ITemplateProviderExtension[])null);
+            Save(template, (ITemplateProviderExtension[])null);
         }
 
         public override void Save(ProvisioningTemplate template, ITemplateProviderExtension[] extensions = null)
         {
-            this.Save(template, null, extensions);
+            Save(template, null, extensions);
         }
 
         public override void Save(ProvisioningTemplate template, ITemplateFormatter formatter)
         {
-            this.Save(template, formatter, null);
+            Save(template, formatter, null);
         }
 
         public override void Save(ProvisioningTemplate template, ITemplateFormatter formatter, ITemplateProviderExtension[] extensions = null)
         {
-            this.SaveAs(template, this.Uri, formatter, extensions);
+            SaveAs(template, this.Uri, formatter, extensions);
         }
 
         public override void SaveAs(ProvisioningHierarchy hierarchy, string uri, ITemplateFormatter formatter = null)
@@ -221,14 +244,13 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Providers.Json
             {
                 formatter = new JsonPnPFormatter();
             }
-            hierarchy.Schema = JsonPnPFormatter.TenantSchema;
             formatter.Initialize(this);
+            
+            var stream = ((JsonPnPFormatter)formatter).ToFormattedHierarchy(hierarchy);
 
-            var stream = ((IProvisioningHierarchyFormatter)formatter).ToFormattedHierarchy(hierarchy);
+            Connector.SaveFileStream(uri, stream);
 
-            this.Connector.SaveFileStream(uri, stream);
-
-            if (this.Connector is ICommitableFileConnector)
+            if (Connector is ICommitableFileConnector)
             {
                 ((ICommitableFileConnector)this.Connector).Commit();
             }
@@ -236,17 +258,17 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Providers.Json
 
         public override void SaveAs(ProvisioningTemplate template, string uri)
         {
-            this.SaveAs(template, uri, (ITemplateProviderExtension[])null);
+            SaveAs(template, uri, (ITemplateProviderExtension[])null);
         }
 
         public override void SaveAs(ProvisioningTemplate template, string uri, ITemplateProviderExtension[] extensions = null)
         {
-            this.SaveAs(template, uri, null, extensions);
+            SaveAs(template, uri, null, extensions);
         }
 
         public override void SaveAs(ProvisioningTemplate template, string uri, ITemplateFormatter formatter)
         {
-            this.SaveAs(template, uri, formatter, null);
+            SaveAs(template, uri, formatter, null);
         }
 
         public override void SaveAs(ProvisioningTemplate template, string uri, ITemplateFormatter formatter, ITemplateProviderExtension[] extensions = null)
@@ -256,7 +278,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Providers.Json
                 throw new ArgumentNullException(nameof(template));
             }
 
-            if (String.IsNullOrEmpty(uri))
+            if (string.IsNullOrEmpty(uri))
             {
                 throw new ArgumentException(nameof(uri));
             }
@@ -265,7 +287,6 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Providers.Json
             {
                 formatter = new JsonPnPFormatter();
             }
-            template.Schema = JsonPnPFormatter.SiteSchema;
             SaveToConnector(template, uri, formatter, extensions);
         }
 
@@ -276,7 +297,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Providers.Json
                 throw new ArgumentException("identifier");
             }
 
-            this.Connector.DeleteFile(uri);
+            Connector.DeleteFile(uri);
         }
        
         #endregion

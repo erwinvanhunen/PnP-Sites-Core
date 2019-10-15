@@ -19,5 +19,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
             base(parentTemplate)
         {
         }
+
+        public ClientSidePageCollection() { }
     }
 }

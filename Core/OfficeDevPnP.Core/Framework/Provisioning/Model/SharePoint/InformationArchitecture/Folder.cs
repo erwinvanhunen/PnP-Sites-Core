@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 using OfficeDevPnP.Core.Extensions;
 
 namespace OfficeDevPnP.Core.Framework.Provisioning.Model
@@ -31,7 +31,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <summary>
         /// Defines the security rules for the current Folder
         /// </summary>
-        [JsonProperty("breakRoleInheritance")]
+        [JsonPropertyName("breakRoleInheritance")]
         public ObjectSecurity Security
         {
             get { return _objectSecurity; }
@@ -80,8 +80,8 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <summary>
         /// The Content Type ID for the Folder
         /// </summary>
-        [JsonProperty("contentTypeId")]
-        public String ContentTypeID { get; set; }
+        [JsonPropertyName("contentTypeId")] // corrected into correct camelcasing
+        public string ContentTypeID { get; set; }
 
         #endregion
 

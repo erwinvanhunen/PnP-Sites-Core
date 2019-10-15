@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using OfficeDevPnP.Core.Framework.Provisioning.Providers.Json.Converters;
+﻿using OfficeDevPnP.Core.Framework.Provisioning.Providers.Json.Converters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +10,6 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
     /// <summary>
     /// Collection of DataRow objects
     /// </summary>
-    [JsonConverter(typeof(DataRowCollectionConverter))]
     public partial class DataRowCollection : BaseProvisioningTemplateObjectCollection<DataRow>
     {
         /// <summary>

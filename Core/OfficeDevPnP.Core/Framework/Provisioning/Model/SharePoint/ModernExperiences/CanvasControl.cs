@@ -1,11 +1,11 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using OfficeDevPnP.Core.Extensions;
+﻿using OfficeDevPnP.Core.Extensions;
 using OfficeDevPnP.Core.Framework.Provisioning.Providers.Json.Converters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace OfficeDevPnP.Core.Framework.Provisioning.Model
@@ -13,7 +13,6 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
     /// <summary>
     /// Defines a CanvasControl
     /// </summary>
-    [JsonConverter(typeof(CanvasControlConverter))]
     public partial class CanvasControl : BaseModel, IEquatable<CanvasControl>
     {
         #region Public Members
@@ -21,25 +20,24 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <summary>
         /// Defines the custom properties for the client-side web part control.
         /// </summary>
-        public Dictionary<String, String> ControlProperties { get; set; } = new Dictionary<string, string>();
+        public Dictionary<string, string> ControlProperties { get; set; } = new Dictionary<string, string>();
 
         /// <summary>
         /// Defines the Type of Client-side Web Part.
         /// </summary>
-        [JsonConverter(typeof(StringEnumConverter))]
         public WebPartType Type { get; set; }
 
         /// <summary>
         /// Defines the Name of the client-side web part if the WebPartType attribute has a value of "Custom".
         /// </summary>
-        public String CustomWebPartName { get; set; }
+        public string CustomWebPartName { get; set; }
 
         /// <summary>
         /// Defines the JSON Control Data for Canvas Control of a Client-side Page.
         /// </summary>
         [JsonConverter(typeof(JsonToStringConverter))]
-        [JsonProperty("controlData",DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public String JsonControlData { get; set; }
+        [JsonPropertyName("controlData")] // the content is already json, so no need to call the property JsonControlData
+        public string JsonControlData { get; set; }
 
         /// <summary>
         /// Defines the Instance Id for Canvas Control of a Client-side Page.

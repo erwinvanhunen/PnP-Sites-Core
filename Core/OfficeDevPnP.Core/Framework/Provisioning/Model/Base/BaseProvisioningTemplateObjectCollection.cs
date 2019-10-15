@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace OfficeDevPnP.Core.Framework.Provisioning.Model
@@ -19,9 +20,15 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// and all the children of the collection
         /// </summary>
         /// <param name="parentTemplate">Parent provisioning template</param>
+
         public BaseProvisioningTemplateObjectCollection(ProvisioningTemplate parentTemplate)
         {
             this.ParentTemplate = parentTemplate;
+        }
+
+        public BaseProvisioningTemplateObjectCollection()
+        {
+            
         }
 
         private ProvisioningTemplate _parentTemplate;
@@ -29,6 +36,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <summary>
         /// References the parent ProvisioningTemplate for the current provisioning artifact
         /// </summary>
+        [JsonIgnore]
         public virtual ProvisioningTemplate ParentTemplate
         {
             get

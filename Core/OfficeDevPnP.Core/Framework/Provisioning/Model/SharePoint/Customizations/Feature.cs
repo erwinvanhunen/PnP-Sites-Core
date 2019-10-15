@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 
 namespace OfficeDevPnP.Core.Framework.Provisioning.Model
 {
@@ -23,6 +24,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <summary>
         /// Gets or sets if the feature should be deactivated
         /// </summary>
+        [DefaultValue(false)]
         public bool Deactivate { get; set; }
 
         #endregion

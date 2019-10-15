@@ -20,5 +20,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
             base(parentProvisioning)
         {
         }
+
+        public ProvisioningSequenceCollection() { }
     }
 }

@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
+using System.Text.Json.Serialization;
 using OfficeDevPnP.Core.Extensions;
 
 namespace OfficeDevPnP.Core.Framework.Provisioning.Model
@@ -40,16 +39,29 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <summary>
         /// The Level status for the File
         /// </summary>
-        [JsonConverter(typeof(StringEnumConverter))]
         public FileLevel Level { get; set; }
 
         /// <summary>
         /// Webparts in the file
         /// </summary>
+        [JsonIgnore]
         public WebPartCollection WebParts
         {
             get { return _webParts; }
             private set { _webParts = value; }
+        }
+
+        [JsonPropertyName("WebParts")]
+        internal List<WebPart> WebPartsList
+        {
+            get {
+                return this.WebParts.ToList();
+            }
+            set
+            {
+                this.WebParts = new WebPartCollection(this.ParentTemplate);
+                this.WebParts.AddRange(value);
+            }
         }
 
         /// <summary>
@@ -64,7 +76,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <summary>
         /// Defines the Security rules for the File
         /// </summary>
-        [JsonProperty("breakRoleInheritance")]
+        [JsonPropertyName("breakRoleInheritance")]
         public ObjectSecurity Security
         {
             get { return this._security; }

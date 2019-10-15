@@ -7,9 +7,9 @@ using OfficeDevPnP.Core.Framework.Provisioning.Providers;
 using OfficeDevPnP.Core.Framework.Provisioning.Providers.Xml;
 using System.IO;
 using System.Xml.Linq;
-using Newtonsoft.Json;
 using OfficeDevPnP.Core.Framework.Provisioning.Providers.Json.Converters;
-using Newtonsoft.Json.Converters;
+using OfficeDevPnP.Core.Framework.Provisioning.Providers.Json;
+using System.Text.Json.Serialization;
 
 namespace OfficeDevPnP.Core.Framework.Provisioning.Model
 {
@@ -19,7 +19,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
     public partial class ProvisioningTemplate : BaseHierarchyModel, IEquatable<ProvisioningTemplate>
     {
         #region Private Fields
-        [JsonProperty("$schema")]
+        [JsonPropertyName("$schema")]
         internal string Schema { get; set; }
 
         private Dictionary<string, string> _parameters = new Dictionary<string, string>();
@@ -141,7 +141,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
                     return _parameters;
                 }
             }
-            private set
+            set
             {
                 if (this.ParentHierarchy != null)
                 {
@@ -170,7 +170,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
                     return _localizations;
                 }
             }
-            private set
+            set
             {
                 if (this.ParentHierarchy != null)
                 {
@@ -225,7 +225,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         public PropertyBagEntryCollection PropertyBagEntries
         {
             get { return this._propertyBags; }
-            private set { this._propertyBags = value; }
+            set { this._propertyBags = value; }
         }
 
         /// <summary>
@@ -271,10 +271,11 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <summary>
         /// Gets a collection of fields 
         /// </summary>
+        [NJsonSchema.Annotations.JsonSchemaType(typeof(List<Field>))]
         public FieldCollection SiteFields
         {
             get { return this._siteFields; }
-            private set { this._siteFields = value; }
+            set { this._siteFields = value; }
         }
 
         /// <summary>
@@ -283,13 +284,13 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         public ContentTypeCollection ContentTypes
         {
             get { return this._contentTypes; }
-            private set { this._contentTypes = value; }
+            set { this._contentTypes = value; }
         }
 
         public ListInstanceCollection Lists
         {
             get { return this._lists; }
-            private set { this._lists = value; }
+            set { this._lists = value; }
         }
 
         /// <summary>
@@ -338,7 +339,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         public FileCollection Files
         {
             get { return this._files; }
-            private set { this._files = value; }
+            set { this._files = value; }
         }
 
         /// <summary>
@@ -347,13 +348,12 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         public DirectoryCollection Directories
         {
             get { return this._directories; }
-            private set { this._directories = value; }
+            set { this._directories = value; }
         }
 
         /// <summary>
         /// Gets or Sets the composed look of the template
         /// </summary>
-        [JsonIgnore]
         public ComposedLook ComposedLook
         {
             get { return this._composedLook; }
@@ -377,7 +377,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         public ExtensibilityHandlerCollection ExtensibilityHandlers
         {
             get { return this._extensibilityHandlers; }
-            private set { this._extensibilityHandlers = value; }
+            set { this._extensibilityHandlers = value; }
         }
 
 
@@ -387,7 +387,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         public PageCollection Pages
         {
             get { return this._pages; }
-            private set { this._pages = value; }
+            set { this._pages = value; }
         }
 
         /// <summary>
@@ -396,7 +396,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         public TermGroupCollection TermGroups
         {
             get { return this._termGroups; }
-            private set { this._termGroups = value; }
+            set { this._termGroups = value; }
         }
 
         /// <summary>
@@ -442,7 +442,6 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <summary>
         /// The Supported UI Languages for the Provisioning Template
         /// </summary>
-        [JsonConverter(typeof(SupportedUILanguageCollectionConverter))]
         public SupportedUILanguageCollection SupportedUILanguages
         {
             get { return this._supportedUILanguages; }
@@ -479,7 +478,6 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <summary>
         /// Defines the Workflows to provision
         /// </summary>
-        [JsonIgnore]
         public Workflows Workflows
         {
             get { return this._workflows; }
@@ -513,13 +511,12 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         public AddInCollection AddIns
         {
             get { return this._addins; }
-            private set { this._addins = value; }
+            set { this._addins = value; }
         }
 
         /// <summary>
         /// Defines the Publishing configuration to provision
         /// </summary>
-        [JsonIgnore]
         public Publishing Publishing
         {
             get { return this._publishing; }
@@ -544,16 +541,17 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         public SiteWebhookCollection SiteWebhooks
         {
             get { return this._siteWebhooks; }
-            private set { this._siteWebhooks = value; }
+            set { this._siteWebhooks = value; }
         }
 
         /// <summary>
         /// Gets a collection of ClientSidePage to configure for the site
         /// </summary>
+        [JsonConverter(typeof(ProvisioningTemplateObjectCollectionConverter<ClientSidePage,ClientSidePageCollection>))]
         public ClientSidePageCollection ClientSidePages
         {
             get { return this._clientSidePages; }
-            private set { this._clientSidePages = value; }
+            set { this._clientSidePages = value; }
         }
 
         /// <summary>
@@ -562,7 +560,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         public Dictionary<String, String> Properties
         {
             get { return this._properties; }
-            private set { this._properties = value; }
+            set { this._properties = value; }
         }
 
         /// <summary>
@@ -748,7 +746,6 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <summary>
         /// Declares the target scope of the current Provisioning Template
         /// </summary>
-        [JsonConverter(typeof(StringEnumConverter))]
         public ProvisioningTemplateScope Scope { get; set; }
 
         /// <summary>
@@ -892,7 +889,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// Serializes a template to XML
         /// </summary>
         /// <param name="formatter">ITemplateFormatter object</param>
-        /// <returns>Returns XML string for the given stream</returns>
+        /// <returns>Returns XML string for the given template</returns>
         public string ToXML(ITemplateFormatter formatter = null)
         {
             formatter = formatter ?? new XMLPnPSchemaFormatter();
@@ -901,6 +898,51 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
                 return XElement.Load(stream).ToString();
             }
         }
+
+        /// <summary>
+        /// Serializes a template to JSON
+        /// </summary>
+        /// <param name="formatter">ITemplateFormatter object</param>
+        /// <returns>Returns JSON string for the given template</returns>
+        public string ToJson(ITemplateFormatter formatter = null)
+        {
+            formatter = formatter ?? new JsonPnPFormatter();
+
+            using (var stream = formatter.ToFormattedTemplate(this))
+            {
+                StreamReader reader = new StreamReader(stream);
+                var json = reader.ReadToEnd();
+                return json;
+            }
+
+        }
+
+        #region Json Serialization
+        public bool ShouldSerializeSecurity() => Security != null && !Security.Equals(new SiteSecurity());
+        public bool ShouldSerializeTenant() => Tenant != null && !Tenant.Equals(new ProvisioningTenant());
+        public bool ShouldSerializeParameters() => ParentHierarchy == null;
+        public bool ShouldSerializeFeatures()
+        {
+            return Features != null && Features.SiteFeatures.Count > 0 || Features.WebFeatures.Count > 0;
+        }
+        public bool ShouldSerializeComposedLook()
+        {
+            return ComposedLook != null && (!ComposedLook.IsEmptyOrBlank());
+        }
+        public bool ShouldSerializeNavigation() => Navigation != null && !Navigation.Equals(new Navigation());
+        public bool ShouldSerializeApplicationLifecycleManagement()
+        {
+            var alm = new ApplicationLifecycleManagement();
+            return !ApplicationLifecycleManagement.AppCatalog.Equals(alm.AppCatalog) && !ApplicationLifecycleManagement.Apps.Equals(alm.Apps);
+        }
+        public bool ShouldSerializeCustomActions()
+        {
+            var ca = new CustomActions();
+            return !CustomActions.SiteCustomActions.Equals(ca.SiteCustomActions) && !ca.WebCustomActions.Equals(ca.WebCustomActions);
+        }
+        public bool ShouldSerializeAuditSettings() => !AuditSettings.Equals(new AuditSettings());
+        #endregion
+
     }
 
     /// <summary>

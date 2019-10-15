@@ -1,43 +1,35 @@
-﻿using Newtonsoft.Json;
-using OfficeDevPnP.Core.Framework.Provisioning.Model.Teams;
+﻿using OfficeDevPnP.Core.Framework.Provisioning.Model.Teams;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace OfficeDevPnP.Core.Framework.Provisioning.Providers.Json.Converters
 {
     internal class TeamAppInstanceCollectionConverter : JsonConverter<TeamAppInstanceCollection>
     {
-        public override TeamAppInstanceCollection ReadJson(JsonReader reader, Type objectType, TeamAppInstanceCollection existingValue, bool hasExistingValue, JsonSerializer serializer)
+        public override TeamAppInstanceCollection Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
-            if (existingValue == null)
-            {
-                existingValue = new TeamAppInstanceCollection(null);
-            }
-
-            if (reader.TokenType == JsonToken.Null) return null;
-            var values = serializer.Deserialize<string[]>(reader);
+            var appCollection = new TeamAppInstanceCollection(null);
+            var values = JsonSerializer.Deserialize<string[]>(ref reader);
             if (values != null && values.Length > 0)
             {
                 foreach (var value in values)
                 {
-                    existingValue.Add(new TeamAppInstance() { AppId = value });
+                    appCollection.Add(new TeamAppInstance() { AppId = value });
                 }
-                return existingValue;
             }
-            throw new Exception("Cannot unmarshal type TeamAppInstanceCollection");
+            return appCollection;
         }
 
-        public override void WriteJson(JsonWriter writer, TeamAppInstanceCollection value, JsonSerializer serializer)
+        public override void Write(Utf8JsonWriter writer, TeamAppInstanceCollection value, JsonSerializerOptions options)
         {
             var appIds = new List<string>();
-            foreach(var app in value)
+            foreach (var app in value)
             {
                 appIds.Add(app.AppId);
             }
-            serializer.Serialize(writer, appIds);
+            JsonSerializer.Serialize(writer, appIds);
         }
     }
 }

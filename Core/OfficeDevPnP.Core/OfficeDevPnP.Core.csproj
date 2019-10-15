@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>OfficeDevPnP.Core</RootNamespace>
     <AssemblyName>OfficeDevPnP.Core</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -360,6 +360,9 @@
       <HintPath>..\packages\AngleSharp.0.9.9\lib\net45\AngleSharp.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.1.0.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Data.Edm, Version=5.8.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Data.Edm.5.8.4\lib\net40\Microsoft.Data.Edm.dll</HintPath>
     </Reference>
@@ -418,14 +421,24 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\WindowsAzure.Storage.4.3.0\lib\net40\Microsoft.WindowsAzure.Storage.dll</HintPath>
     </Reference>
+    <Reference Include="Namotion.Reflection, Version=1.0.7.0, Culture=neutral, PublicKeyToken=c2f9c3bdfae56102, processorArchitecture=MSIL">
+      <HintPath>..\packages\Namotion.Reflection.1.0.7\lib\net45\Namotion.Reflection.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NJsonSchema, Version=10.0.27.0, Culture=neutral, PublicKeyToken=c2f9c3bdfae56102, processorArchitecture=MSIL">
+      <HintPath>..\packages\NJsonSchema.10.0.27\lib\net45\NJsonSchema.dll</HintPath>
     </Reference>
     <Reference Include="SharePointPnP.IdentityModel.Extensions, Version=1.2.4.0, Culture=neutral, PublicKeyToken=5e633289e95c321a, processorArchitecture=MSIL">
       <HintPath>..\packages\SharePointPnP.IdentityModel.Extensions.1.2.4\lib\net45\SharePointPnP.IdentityModel.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.0\lib\netstandard2.0\System.Buffers.dll</HintPath>
+    </Reference>
     <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -435,10 +448,21 @@
     <Reference Include="System.IdentityModel.Tokens.Jwt, Version=5.2.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.5.2.4\lib\net45\System.IdentityModel.Tokens.Jwt.dll</HintPath>
     </Reference>
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.3\lib\netstandard2.0\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.5.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.6.0\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
@@ -446,9 +470,17 @@
     <Reference Include="System.Spatial, Version=5.8.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Spatial.5.8.4\lib\net40\System.Spatial.dll</HintPath>
     </Reference>
-    <Reference Include="System.Text.Encodings.Web, Version=4.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Text.Encodings.Web.4.0.0\lib\netstandard1.0\System.Text.Encodings.Web.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="System.Text.Encodings.Web, Version=4.0.4.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Encodings.Web.4.6.0\lib\netstandard2.0\System.Text.Encodings.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Json, Version=4.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Json.4.6.0\lib\net461\System.Text.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.2\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net461\System.ValueTuple.dll</HintPath>
     </Reference>
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -724,16 +756,17 @@
     <Compile Include="Framework\Provisioning\ObjectHandlers\Utilities\FieldUpdateValue.cs" />
     <Compile Include="Framework\Provisioning\ObjectHandlers\Utilities\FileUtilities.cs" />
     <Compile Include="Framework\Provisioning\Providers\Json\Converters\AuditMaskTypeConverter.cs" />
+    <Compile Include="Framework\Provisioning\Providers\Json\Converters\BaseProvisioningHierarchyObjectCollectionConverter.cs" />
     <Compile Include="Framework\Provisioning\Providers\Json\Converters\CanvasControlConverter.cs" />
-    <Compile Include="Framework\Provisioning\Providers\Json\Converters\NullToDefaultConverter.cs" />
+    <Compile Include="Framework\Provisioning\Providers\Json\Converters\FieldDefaultsConverter.cs" />
+    <Compile Include="Framework\Provisioning\Providers\Json\Converters\SiteCollectionCollectionConverter.cs" />
+    <Compile Include="Framework\Provisioning\Providers\Json\Converters\ProvisioningTemplateObjectCollectionConverter.cs" />
+    <Compile Include="Framework\Provisioning\Providers\Json\Converters\SiteDesignRightConverter.cs" />
     <Compile Include="Framework\Provisioning\Providers\Json\Converters\StringToIntConverter.cs" />
     <Compile Include="Framework\Provisioning\Providers\Json\Converters\SupportedUILanguageCollectionConverter.cs" />
     <Compile Include="Framework\Provisioning\Providers\Json\Converters\AppCatalogConverter.cs" />
     <Compile Include="Framework\Provisioning\Providers\Json\Converters\AlternateUICultureCollectionConverter.cs" />
     <Compile Include="Framework\Provisioning\Providers\Json\Converters\CalendarTypeConverter.cs" />
-    <Compile Include="Framework\Provisioning\Providers\Json\Converters\UserCustomActionRegistrationTypeConverter.cs" />
-    <Compile Include="Framework\Provisioning\Providers\Json\Converters\ListReadingDirectionConverter.cs" />
-    <Compile Include="Framework\Provisioning\Providers\Json\Converters\ListExperienceConverter.cs" />
     <Compile Include="Framework\Provisioning\Providers\Json\Converters\StringToSecureStringConverter.cs" />
     <Compile Include="Framework\Provisioning\Providers\Json\Converters\ArrayToCommaSeparatedStringConverter.cs" />
     <Compile Include="Framework\Provisioning\Providers\Json\Converters\BasePermissionsConverter.cs" />
@@ -743,14 +776,14 @@
     <Compile Include="Framework\Provisioning\Providers\Json\Converters\DraftVersionVisiblityConverter.cs" />
     <Compile Include="Framework\Provisioning\Providers\Json\Converters\FieldCollectionConverter.cs" />
     <Compile Include="Framework\Provisioning\Providers\Json\Converters\JsonToStringConverter.cs" />
-    <Compile Include="Framework\Provisioning\Providers\Json\Converters\SiteCollectionCollectionConverter.cs" />
     <Compile Include="Framework\Provisioning\Providers\Json\Converters\SubSiteConverter.cs" />
     <Compile Include="Framework\Provisioning\Providers\Json\Converters\TeamAppInstanceCollectionConverter.cs" />
     <Compile Include="Framework\Provisioning\Providers\Json\Converters\TeamSecurityUserCollectionConverter.cs" />
     <Compile Include="Framework\Provisioning\Providers\Json\Converters\WebTemplateTypeConverter.cs" />
     <Compile Include="Framework\Provisioning\Providers\Json\Converters\XElementConverter.cs" />
     <Compile Include="Framework\Provisioning\Providers\Json\Converters\UserCollectionConverter.cs" />
-    <Compile Include="Framework\Provisioning\Providers\Json\Resolvers\IgnoreEmptyEnumerableResolver.cs" />
+    <Compile Include="Framework\Provisioning\Providers\Json\Providers\ObjectCollectionSchemaGenerationProvider.cs" />
+    <Compile Include="Framework\Provisioning\Providers\Json\Resolvers\IgnoreEmptyPropertyResolver.cs" />
     <Compile Include="Framework\Provisioning\Providers\Xml\ProvisioningSchema-2019-09.cs">
       <DependentUpon>ProvisioningSchema-2019-09.xsd</DependentUpon>
     </Compile>
@@ -1405,8 +1438,10 @@
     <EmbeddedResource Include="Framework\Provisioning\Providers\Xml\ProvisioningSchema-2019-09.xsd">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Framework\Provisioning\Model\Configuration\extract-configuration.schema.json" />
-    <EmbeddedResource Include="Framework\Provisioning\Model\Configuration\apply-configuration.schema.json" />
+    <EmbeddedResource Include="Framework\Provisioning\Model\Configuration\Schemas\201909\extract-configuration.schema.json" />
+    <EmbeddedResource Include="Framework\Provisioning\Model\Configuration\Schemas\201909\apply-configuration.schema.json" />
+    <EmbeddedResource Include="Framework\Provisioning\Providers\Json\Schemas\201909\site.schema.json" />
+    <EmbeddedResource Include="Framework\Provisioning\Providers\Json\Schemas\201909\tenant.schema.json" />
     <None Include="Framework\Provisioning\Providers\Xml\readme.md" />
     <None Include="packages.config">
       <SubType>Designer</SubType>

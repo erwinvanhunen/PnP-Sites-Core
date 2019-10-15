@@ -1,6 +1,7 @@
-﻿using Newtonsoft.Json;
-using OfficeDevPnP.Core.Framework.Provisioning.Connectors;
+﻿using OfficeDevPnP.Core.Framework.Provisioning.Connectors;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Text.Json.Serialization;
 
 namespace OfficeDevPnP.Core.Framework.Provisioning.Model
 {
@@ -27,8 +28,8 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
 
         #region Public Members
 
-        [JsonProperty("$schema")]
-        internal string Schema { get; set; }
+        [JsonPropertyName("$schema")]
+        public string Schema { get; set; }
         /// <summary>
         /// Any parameters that can be used throughout the template
         /// </summary>
@@ -37,13 +38,11 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <summary>
         /// Gets or sets the Localizations
         /// </summary>
-        [JsonProperty("localizations", NullValueHandling= NullValueHandling.Ignore)]
         public LocalizationCollection Localizations { get; internal set; }
 
         /// <summary>
         /// The Tenant-wide settings for the template
         /// </summary>
-        [JsonProperty("tenant", NullValueHandling = NullValueHandling.Ignore)]
         public ProvisioningTenant Tenant { get; set; }
 
         /// <summary>
@@ -54,31 +53,26 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <summary>
         /// Gets or sets the Provisioning File Author name
         /// </summary>
-        [JsonProperty("author", NullValueHandling = NullValueHandling.Ignore)]
         public string Author { get; set; }
 
         /// <summary>
         /// Gets or sets the Name of the tool generating this Provisioning File
         /// </summary>
-        [JsonProperty("generator", NullValueHandling = NullValueHandling.Ignore)]
         public string Generator { get; set; }
 
         /// <summary>
         /// The Description of the Provisioning File
         /// </summary>
-        [JsonProperty("description", NullValueHandling = NullValueHandling.Ignore)]
         public string Description { get; set; }
 
         /// <summary>
         /// The Display Name of the Provisioning File
         /// </summary>
-        [JsonProperty("displayName", NullValueHandling = NullValueHandling.Ignore)]
         public string DisplayName { get; set; }
 
         /// <summary>
         /// The Image Preview Url of the Provisioning File
         /// </summary>
-        [JsonProperty("imagePreviewUrl", NullValueHandling = NullValueHandling.Ignore)]
         public string ImagePreviewUrl { get; set; }
 
         /// <summary>
@@ -90,30 +84,27 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <summary>
         /// A collection of Provisioning Template objects, if any
         /// </summary>
-        [JsonProperty("templates", NullValueHandling = NullValueHandling.Ignore)]
-        public ProvisioningTemplateCollection Templates { get; private set; }
+        public ProvisioningTemplateCollection Templates { get; set; }
 
         /// <summary>
         /// A collection of Provisioning Sequence objects, if any
         /// </summary>
-        [JsonProperty("sequences", NullValueHandling = NullValueHandling.Ignore)]
-        public ProvisioningSequenceCollection Sequences { get; private set; }
+        public ProvisioningSequenceCollection Sequences { get; set; }
 
         /// <summary>
         /// Settings for provisioning Teams objects, if any
         /// </summary>
-        [JsonProperty("teams", NullValueHandling = NullValueHandling.Ignore)]
-        public Teams.ProvisioningTeams Teams { get; private set; }
+        public Teams.ProvisioningTeams Teams { get; set; }
 
         /// <summary>
         /// Settings for provisioning Azure Active Directory objects, if any
         /// </summary>
-        public AzureActiveDirectory.ProvisioningAzureActiveDirectory AzureActiveDirectory { get; private set; }
+        public AzureActiveDirectory.ProvisioningAzureActiveDirectory AzureActiveDirectory { get; set; }
 
         /// <summary>
         /// Settings for provisioning Drive objects, if any
         /// </summary>
-        public Drive.Drive Drive { get; private set; }
+        public Drive.Drive Drive { get; set; }
 
         /// <summary>
         /// A collection of Provisioning Webhooks
@@ -122,5 +113,6 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
 
 
         #endregion
+
     }
 }

@@ -1,36 +1,19 @@
 ﻿using Microsoft.SharePoint.Client;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace OfficeDevPnP.Core.Framework.Provisioning.Providers.Json.Converters
 {
     internal class CalendarTypeConverter : JsonConverter<CalendarType>
     {
-        public override CalendarType ReadJson(Newtonsoft.Json.JsonReader reader, Type objectType, CalendarType existingValue, bool hasExistingValue, JsonSerializer serializer)
+        public override CalendarType Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
-            /**
-             *  "None",
-                "Gregorian",
-                "Japan",
-                "Taiwan",
-                "Korea",
-                "Hijri",
-                "Thai",
-                "Hebrew",
-                "Gregorian Middle East French Calendar",
-                "Gregorian Arabic Calendar",
-                "Gregorian Transliterated English Calendar",
-                "Gregorian Transliterated French Calendar",
-                "Korea and Japanese Lunar",
-                "Chinese Lunar",
-                "Saka Era",
-                "Umm al-Qura"
-               */
-            var value = serializer.Deserialize<string>(reader);
+            var value = reader.GetString();
             switch (value)
             {
                 case "None":
@@ -70,88 +53,89 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Providers.Json.Converters
             }
         }
 
-        public override void WriteJson(JsonWriter writer, CalendarType value, JsonSerializer serializer)
+        
+        public override void Write(Utf8JsonWriter writer, CalendarType value, JsonSerializerOptions options)
         {
             switch (value)
             {
                 case CalendarType.None:
                     {
-                        serializer.Serialize(writer, "None");
+                        writer.WriteStringValue("None");
                         break;
                     }
                 case CalendarType.Gregorian:
                     {
-                        serializer.Serialize(writer, "Gregorian");
+                        writer.WriteStringValue("Gregorian");
                         break;
                     }
                 case CalendarType.Japan:
                     {
-                        serializer.Serialize(writer, "Japan");
+                        writer.WriteStringValue("Japan");
                         break;
                     }
                 case CalendarType.Taiwan:
                     {
-                        serializer.Serialize(writer, "Taiwan");
+                        writer.WriteStringValue("Taiwan");
                         break;
                     }
                 case CalendarType.Korea:
                     {
-                        serializer.Serialize(writer, "Korea");
+                        writer.WriteStringValue("Korea");
                         break;
                     }
                 case CalendarType.Hijri:
                     {
-                        serializer.Serialize(writer, "Hijri");
+                        writer.WriteStringValue("Hijri");
                         break;
                     }
                 case CalendarType.Thai:
                     {
-                        serializer.Serialize(writer, "Thai");
+                        writer.WriteStringValue("Thai");
                         break;
                     }
                 case CalendarType.Hebrew:
                     {
-                        serializer.Serialize(writer, "Hebrew");
+                        writer.WriteStringValue("Hebrew");
                         break;
                     }
                 case CalendarType.GregorianMEFrench:
                     {
-                        serializer.Serialize(writer, "Gregorian Middle East French Calendar");
+                        writer.WriteStringValue("Gregorian Middle East French Calendar");
                         break;
                     }
                 case CalendarType.GregorianArabic:
                     {
-                        serializer.Serialize(writer, "Gregorian Arabic Calendar");
+                        writer.WriteStringValue("Gregorian Arabic Calendar");
                         break;
                     }
                 case CalendarType.GregorianXLITEnglish:
                     {
-                        serializer.Serialize(writer, "Gregorian Transliterated English Calendar");
+                        writer.WriteStringValue("Gregorian Transliterated English Calendar");
                         break;
                     }
                 case CalendarType.GregorianXLITFrench:
                     {
-                        serializer.Serialize(writer, "Gregorian Transliterated French Calendar");
+                        writer.WriteStringValue("Gregorian Transliterated French Calendar");
                         break;
                     }
                 case CalendarType.KoreaJapanLunar:
                     {
-                        serializer.Serialize(writer, "Korea and Japanese Lunar");
+                        writer.WriteStringValue("Korea and Japanese Lunar");
                         break;
                     }
                 case CalendarType.ChineseLunar:
                     {
-                        serializer.Serialize(writer, "Chinese Lunar");
+                        writer.WriteStringValue("Chinese Lunar");
                         break;
                     }
                 case CalendarType.SakaEra:
                     {
-                        serializer.Serialize(writer, "Saka Era");
+                        writer.WriteStringValue("Saka Era");
                         break;
                     }
                 case CalendarType.UmAlQura:
                     {
-                        serializer.Serialize(writer, "Umm al-Qura");
+                        writer.WriteStringValue("Umm al-Qura");
                         break;
                     }
             }
