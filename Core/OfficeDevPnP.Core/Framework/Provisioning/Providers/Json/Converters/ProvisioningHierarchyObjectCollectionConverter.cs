@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace OfficeDevPnP.Core.Framework.Provisioning.Providers.Json.Converters
 {
-    internal class ProvisioningTemplateObjectCollectionConverter<ElementType> : JsonConverter<BaseProvisioningTemplateObjectCollection<ElementType>> where ElementType : BaseModel
+    internal class ProvisioningHierarchyObjectCollectionConverter<ElementType> : JsonConverter<BaseProvisioningHierarchyObjectCollection<ElementType>> where ElementType : BaseHierarchyModel
     {
-        public override BaseProvisioningTemplateObjectCollection<ElementType> Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+        public override BaseProvisioningHierarchyObjectCollection<ElementType> Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
             var collectionObject = GetInstance(typeof(ElementType));
             var jsonElement = JsonSerializer.Deserialize<JsonElement>(ref reader, options);
@@ -23,16 +23,16 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Providers.Json.Converters
             return collectionObject;
         }
 
-        public override void Write(Utf8JsonWriter writer, BaseProvisioningTemplateObjectCollection<ElementType> value, JsonSerializerOptions options)
+        public override void Write(Utf8JsonWriter writer, BaseProvisioningHierarchyObjectCollection<ElementType> value, JsonSerializerOptions options)
         {
             JsonSerializer.Serialize(writer, value, options);
         }
 
-        private BaseProvisioningTemplateObjectCollection<ElementType> GetInstance(Type elementType)
+        private BaseProvisioningHierarchyObjectCollection<ElementType> GetInstance(Type elementType)
         {
             var collectionClassName = $"{elementType.Namespace}.{elementType.Name}Collection";
             var type = Type.GetType(collectionClassName);
-            return (BaseProvisioningTemplateObjectCollection<ElementType>) Activator.CreateInstance(type);
+            return (BaseProvisioningHierarchyObjectCollection<ElementType>)Activator.CreateInstance(type);
         }
     }
 }

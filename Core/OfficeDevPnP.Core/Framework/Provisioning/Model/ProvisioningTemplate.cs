@@ -547,7 +547,6 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <summary>
         /// Gets a collection of ClientSidePage to configure for the site
         /// </summary>
-        [JsonConverter(typeof(ProvisioningTemplateObjectCollectionConverter<ClientSidePage,ClientSidePageCollection>))]
         public ClientSidePageCollection ClientSidePages
         {
             get { return this._clientSidePages; }
