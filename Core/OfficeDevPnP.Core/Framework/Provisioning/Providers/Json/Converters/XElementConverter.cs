@@ -1,11 +1,6 @@
-﻿using OfficeDevPnP.Core.Framework.Provisioning.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 using System.Xml.Linq;
 
 namespace OfficeDevPnP.Core.Framework.Provisioning.Providers.Json.Converters
@@ -14,7 +9,14 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Providers.Json.Converters
     {
         public override XElement Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
-            return XElement.Parse($"<XmlDocuments>{reader.GetString()}</XmlDocuments>");
+            var value = reader.GetString();
+            if (!value.ToLower().StartsWith("<xmldocuments>") && !value.ToLower().EndsWith("</xmldocuments>"))
+            {
+                return XElement.Parse($"<XmlDocuments>{reader.GetString()}</XmlDocuments>");
+            } else
+            {
+                return XElement.Parse(reader.GetString());
+            }
         }
 
         public override void Write(Utf8JsonWriter writer, XElement value, JsonSerializerOptions options)

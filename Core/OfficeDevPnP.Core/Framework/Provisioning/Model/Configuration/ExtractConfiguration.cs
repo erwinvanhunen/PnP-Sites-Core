@@ -1,14 +1,14 @@
 ﻿using Microsoft.SharePoint.Client;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using Newtonsoft.Json.Schema;
+using NJsonSchema.Validation;
 using OfficeDevPnP.Core.Framework.Provisioning.ObjectHandlers;
+using OfficeDevPnP.Core.Framework.Provisioning.Providers.Json.Model;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace OfficeDevPnP.Core.Framework.Provisioning.Model.Configuration
@@ -16,38 +16,25 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model.Configuration
 
     public partial class ExtractConfiguration
     {
-        [JsonProperty("persistAssetFiles")]
         public bool PersistAssetFiles { get; set; }
 
-        [JsonProperty("handlers")]
         public List<ConfigurationHandler> Handlers { get; set; }
 
-        [JsonProperty("lists")]
         public Lists.ExtractConfiguration Lists { get; set; }
 
-        [JsonProperty("pages")]
         public Pages.ExtractConfiguration Pages { get; set; }
 
-        [JsonProperty("siteSecurity")]
         public SiteSecurity.ExtractConfiguration SiteSecurity { get; set; }
 
-        [JsonProperty("taxonomy")]
         public Taxonomy.ExtractConfiguration Taxonomy { get; set; }
 
-        [JsonProperty("navigation")]
         public Navigation.ExtractConfiguration Navigation { get; set; }
 
-        [JsonProperty("siteFooter")]
         public SiteFooter.ExtractConfiguration SiteFooter { get; set; }
 
-        [JsonProperty("contentTypes")]
         public ContentTypes.ExtractConfiguration ContentTypes { get; set; }
 
-        [JsonProperty("searchSettings")]
-        public SearchSettings.ExtractConfiguration SearchSettings
-        {
-            get; set;
-        }
+        public SearchSettings.ExtractConfiguration SearchSettings { get; set; }
         public ProvisioningTemplateCreationInformation ToCreationInformation(Web web)
         {
 
@@ -111,6 +98,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model.Configuration
             }
             return ci;
         }
+
         public static ExtractConfiguration FromString(string input)
         {
             var assembly = Assembly.GetExecutingAssembly();
@@ -123,15 +111,27 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model.Configuration
 
                 var schema = NJsonSchema.JsonSchema.FromJsonAsync(result).GetAwaiter().GetResult();
 
-                var jobject = JObject.Parse(input);
+                var jsonDocument = JsonDocument.Parse(input);
 
-                if (schema.Validate(jobject).Count == 0)
+                var validationErrors = schema.Validate(jsonDocument.ToString());
+                if (validationErrors.Count > 0)
                 {
-                    throw new JsonSerializationException("Configuration is not valid according to schema");
+                    var validationException = new JsonValidationException("Configuration is not valid according to schema.");
+                    foreach (var validationError in validationErrors)
+                    {
+                        validationException.ValidationErrors.Add(new JsonValidationError()
+                        {
+                            HasLineInfo = validationError.HasLineInfo,
+                            Kind = (JsonValidationErrorKind)Enum.Parse(typeof(JsonValidationErrorKind), validationError.Kind.ToString()),
+                            LineNumber = validationError.LineNumber,
+                            LinePosition = validationError.LinePosition,
+                            Path = validationError.Path,
+                            Property = validationError.Property
+                        });
+                    }
                 }
+                return JsonSerializer.Deserialize<ExtractConfiguration>(input);
             }
-
-            return JsonConvert.DeserializeObject<ExtractConfiguration>(input);
         }
     }
 }

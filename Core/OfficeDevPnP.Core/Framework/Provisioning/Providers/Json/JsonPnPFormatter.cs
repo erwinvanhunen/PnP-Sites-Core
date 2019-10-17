@@ -68,15 +68,29 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Providers.Json
             //}
         }
 
-        public System.IO.Stream ToFormattedTemplate(Model.ProvisioningTemplate template)
+        public System.IO.Stream ToFormattedTemplate(ProvisioningTemplate template)
         {
             template.Schema = SiteSchema;
-            var serializerSettings = new JsonSerializerOptions();
-            //serializerSettings.Converters.Add(new NullToDefaultConverter<Guid>());
-            //serializerSettings.ContractResolver = new IgnoreEmptyPropertyResolver();
-            serializerSettings.IgnoreNullValues = true;
-            var jsonString = JsonSerializer.Serialize<Model.ProvisioningTemplate>(template, serializerSettings);
-            //var jsonString = JsonConvert.SerializeObject(template, serializerSettings);
+            var serializerOptions = new JsonSerializerOptions
+            {
+                IgnoreNullValues = true,
+                IgnoreReadOnlyProperties = true,
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                Converters =
+                {
+                    new AlternateUICultureCollectionConverter(),
+                    new SupportedUILanguageCollectionConverter(),
+                    new SiteDesignRightConverter(),
+                    new JsonStringEnumConverter(),
+                    new UserCollectionConverter(),
+                    new FieldCollectionConverter(),
+                    new XElementConverter(),
+                    new BasePermissionsConverter(),
+                    new ProvisioningTemplateObjectCollectionConverterFactory(),
+                    new ProvisioningHierarchyObjectCollectionConverterFactory()
+                }
+            };
+            var jsonString = JsonSerializer.Serialize(template, serializerOptions);
 
             var jsonBytes = Encoding.UTF8.GetBytes(jsonString);
             MemoryStream jsonStream = new MemoryStream(jsonBytes);
@@ -85,17 +99,29 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Providers.Json
             return (jsonStream);
         }
 
-        public System.IO.Stream ToFormattedHierarchy(Model.ProvisioningHierarchy hierarchy)
+        public System.IO.Stream ToFormattedHierarchy(ProvisioningHierarchy hierarchy)
         {
             hierarchy.Schema = TenantSchema;
-            var serializerSettings = new JsonSerializerOptions();
-            //serializerSettings.Converters.Add(new System.Text.Json.NullToDefaultConverter<Guid>());
-            //serializerSettings.
-            //serializerSettings.ContractResolver = new IgnoreEmptyPropertyResolver();
-            serializerSettings.IgnoreNullValues = true;
-            //serializerSettings.NullValueHandling = NullValueHandling.Ignore;
-
-            var jsonString = JsonSerializer.Serialize<Model.ProvisioningHierarchy>(hierarchy, serializerSettings);
+            var serializerOptions = new JsonSerializerOptions
+            {
+                IgnoreNullValues = true,
+                IgnoreReadOnlyProperties = true,
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                Converters =
+                {
+                    new AlternateUICultureCollectionConverter(),
+                    new SupportedUILanguageCollectionConverter(),
+                    new SiteDesignRightConverter(),
+                    new JsonStringEnumConverter(),
+                    new UserCollectionConverter(),
+                    new FieldCollectionConverter(),
+                    new XElementConverter(),
+                    new BasePermissionsConverter(),
+                    new ProvisioningTemplateObjectCollectionConverterFactory(),
+                    new ProvisioningHierarchyObjectCollectionConverterFactory()
+                }
+            };
+            var jsonString = JsonSerializer.Serialize(hierarchy, serializerOptions);
 
             var jsonBytes = Encoding.UTF8.GetBytes(jsonString);
             MemoryStream jsonStream = new MemoryStream(jsonBytes);
@@ -111,11 +137,26 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Providers.Json
                 hierarchy.Position = 0; // reset to beginning
                 StreamReader sr = new StreamReader(hierarchy, Encoding.UTF8);
                 var jsonString = sr.ReadToEnd();
-                var result = JsonSerializer.Deserialize<Model.ProvisioningHierarchy>(jsonString, new JsonSerializerOptions()
+                var serializerOptions = new JsonSerializerOptions
                 {
-                    IgnoreNullValues = true
-                });
-
+                    IgnoreNullValues = true,
+                    IgnoreReadOnlyProperties = true,
+                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                    Converters =
+                    {
+                        new AlternateUICultureCollectionConverter(),
+                        new SupportedUILanguageCollectionConverter(),
+                        new SiteDesignRightConverter(),
+                        new JsonStringEnumConverter(),
+                        new UserCollectionConverter(),
+                        new FieldCollectionConverter(),
+                        new XElementConverter(),
+                        new BasePermissionsConverter(),
+                        new ProvisioningTemplateObjectCollectionConverterFactory(),
+                        new ProvisioningHierarchyObjectCollectionConverterFactory()
+                    }
+                };
+                var result = JsonSerializer.Deserialize<ProvisioningHierarchy>(jsonString, serializerOptions);
                 return result;
             }
             else
@@ -125,23 +166,39 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Providers.Json
 
         }
 
-        public Model.ProvisioningTemplate ToProvisioningTemplate(System.IO.Stream template)
+        public ProvisioningTemplate ToProvisioningTemplate(System.IO.Stream template)
         {
             return (this.ToProvisioningTemplate(template, null));
         }
 
-        public Model.ProvisioningTemplate ToProvisioningTemplate(System.IO.Stream template, string identifier)
+        public ProvisioningTemplate ToProvisioningTemplate(System.IO.Stream template, string identifier)
         {
             if (IsValid(template))
             {
                 template.Position = 0;
                 StreamReader sr = new StreamReader(template, Encoding.UTF8);
-                String jsonString = sr.ReadToEnd();
+                string jsonString = sr.ReadToEnd();
 
-                var result = JsonSerializer.Deserialize<Model.ProvisioningTemplate>(jsonString, new JsonSerializerOptions()
+                var serializerOptions = new JsonSerializerOptions
                 {
-                    IgnoreNullValues = true
-                });
+                    IgnoreNullValues = true,
+                    IgnoreReadOnlyProperties = true,
+                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                    Converters =
+                    {
+                        new AlternateUICultureCollectionConverter(),
+                        new SupportedUILanguageCollectionConverter(),
+                        new SiteDesignRightConverter(),
+                        new JsonStringEnumConverter(),
+                        new UserCollectionConverter(),
+                        new FieldCollectionConverter(),
+                        new XElementConverter(),
+                        new BasePermissionsConverter(),
+                        new ProvisioningTemplateObjectCollectionConverterFactory(),
+                        new ProvisioningHierarchyObjectCollectionConverterFactory()
+                    }
+                };
+                var result = JsonSerializer.Deserialize<ProvisioningTemplate>(jsonString, serializerOptions);
 
                 return (result);
             }

@@ -1,12 +1,9 @@
-﻿using Newtonsoft.Json;
-using OfficeDevPnP.Core.Framework.Provisioning.Providers.Json.Converters;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace OfficeDevPnP.Core.Framework.Provisioning.Model
 {
-    [JsonConverter(typeof(SubSiteConverter))]
     public abstract partial class SubSite : BaseHierarchyModel, IEquatable<SubSite>
     {
         #region Private Members
@@ -17,7 +14,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
 
         public SubSite()
         {
-            this.Templates = new List<String>();
+            this.Templates = new List<string>();
             this.Sites = new SubSiteCollection(this.ParentHierarchy);
         }
 
@@ -28,27 +25,27 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <summary>
         /// Defines if the Quick Launch is enabled or not
         /// </summary>
-        public Boolean QuickLaunchEnabled { get; set; }
+        public bool QuickLaunchEnabled { get; set; }
 
         /// <summary>
         /// Defines whether to use the same permissions of the parent site or not
         /// </summary>
-        public Boolean UseSamePermissionsAsParentSite { get; set; }
+        public bool UseSamePermissionsAsParentSite { get; set; }
 
         /// <summary>
         /// Title of the site
         /// </summary>
-        public String Title { get; set; }
+        public string Title { get; set; }
 
         /// <summary>
         /// Defines the Description for the Site
         /// </summary>
-        public String Description { get; set; }
+        public string Description { get; set; }
 
         /// <summary>
         /// Defines the list of Provisioning Templates to apply to the sub-site, if any
         /// </summary>
-        public List<String> Templates { get; internal set; }
+        public List<string> Templates { get; internal set; }
 
         /// <summary>
         /// Defines the list of sub-sites, if any
@@ -58,8 +55,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <summary>
         /// Defines the Theme to apply to the SiteCollection
         /// </summary>
-        [JsonProperty("theme",NullValueHandling = NullValueHandling.Ignore)]
-        public String Theme { get; set; }
+        public string Theme { get; set; }
 
         /// <summary>
         /// Defines an optional ID in the sequence for use in tokens.
@@ -75,7 +71,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <returns>Returns HashCode</returns>
         public override int GetHashCode()
         {
-            return (String.Format("{0}|{1}|{2}|{3}|{4}|{5}|{6}|{7}|",
+            return (string.Format("{0}|{1}|{2}|{3}|{4}|{5}|{6}|{7}|",
                 this.QuickLaunchEnabled.GetHashCode(),
                 this.UseSamePermissionsAsParentSite.GetHashCode(),
                 this.Title.GetHashCode(),

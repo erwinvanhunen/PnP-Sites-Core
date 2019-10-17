@@ -1,10 +1,4 @@
-﻿using Newtonsoft.Json;
-using OfficeDevPnP.Core.Framework.Provisioning.Providers.Json.Converters;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 
 namespace OfficeDevPnP.Core.Framework.Provisioning.Model
 {
@@ -18,7 +12,6 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         /// <summary>
         /// Defines the type of Global Navigation
         /// </summary>
-        [JsonConverter(typeof(GlobalNavigationTypeConverter))]
         public GlobalNavigationType NavigationType { get; set; }
 
         #endregion
