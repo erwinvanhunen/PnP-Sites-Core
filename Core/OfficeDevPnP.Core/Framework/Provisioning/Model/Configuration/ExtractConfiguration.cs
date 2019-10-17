@@ -1,5 +1,4 @@
 ﻿using Microsoft.SharePoint.Client;
-using NJsonSchema.Validation;
 using OfficeDevPnP.Core.Framework.Provisioning.ObjectHandlers;
 using OfficeDevPnP.Core.Framework.Provisioning.Providers.Json.Model;
 using System;
@@ -7,15 +6,17 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
+using System.Text.Json.Serialization;
 
 namespace OfficeDevPnP.Core.Framework.Provisioning.Model.Configuration
 {
 
     public partial class ExtractConfiguration
     {
+        [JsonPropertyName("$schema")]
+        public string Schema { get; set; }
+
         public bool PersistAssetFiles { get; set; }
 
         public List<ConfigurationHandler> Handlers { get; set; }
@@ -44,7 +45,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model.Configuration
 
             ci.PersistBrandingFiles = PersistAssetFiles;
 
-            if (Handlers.Any())
+            if (Handlers != null && Handlers.Any())
             {
                 ci.HandlersToProcess = Model.Handlers.None;
                 foreach (var handler in Handlers)
@@ -110,10 +111,8 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model.Configuration
                 string result = reader.ReadToEnd();
 
                 var schema = NJsonSchema.JsonSchema.FromJsonAsync(result).GetAwaiter().GetResult();
-
-                var jsonDocument = JsonDocument.Parse(input);
-
-                var validationErrors = schema.Validate(jsonDocument.ToString());
+                schema.AllowAdditionalProperties = false;
+                var validationErrors = schema.Validate(input);
                 if (validationErrors.Count > 0)
                 {
                     var validationException = new JsonValidationException("Configuration is not valid according to schema.");
@@ -129,8 +128,16 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model.Configuration
                             Property = validationError.Property
                         });
                     }
+                    throw validationException;
                 }
-                return JsonSerializer.Deserialize<ExtractConfiguration>(input);
+                return JsonSerializer.Deserialize<ExtractConfiguration>(input, new JsonSerializerOptions()
+                {
+                    Converters =
+                    {
+                        new JsonStringEnumConverter()
+                    },
+                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+                });
             }
         }
     }
